@@ -18,23 +18,12 @@ final lightTheme = ThemeData(
   dividerColor: Colors.black26,
   scaffoldBackgroundColor: Colors.grey[100],
   backgroundColor: Colors.grey[100],
-  cardColor: Colors.white,
-  splashColor: Colors.grey[300],
   bottomAppBarColor: Colors.white,
-  // indicatorColor: Colors.red,
-  iconTheme: IconThemeData(color: Colors.black87),
-  floatingActionButtonTheme: FloatingActionButtonThemeData(
-    foregroundColor: Colors.white,
-    // backgroundColor: Colors.blueAccent,
-  ),
-  // buttonTheme: ButtonThemeData(
-  //   buttonColor: Colors.white70,
-  //   textTheme: ButtonTextTheme.normal,
-  // ),
-  // snackBarTheme: SnackBarThemeData(
-  //   backgroundColor: Colors.black,
-  //   contentTextStyle: TextStyle(color: Colors.white),
-  // ),
+  appBarTheme: AppBarTheme(
+      color: Colors.white,
+      elevation: 0,
+      iconTheme: IconThemeData(color: Colors.black54),
+      actionsIconTheme: IconThemeData(color: Colors.black54)),
 );
 
 final darkTheme = ThemeData(

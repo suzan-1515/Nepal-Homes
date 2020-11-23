@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nepal_homes/core/widgets/empty_data_widget.dart';
 import 'package:nepal_homes/core/widgets/error_data_widget.dart';
 import 'package:nepal_homes/core/widgets/progress_widget.dart';
-import 'package:nepal_homes/feature_agencies/presentation/cubits/agency_cubit.dart';
 import 'package:nepal_homes/core/extensions/view.dart';
+import 'package:nepal_homes/feature_agencies/presentation/cubits/agency_list/agency_cubit.dart';
 import 'package:nepal_homes/feature_agencies/presentation/ui/agency_list/widgets/agency_list_builder.dart';
 
 class AgencyList extends StatelessWidget {

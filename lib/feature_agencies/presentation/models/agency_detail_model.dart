@@ -2,13 +2,13 @@ import 'package:nepal_homes/feature_agencies/domain/entities/agency_detail_entit
 import 'package:scoped_model/scoped_model.dart';
 
 class AgencyDetailUIModel extends Model {
-  AgencyDetailWrapperEntity _agencyDetailWrapper;
-  AgencyDetailUIModel(this._agencyDetailWrapper);
+  AgencyDetailEntity _agencyDetail;
+  AgencyDetailUIModel(this._agencyDetail);
 
-  set(AgencyDetailWrapperEntity paginatedAgencyDetail) {
-    this._agencyDetailWrapper = paginatedAgencyDetail;
+  set(AgencyDetailEntity agencyDetail) {
+    this._agencyDetail = agencyDetail;
     notifyListeners();
   }
 
-  AgencyDetailWrapperEntity get entity => this._agencyDetailWrapper;
+  AgencyDetailEntity get entity => this._agencyDetail;
 }

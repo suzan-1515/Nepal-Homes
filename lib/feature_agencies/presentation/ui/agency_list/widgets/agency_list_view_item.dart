@@ -3,6 +3,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:nepal_homes/core/widgets/cached_image_widget.dart';
 import 'package:nepal_homes/feature_agencies/presentation/models/agency_model.dart';
 import 'package:nepal_homes/core/widgets/icon_text.dart';
+import 'package:nepal_homes/feature_agencies/presentation/ui/agency_detail/agency_detail_screen.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class AgencyListViewItem extends StatelessWidget {
@@ -23,7 +24,12 @@ class AgencyListViewItem extends StatelessWidget {
         ),
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: () => Navigator.pushNamed(
+          context,
+          AgencyDetailScreen.ROUTE_NAME,
+          arguments:
+              AgencyDetailScreenArgs(agency.entity.id, agencyUIModel: agency),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(

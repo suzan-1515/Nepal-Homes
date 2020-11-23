@@ -17,6 +17,6 @@ extension AgentEntityX on AgentEntity {
   AgentUIModel get toUIModel => AgentUIModel(this);
 }
 
-extension AgencyDetailWrapperEntityX on AgencyDetailWrapperEntity {
+extension AgencyDetailEntityX on AgencyDetailEntity {
   AgencyDetailUIModel get toUIModel => AgencyDetailUIModel(this);
 }

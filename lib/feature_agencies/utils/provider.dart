@@ -12,7 +12,8 @@ import 'package:nepal_homes/feature_agencies/data/services/agency_remote_service
 import 'package:nepal_homes/feature_agencies/data/services/remote_service.dart';
 import 'package:nepal_homes/feature_agencies/domain/repositories/repository.dart';
 import 'package:nepal_homes/feature_agencies/domain/usecases/usecases.dart';
-import 'package:nepal_homes/feature_agencies/presentation/cubits/agency_cubit.dart';
+import 'package:nepal_homes/feature_agencies/presentation/cubits/agency_detail/agency_detail_cubit.dart';
+import 'package:nepal_homes/feature_agencies/presentation/cubits/agency_list/agency_cubit.dart';
 
 class AgencyProvider {
   AgencyProvider._();
@@ -35,6 +36,10 @@ class AgencyProvider {
           getAgenciesUseCase: GetIt.I.get<GetAgenciesUseCase>(),
           getAgencyDetailUseCase: GetIt.I.get<GetAgencyDetailUseCase>(),
         )..getAgencies());
+    GetIt.I.registerFactoryParam<AgencyDetailCubit, String, void>(
+        (param1, param2) => AgencyDetailCubit(
+              getAgencyDetailUseCase: GetIt.I.get<GetAgencyDetailUseCase>(),
+            )..getDetail(id: param1));
   }
 
   static BlocProvider<AgencyCubit> agencyBlocProvider({
@@ -42,6 +47,14 @@ class AgencyProvider {
   }) =>
       BlocProvider<AgencyCubit>(
         create: (context) => GetIt.I.get<AgencyCubit>(),
+        child: child,
+      );
+  static BlocProvider<AgencyDetailCubit> agencyDetailBlocProvider({
+    @required Widget child,
+    @required String id,
+  }) =>
+      BlocProvider<AgencyDetailCubit>(
+        create: (context) => GetIt.I.get<AgencyDetailCubit>(param1: id),
         child: child,
       );
 }
