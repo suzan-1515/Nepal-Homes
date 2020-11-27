@@ -13,6 +13,7 @@ import 'package:nepal_homes/feature_agencies/presentation/ui/agency_detail/widge
 import 'package:nepal_homes/feature_agencies/presentation/ui/agency_detail/widgets/property_list.dart';
 import 'package:nepal_homes/feature_agencies/presentation/ui/agency_detail/widgets/agents.dart';
 import 'package:nepal_homes/feature_agencies/presentation/extensions/agency_extensions.dart';
+import 'package:nepal_homes/feature_agencies/presentation/ui/agency_detail/widgets/section_header.dart';
 import 'package:nepal_homes/feature_agencies/utils/provider.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -23,7 +24,7 @@ class AgencyDetailScreen extends StatelessWidget {
     final AgencyDetailScreenArgs args =
         ModalRoute.of(context).settings.arguments;
     final theme = Theme.of(context);
-    return AgencyProvider.agencyDetailBlocProvider(
+    return AgencyProvider.agencyDetailMultiBlocProvider(
       id: args.id,
       child: Scaffold(
         appBar: AppBar(
@@ -69,7 +70,15 @@ class AgencyDetailScreen extends StatelessWidget {
                               const EdgeInsets.only(top: 8.0, bottom: 16.0),
                           sliver: SliverToBoxAdapter(child: const Agents()),
                         ),
-                        const PropertyList(),
+                        SliverPadding(
+                          padding: const EdgeInsets.only(
+                              top: 16.0, left: 16.0, right: 16.0, bottom: 4.0),
+                          sliver: SliverToBoxAdapter(
+                              child: SectionHeader(
+                            title: 'Latest posted properties',
+                          )),
+                        ),
+                        SliverToBoxAdapter(child: const PropertyList()),
                       ],
                     ),
                   );

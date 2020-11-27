@@ -14,6 +14,7 @@ import 'package:nepal_homes/feature_agencies/domain/repositories/repository.dart
 import 'package:nepal_homes/feature_agencies/domain/usecases/usecases.dart';
 import 'package:nepal_homes/feature_agencies/presentation/cubits/agency_detail/agency_detail_cubit.dart';
 import 'package:nepal_homes/feature_agencies/presentation/cubits/agency_list/agency_cubit.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/cubits/property_list/property_cubit.dart';
 
 class AgencyProvider {
   AgencyProvider._();
@@ -55,6 +56,21 @@ class AgencyProvider {
   }) =>
       BlocProvider<AgencyDetailCubit>(
         create: (context) => GetIt.I.get<AgencyDetailCubit>(param1: id),
+        child: child,
+      );
+  static MultiBlocProvider agencyDetailMultiBlocProvider({
+    @required Widget child,
+    @required String id,
+  }) =>
+      MultiBlocProvider(
+        providers: [
+          BlocProvider<PropertyCubit>(
+            create: (context) => GetIt.I.get<PropertyCubit>(),
+          ),
+          BlocProvider<AgencyDetailCubit>(
+            create: (context) => GetIt.I.get<AgencyDetailCubit>(param1: id),
+          )
+        ],
         child: child,
       );
 }

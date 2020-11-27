@@ -3,12 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nepal_homes/core/widgets/empty_data_widget.dart';
 import 'package:nepal_homes/core/widgets/error_data_widget.dart';
 import 'package:nepal_homes/core/widgets/progress_widget.dart';
-import 'package:nepal_homes/feature_agencies/presentation/models/agency_detail_model.dart';
-import 'package:nepal_homes/feature_agencies/presentation/ui/agency_detail/widgets/property_list_builder.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_query.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/cubits/property_list/property_cubit.dart';
 import 'package:nepal_homes/core/extensions/view.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/ui/list/widgets/property_list_builder.dart';
 
 class PropertyList extends StatefulWidget {
   const PropertyList();
@@ -19,13 +17,11 @@ class PropertyList extends StatefulWidget {
 
 class _PropertyListState extends State<PropertyList> {
   var _propertyQuery = PropertyQuery();
-  var _propertyQubit;
+  PropertyCubit _propertyQubit;
   @override
   void initState() {
     super.initState();
-    final agency = ScopedModel.of<AgencyDetailUIModel>(context);
     _propertyQubit = context.read<PropertyCubit>();
-    _propertyQuery = _propertyQuery.copyWith(agencyId: agency.entity.agency.id);
     _propertyQubit.getProperties(
       query: _propertyQuery,
     );
@@ -47,6 +43,9 @@ class _PropertyListState extends State<PropertyList> {
         if (state is PropertyLoadSuccess) {
           return PropertyListBuilder(
             data: state.properties,
+            hasMore: state.hasMore,
+            onLoadMore: () =>
+                _propertyQubit.getMoreProperties(query: _propertyQuery),
           );
         } else if (state is PropertyLoadError) {
           return Center(
