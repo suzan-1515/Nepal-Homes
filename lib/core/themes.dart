@@ -20,7 +20,7 @@ final lightTheme = ThemeData(
   backgroundColor: Colors.grey[100],
   bottomAppBarColor: Colors.white,
   appBarTheme: AppBarTheme(
-      color: Colors.white,
+      color: Colors.grey[100],
       elevation: 0,
       iconTheme: IconThemeData(color: Colors.black54),
       actionsIconTheme: IconThemeData(color: Colors.black54)),

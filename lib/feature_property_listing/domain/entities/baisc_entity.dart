@@ -40,7 +40,6 @@ class BasicEntity extends Equatable {
         propertyTypes: propertyTypes ?? this.propertyTypes,
         propertyOwnership: propertyOwnership ?? this.propertyOwnership,
       );
-
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {

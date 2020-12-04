@@ -34,6 +34,8 @@ class PropertyPurposeEntity extends Equatable {
         order: order ?? this.order,
       );
 
+  bool isRent() => title.contains('Rent');
+
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {

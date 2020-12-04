@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:intl/intl.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
@@ -34,6 +35,11 @@ class PriceEntity extends Equatable {
         currency: currency ?? this.currency,
         label: label ?? this.label,
       );
+
+  String formattedValue() =>
+      NumberFormat.currency(locale: "en_US", symbol: "Rs. ", decimalDigits: 0)
+          .format(value);
+
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {

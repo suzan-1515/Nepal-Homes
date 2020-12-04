@@ -33,7 +33,7 @@ extension ModalBottonSheetX on BuildContext {
           shape: shape,
           isScrollControlled: true,
           builder: (context) {
-            return child;
+            return SafeArea(child: child);
           });
 }
 

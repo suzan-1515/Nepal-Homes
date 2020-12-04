@@ -16,7 +16,15 @@ class BuildingModel extends BuildingEntity {
     @required double totalFloor,
     @required FurnishingModel furnishing,
     @required String parking,
-  });
+  }) : super(
+            noOf: noOf,
+            amenities: amenities,
+            builtYear: builtYear,
+            builtMonth: builtMonth,
+            calendarType: calendarType,
+            totalFloor: totalFloor,
+            furnishing: furnishing,
+            parking: parking);
 
   factory BuildingModel.fromJson(String str) =>
       BuildingModel.fromMap(json.decode(str));

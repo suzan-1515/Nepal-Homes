@@ -34,6 +34,8 @@ class PropertyCategoryEntity extends Equatable {
         order: order ?? this.order,
       );
 
+  bool isLand() => title.contains('Land');
+
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {

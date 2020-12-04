@@ -17,7 +17,15 @@ class LocationPropertyModel extends LocationPropertyEntity {
     @required LengthUnitModel roadAccessLengthUnit,
     @required PropertyFaceModel propertyFace,
     @required RoadTypeModel roadAccessRoadType,
-  });
+  }) : super(
+            totalAreaUnit: totalAreaUnit,
+            builtAreaUnit: builtAreaUnit,
+            totalArea: totalArea,
+            builtArea: builtArea,
+            roadAccessValue: roadAccessValue,
+            roadAccessLengthUnit: roadAccessLengthUnit,
+            propertyFace: propertyFace,
+            roadAccessRoadType: roadAccessRoadType);
 
   factory LocationPropertyModel.fromJson(String str) =>
       LocationPropertyModel.fromMap(json.decode(str));
