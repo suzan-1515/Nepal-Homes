@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nepal_homes/feature_property_listing/domain/entities/property_category_entity.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/filter_model.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/property_category_filter_item.dart';
 
@@ -6,12 +7,6 @@ import 'filter_section_header.dart';
 
 class PropertyCategoryFilter extends StatelessWidget {
   final FilterUIModel filter;
-  static const testData = [
-    {'id': '0', 'title': 'Land', 'icon': 'https://picsum.photos/100'},
-    {'id': '1', 'title': 'Flats', 'icon': 'https://picsum.photos/100'},
-    {'id': '2', 'title': 'Office Space', 'icon': 'https://picsum.photos/100'},
-    {'id': '3', 'title': 'Shop Space', 'icon': 'https://picsum.photos/100'},
-  ];
 
   const PropertyCategoryFilter({
     Key key,
@@ -25,7 +20,12 @@ class PropertyCategoryFilter extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         FilterSectionHeader(title: 'Property Category'),
-        const CategoryFilterOptionsView(data: testData),
+        CategoryFilterOptionsView(
+          data: filter.entity.propertyMeta.propertyCategories,
+          selectedItem: filter.entity.propertyCategory,
+          onChanged: (value) =>
+              filter.entity = filter.entity.copyWith(propertyCategory: value),
+        ),
       ],
     );
   }
@@ -35,11 +35,13 @@ class CategoryFilterOptionsView extends StatefulWidget {
   const CategoryFilterOptionsView({
     Key key,
     @required this.data,
-    this.selected,
+    this.selectedItem,
+    this.onChanged,
   }) : super(key: key);
 
-  final List<Map> data;
-  final String selected;
+  final List<PropertyCategoryEntity> data;
+  final PropertyCategoryEntity selectedItem;
+  final ValueChanged<PropertyCategoryEntity> onChanged;
 
   @override
   _CategoryFilterOptionsViewState createState() =>
@@ -47,11 +49,11 @@ class CategoryFilterOptionsView extends StatefulWidget {
 }
 
 class _CategoryFilterOptionsViewState extends State<CategoryFilterOptionsView> {
-  String _selectedItem;
+  PropertyCategoryEntity _selectedItem;
   @override
   void initState() {
     super.initState();
-    _selectedItem = widget.selected;
+    _selectedItem = widget.selectedItem;
   }
 
   @override
@@ -62,14 +64,15 @@ class _CategoryFilterOptionsViewState extends State<CategoryFilterOptionsView> {
       children: widget.data
           .map<CategoryFilterItem>(
             (e) => CategoryFilterItem(
-              title: e['title'],
+              title: e.title,
               onTap: (value) {
                 setState(() {
-                  _selectedItem = value ? e['id'] : null;
+                  _selectedItem = value ? e : null;
+                  widget.onChanged(e);
                 });
               },
-              icon: e['icon'],
-              selected: _selectedItem == e['id'],
+              icon: e.media.fullPath,
+              selected: _selectedItem == e,
             ),
           )
           .toList(),

@@ -28,6 +28,14 @@ class _PropertyPriceRangeFilterState extends State<PropertyPriceRangeFilter> {
 
   double _currentRangeValue = 4;
   @override
+  void initState() {
+    super.initState();
+    _currentRangeValue = widget.filter.entity.priceRange == null
+        ? 4
+        : (widget.filter.entity.priceRange - 1).toDouble();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -53,6 +61,8 @@ class _PropertyPriceRangeFilterState extends State<PropertyPriceRangeFilter> {
           onChanged: (double value) {
             setState(() {
               _currentRangeValue = value;
+              widget.filter.entity =
+                  widget.filter.entity.copyWith(priceRange: value.toInt() + 1);
             });
           },
           value: _currentRangeValue,

@@ -24,20 +24,24 @@ class LocationModel extends LocationEntity {
     return LocationModel(
       states: json["data"]["allState"] == null
           ? null
-          : json["data"]["allState"].map((x) => StateModel.fromMap(x)).toList(),
+          : json["data"]["allState"]
+              .map<StateModel>((x) => StateModel.fromMap(x))
+              .toList(),
       districts: json["data"]["allDistrict"] == null
           ? null
           : json["data"]["allDistrict"]
-              .map((x) => DistrictModel.fromMap(x))
+              .map<DistrictModel>((x) => DistrictModel.fromMap(x))
               .toList(),
       municipalities: json["data"]["allVdc"] == null
           ? null
           : json["data"]["allVdc"]
-              .map((x) => MunicipalityModel.fromMap(x))
+              .map<MunicipalityModel>((x) => MunicipalityModel.fromMap(x))
               .toList(),
       areas: json["data"]["allArea"] == null
           ? null
-          : json["data"]["allArea"].map((x) => AreaModel.fromMap(x)).toList(),
+          : json["data"]["allArea"]
+              .map<AreaModel>((x) => AreaModel.fromMap(x))
+              .toList(),
     );
   }
 }

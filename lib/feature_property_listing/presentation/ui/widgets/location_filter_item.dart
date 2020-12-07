@@ -1,20 +1,24 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:nepal_homes/feature_property_listing/domain/entities/location_entity.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
 
 class LocationFilterItem extends StatefulWidget {
-  final List<String> data;
-  final String value;
+  final List<Location> data;
+  final Location value;
+  final ValueChanged<Location> onChanged;
   const LocationFilterItem({
     Key key,
     @required this.data,
     @required this.value,
+    this.onChanged,
   }) : super(key: key);
   @override
   _LocationFilterItemState createState() => _LocationFilterItemState();
 }
 
 class _LocationFilterItemState extends State<LocationFilterItem> {
-  String _currentValue;
+  Equatable _currentValue;
   @override
   void initState() {
     super.initState();
@@ -27,9 +31,9 @@ class _LocationFilterItemState extends State<LocationFilterItem> {
       items: this
           .widget
           .data
-          .map<DropdownMenuItem>(
-            (e) => DropdownMenuItem(
-              child: Text(e),
+          .map<DropdownMenuItem<Location>>(
+            (e) => DropdownMenuItem<Location>(
+              child: Text(e.name),
               value: e,
             ),
           )
@@ -39,11 +43,19 @@ class _LocationFilterItemState extends State<LocationFilterItem> {
       onChanged: (value) {
         setState(() {
           _currentValue = value;
+          widget.onChanged(value);
         });
       },
-      dialogBox: false,
+      searchFn: (String keyword, List<DropdownMenuItem<Location>> items) =>
+          items
+              .where((element) => element.value.name
+                  .toLowerCase()
+                  .startsWith(keyword.toLowerCase()))
+              .map((e) => items.indexOf(e))
+              .toList(),
+      dialogBox: true,
       isExpanded: true,
-      menuConstraints: BoxConstraints.tight(Size.fromHeight(250)),
+      // menuConstraints: BoxConstraints.tight(Size.fromHeight(250)),
     );
   }
 }

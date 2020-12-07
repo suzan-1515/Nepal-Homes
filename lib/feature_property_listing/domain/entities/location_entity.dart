@@ -4,6 +4,22 @@ import 'dart:convert';
 
 import 'package:nepal_homes/feature_property_listing/domain/entities/address_entity.dart';
 
+abstract class Location extends Equatable {
+  final String id;
+  final String name;
+  final String slug;
+  final bool isActive;
+
+  Location(
+      {@required this.id,
+      @required this.name,
+      @required this.slug,
+      @required this.isActive});
+
+  @override
+  List<Object> get props => [id, name, slug, isActive];
+}
+
 class LocationEntity extends Equatable {
   LocationEntity({
     @required this.states,

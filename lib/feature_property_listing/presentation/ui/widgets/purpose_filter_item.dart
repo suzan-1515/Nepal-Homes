@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class PurposeFilterItem extends StatelessWidget {
   final String title;
-  final Icon icon;
+  final Widget icon;
   final ValueChanged<bool> onTap;
   final Color color;
   final bool selected;

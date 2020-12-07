@@ -4,6 +4,8 @@ import 'package:nepal_homes/feature_property_listing/domain/entities/property_qu
 
 class PropertyRemoteService with RemoteService {
   static const PROPERTY_ENDPOINT = '/property/public/data';
+  static const META_ENDPOINT = '/enum';
+  static const LOCATION_ENDPOINT = '/static/nepal/all';
   final HttpManager _httpManager;
 
   PropertyRemoteService(this._httpManager);
@@ -35,6 +37,18 @@ class PropertyRemoteService with RemoteService {
       'find_property_purpose': query.propertyPurposeId,
     };
     var call = await _httpManager.get(path: PROPERTY_ENDPOINT, query: q);
+    return call;
+  }
+
+  @override
+  Future fetchPropertyMetas() async {
+    var call = await _httpManager.get(path: META_ENDPOINT);
+    return call;
+  }
+
+  @override
+  Future fetchLocations() async {
+    var call = await _httpManager.get(path: LOCATION_ENDPOINT);
     return call;
   }
 }

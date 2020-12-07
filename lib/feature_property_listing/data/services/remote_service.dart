@@ -5,4 +5,6 @@ mixin RemoteService {
   Future<dynamic> fetchProperties({@required PropertyQuery query});
   Future<dynamic> fetchPropertyDetail({@required String slug});
   Future<dynamic> fetchPropertiesByAgency({@required PropertyQuery query});
+  Future<dynamic> fetchPropertyMetas();
+  Future<dynamic> fetchLocations();
 }

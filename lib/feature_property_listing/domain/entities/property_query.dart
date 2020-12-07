@@ -10,6 +10,7 @@ class PropertyQuery extends Equatable {
   final String areaId;
   final String districtId;
   final String stateId;
+  final String municipalityId;
   final String propertyPurposeId;
   final bool isPremium;
   final bool isFeatured;
@@ -25,6 +26,7 @@ class PropertyQuery extends Equatable {
     this.areaId,
     this.districtId,
     this.stateId,
+    this.municipalityId,
     this.propertyPurposeId,
     this.isPremium,
     this.isFeatured,
@@ -44,6 +46,7 @@ class PropertyQuery extends Equatable {
       areaId,
       districtId,
       stateId,
+      municipalityId,
       propertyPurposeId,
       isPremium,
       isFeatured,
@@ -62,6 +65,7 @@ class PropertyQuery extends Equatable {
     String areaId,
     String districtId,
     String stateId,
+    String municipalityId,
     String propertyPurposeId,
     bool isPremium,
     bool isFeatured,
@@ -78,6 +82,7 @@ class PropertyQuery extends Equatable {
       areaId: areaId ?? this.areaId,
       districtId: districtId ?? this.districtId,
       stateId: stateId ?? this.stateId,
+      municipalityId: municipalityId ?? this.municipalityId,
       propertyPurposeId: propertyPurposeId ?? this.propertyPurposeId,
       isPremium: isPremium ?? this.isPremium,
       isFeatured: isFeatured ?? this.isFeatured,
@@ -97,6 +102,7 @@ class PropertyQuery extends Equatable {
       'find_area_id': areaId,
       'find_district_id': districtId,
       'find_state_id': stateId,
+      'find_vdc_id': municipalityId,
       'find_property_purpose': propertyPurposeId,
       'find_is_premium': isPremium?.toString()?.toLowerCase(),
       'find_is_featured': isFeatured?.toString()?.toLowerCase(),

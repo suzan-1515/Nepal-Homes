@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:nepal_homes/core/widgets/cached_image_widget.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_purpose_entity.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/filter_model.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/filter_section_header.dart';
@@ -7,13 +7,6 @@ import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/pur
 
 class PropertyPurposeFilter extends StatelessWidget {
   final FilterUIModel filter;
-  static final testData = [
-    PropertyPurposeEntity(
-        id: '1', media: null, description: null, title: 'Sale', order: 0),
-    PropertyPurposeEntity(
-        id: '2', media: null, description: null, title: 'Rent', order: 0),
-  ];
-
   const PropertyPurposeFilter({
     Key key,
     @required this.filter,
@@ -28,7 +21,10 @@ class PropertyPurposeFilter extends StatelessWidget {
         FilterSectionHeader(title: 'Looking For'),
         SizedBox(height: 8.0),
         PurposeFilterOptionsView(
-          data: testData,
+          data: filter.entity.propertyMeta.propertyPurposes,
+          selectedItem: filter.entity.propertyPurpose,
+          onChanged: (value) =>
+              filter.entity = filter.entity.copyWith(propertyPurpose: value),
         ),
       ],
     );
@@ -40,10 +36,12 @@ class PurposeFilterOptionsView extends StatefulWidget {
     Key key,
     @required this.data,
     this.selectedItem,
+    this.onChanged,
   }) : super(key: key);
 
   final List<PropertyPurposeEntity> data;
   final PropertyPurposeEntity selectedItem;
+  final ValueChanged<PropertyPurposeEntity> onChanged;
 
   @override
   _PurposeFilterOptionsViewState createState() =>
@@ -73,14 +71,17 @@ class _PurposeFilterOptionsViewState extends State<PurposeFilterOptionsView> {
           .map(
             (e) => PurposeFilterItem(
               title: e.title,
-              icon: Icon(
-                LineAwesomeIcons.home,
-                size: 48,
+              icon: CachedImage(
+                e.media.fullPath,
+                width: 48,
+                height: 48,
+                fit: BoxFit.cover,
               ),
               selected: _selectedItem == e,
               onTap: (value) {
                 setState(() {
                   _selectedItem = value ? null : e;
+                  widget.onChanged(e);
                 });
               },
             ),

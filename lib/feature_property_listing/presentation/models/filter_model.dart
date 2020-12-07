@@ -2,13 +2,13 @@ import 'package:nepal_homes/feature_property_listing/domain/entities/property_fi
 import 'package:scoped_model/scoped_model.dart';
 
 class FilterUIModel extends Model {
-  PropertyFilter _propertyFilter;
+  PropertyFilterEntity _propertyFilter;
   FilterUIModel(this._propertyFilter);
 
-  set(PropertyFilter propertyFilter) {
+  set entity(PropertyFilterEntity propertyFilter) {
     this._propertyFilter = propertyFilter;
     notifyListeners();
   }
 
-  PropertyFilter get entity => this._propertyFilter;
+  PropertyFilterEntity get entity => this._propertyFilter;
 }

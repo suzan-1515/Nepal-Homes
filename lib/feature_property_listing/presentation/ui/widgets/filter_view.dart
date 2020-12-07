@@ -12,8 +12,7 @@ import 'package:scoped_model/scoped_model.dart';
 class FilterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final filter =
-        ScopedModel.of<FilterUIModel>(context, rebuildOnChange: true);
+    final filter = ScopedModel.of<FilterUIModel>(context);
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(16.0),

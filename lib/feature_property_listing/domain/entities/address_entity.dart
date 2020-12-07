@@ -2,6 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 import 'dart:convert';
 
+import 'package:nepal_homes/feature_property_listing/domain/entities/location_entity.dart';
+
 class AddressEntity extends Equatable {
   AddressEntity({
     @required this.state,
@@ -40,18 +42,13 @@ class AddressEntity extends Equatable {
   List<Object> get props => [state, district, city, area];
 }
 
-class StateEntity extends Equatable {
+class StateEntity extends Location {
   StateEntity({
-    @required this.id,
-    @required this.isActive,
-    @required this.name,
-    @required this.slug,
-  });
-
-  final String id;
-  final bool isActive;
-  final String name;
-  final String slug;
+    @required String id,
+    @required bool isActive,
+    @required String name,
+    @required String slug,
+  }) : super(id: id, name: name, slug: slug, isActive: isActive);
 
   StateEntity copyWith({
     String id,
@@ -74,25 +71,18 @@ class StateEntity extends Equatable {
         "name": name,
         "slug": slug,
       };
-
-  @override
-  List<Object> get props => [name, id, isActive, slug];
 }
 
-class DistrictEntity extends Equatable {
+class DistrictEntity extends Location {
   DistrictEntity({
-    @required this.id,
-    @required this.isActive,
-    @required this.name,
+    @required String id,
+    @required bool isActive,
+    @required String name,
+    @required String slug,
     @required this.stateId,
-    @required this.slug,
-  });
+  }) : super(id: id, name: name, slug: slug, isActive: isActive);
 
-  final String id;
-  final bool isActive;
-  final String name;
   final String stateId;
-  final String slug;
 
   DistrictEntity copyWith({
     String id,
@@ -123,20 +113,16 @@ class DistrictEntity extends Equatable {
   List<Object> get props => [id, name, isActive, stateId, slug];
 }
 
-class MunicipalityEntity extends Equatable {
+class MunicipalityEntity extends Location {
   MunicipalityEntity({
-    @required this.id,
-    @required this.isActive,
-    @required this.name,
+    @required String id,
+    @required bool isActive,
+    @required String name,
+    @required String slug,
     @required this.districtId,
-    @required this.slug,
-  });
+  }) : super(id: id, name: name, slug: slug, isActive: isActive);
 
-  final String id;
-  final bool isActive;
-  final String name;
   final String districtId;
-  final String slug;
 
   MunicipalityEntity copyWith({
     String id,
@@ -167,20 +153,16 @@ class MunicipalityEntity extends Equatable {
   List<Object> get props => [id, name, isActive, districtId, slug];
 }
 
-class AreaEntity extends Equatable {
+class AreaEntity extends Location {
   AreaEntity({
-    @required this.id,
-    @required this.isActive,
-    @required this.name,
+    @required String id,
+    @required bool isActive,
+    @required String name,
+    @required String slug,
     @required this.municipalityId,
-    @required this.slug,
-  });
+  }) : super(id: id, name: name, slug: slug, isActive: isActive);
 
-  final String id;
-  final bool isActive;
-  final String name;
   final String municipalityId;
-  final String slug;
 
   AreaEntity copyWith({
     String id,

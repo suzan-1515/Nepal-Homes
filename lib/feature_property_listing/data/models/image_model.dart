@@ -34,6 +34,6 @@ class ImageModel extends ImageEntity {
         destination: json["destination"],
         filename: json["filename"],
         path: json["path"],
-        size: json["size"] == null ? null : int.parse(json["size"]),
+        size: json["size"] == null ? null : int.parse(json["size"].toString()),
       );
 }

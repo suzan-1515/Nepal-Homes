@@ -25,15 +25,17 @@ class PropertyPremiumFeaturedFilter extends StatelessWidget {
             Expanded(
               child: PremiumFilterItem(
                 title: 'Premuim',
-                value: false,
-                onChanged: (value) {},
+                value: filter.entity.isPremium,
+                onChanged: (value) =>
+                    filter.entity = filter.entity.copyWith(isPremium: value),
               ),
             ),
             Expanded(
               child: PremiumFilterItem(
                 title: 'Featured',
-                value: false,
-                onChanged: (value) {},
+                value: filter.entity.isFeatured,
+                onChanged: (value) =>
+                    filter.entity = filter.entity.copyWith(isFeatured: value),
               ),
             ),
           ],
