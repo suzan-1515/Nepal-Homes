@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nepal_homes/core/models/nullable.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/filter_model.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/property_price_range_filter_item.dart';
 
@@ -19,6 +20,7 @@ class PropertyPriceRangeFilter extends StatefulWidget {
 
 class _PropertyPriceRangeFilterState extends State<PropertyPriceRangeFilter> {
   final _priceRangeData = [
+    'All',
     'Up to 50K',
     '50K to 5 Lakh',
     '5 Lakh to 50 Lakh',
@@ -26,13 +28,13 @@ class _PropertyPriceRangeFilterState extends State<PropertyPriceRangeFilter> {
     '3 Cr. to Max'
   ];
 
-  double _currentRangeValue = 4;
+  double _currentRangeValue = 0;
   @override
   void initState() {
     super.initState();
     _currentRangeValue = widget.filter.entity.priceRange == null
-        ? 4
-        : (widget.filter.entity.priceRange - 1).toDouble();
+        ? 0
+        : (widget.filter.entity.priceRange).toDouble();
   }
 
   @override
@@ -61,8 +63,9 @@ class _PropertyPriceRangeFilterState extends State<PropertyPriceRangeFilter> {
           onChanged: (double value) {
             setState(() {
               _currentRangeValue = value;
-              widget.filter.entity =
-                  widget.filter.entity.copyWith(priceRange: value.toInt() + 1);
+              int range = value.toInt();
+              widget.filter.entity = widget.filter.entity.copyWith(
+                  priceRange: Nullable<int>(range == 0 ? null : range));
             });
           },
           value: _currentRangeValue,

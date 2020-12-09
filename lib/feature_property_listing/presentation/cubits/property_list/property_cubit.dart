@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:nepal_homes/core/models/nullable.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_entity.dart';
+import 'package:nepal_homes/feature_property_listing/domain/entities/property_filter_entity.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_query.dart';
 import 'package:nepal_homes/feature_property_listing/domain/usecases/usecases.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/extensions/property_extensions.dart';
@@ -26,7 +28,7 @@ class PropertyCubit extends Cubit<PropertyState> {
       _page = 1;
       final PaginatedPropertyEntity paginatedPropertyEntity =
           await getPropertiesUseCase.call(
-        GetPropertiesUseCaseParams(query.copyWith(page: _page)),
+        GetPropertiesUseCaseParams(query.copyWith(page: Nullable<int>(_page))),
       );
       if (paginatedPropertyEntity == null ||
           paginatedPropertyEntity.data == null ||
@@ -50,7 +52,7 @@ class PropertyCubit extends Cubit<PropertyState> {
     try {
       final PaginatedPropertyEntity paginatedPropertyEntity =
           await getPropertiesUseCase.call(
-        GetPropertiesUseCaseParams(query.copyWith(page: _page)),
+        GetPropertiesUseCaseParams(query.copyWith(page: Nullable<int>(_page))),
       );
       if (paginatedPropertyEntity == null ||
           paginatedPropertyEntity.data == null ||
@@ -81,7 +83,8 @@ class PropertyCubit extends Cubit<PropertyState> {
     try {
       final PaginatedPropertyEntity paginatedPropertyEntity =
           await getPropertiesUseCase.call(
-        GetPropertiesUseCaseParams(query.copyWith(page: _page + 1)),
+        GetPropertiesUseCaseParams(
+            query.copyWith(page: Nullable<int>(_page + 1))),
       );
       if (paginatedPropertyEntity == null ||
           paginatedPropertyEntity.data == null ||
@@ -115,5 +118,9 @@ class PropertyCubit extends Cubit<PropertyState> {
             message:
                 'Unable to load more data. Make sure you are connected to Internet.'));
     }
+  }
+
+  updateFilter({@required PropertyFilterEntity propertyFilter}) {
+    emit(PropertyFilterChanged(filter: propertyFilter));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nepal_homes/core/models/nullable.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/filter_model.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/premium_filter_item.dart';
 
@@ -25,17 +26,17 @@ class PropertyPremiumFeaturedFilter extends StatelessWidget {
             Expanded(
               child: PremiumFilterItem(
                 title: 'Premuim',
-                value: filter.entity.isPremium,
-                onChanged: (value) =>
-                    filter.entity = filter.entity.copyWith(isPremium: value),
+                value: filter.entity.isPremium ?? false,
+                onChanged: (value) => filter.entity = filter.entity
+                    .copyWith(isPremium: Nullable<bool>(value ? value : null)),
               ),
             ),
             Expanded(
               child: PremiumFilterItem(
                 title: 'Featured',
-                value: filter.entity.isFeatured,
-                onChanged: (value) =>
-                    filter.entity = filter.entity.copyWith(isFeatured: value),
+                value: filter.entity.isFeatured ?? false,
+                onChanged: (value) => filter.entity = filter.entity
+                    .copyWith(isFeatured: Nullable<bool>(value ? value : null)),
               ),
             ),
           ],

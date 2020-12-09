@@ -58,3 +58,12 @@ class PropertyError extends PropertyState {
   @override
   List<Object> get props => [message];
 }
+
+class PropertyFilterChanged extends PropertyState {
+  final PropertyFilterEntity filter;
+
+  PropertyFilterChanged({@required this.filter});
+
+  @override
+  List<Object> get props => [filter];
+}

@@ -180,14 +180,14 @@ class PropertyListItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
                 text: TextSpan(
                     text:
-                        '${property.entity.price.isPriceOnCall ? 'Price on Call' : property.entity.price.formattedValue()}',
+                        '${(property.entity.price.isPriceOnCall ?? true) ? 'Price on Call' : property.entity.price.formattedValue()}',
                     style: theme.textTheme.headline6.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Color.fromARGB(255, 47, 57, 72)),
                     children: [
                       TextSpan(
                           text:
-                              ' ${property.entity.price.isPriceOnCall ? '' : property.entity.price.label.title}',
+                              ' ${(property.entity.price.isPriceOnCall ?? true) ? '' : property.entity.price.label.title}',
                           style: theme.textTheme.caption),
                     ]),
               ),

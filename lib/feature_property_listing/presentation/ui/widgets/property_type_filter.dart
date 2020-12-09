@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nepal_homes/core/models/nullable.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_type_entity.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/filter_model.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/property_type_filter_item.dart';
@@ -23,8 +24,8 @@ class PropertyTypeFilter extends StatelessWidget {
         TypeFilterOptionsView(
           data: filter.entity.propertyMeta.propertyTypes,
           selectedItem: filter.entity.propertyType,
-          onChanged: (value) =>
-              filter.entity = filter.entity.copyWith(propertyType: value),
+          onChanged: (value) => filter.entity = filter.entity
+              .copyWith(propertyType: Nullable<PropertyTypeEntity>(value)),
         ),
       ],
     );
@@ -68,7 +69,7 @@ class _CategoryFilterOptionsViewState extends State<TypeFilterOptionsView> {
               onTap: (value) {
                 setState(() {
                   _selectedItem = value ? e : null;
-                  widget.onChanged(e);
+                  widget.onChanged(_selectedItem);
                 });
               },
               selected: _selectedItem == e,

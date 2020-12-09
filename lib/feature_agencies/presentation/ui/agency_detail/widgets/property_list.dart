@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nepal_homes/core/models/nullable.dart';
 import 'package:nepal_homes/core/widgets/empty_data_widget.dart';
 import 'package:nepal_homes/core/widgets/error_data_widget.dart';
 import 'package:nepal_homes/core/widgets/progress_widget.dart';
@@ -25,7 +26,8 @@ class _PropertyListState extends State<PropertyList> {
     super.initState();
     final agency = ScopedModel.of<AgencyDetailUIModel>(context);
     _propertyQubit = context.read<PropertyCubit>();
-    _propertyQuery = _propertyQuery.copyWith(agencyId: agency.entity.agency.id);
+    _propertyQuery = _propertyQuery.copyWith(
+        agencyId: Nullable<String>(agency.entity.agency.id));
     _propertyQubit.getProperties(
       query: _propertyQuery,
     );

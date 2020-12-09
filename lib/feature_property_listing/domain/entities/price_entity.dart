@@ -17,14 +17,14 @@ class PriceEntity extends Equatable {
 
   final bool isPriceOnCall;
   final bool isStartingFrom;
-  final int value;
+  final double value;
   final CurrencyEntity currency;
   final PriceLabelEntity label;
 
   PriceEntity copyWith({
     bool isPriceOnCall,
     bool isStartingFrom,
-    int value,
+    double value,
     CurrencyEntity currency,
     PriceLabelEntity label,
   }) =>

@@ -7,11 +7,13 @@ class LocationFilterItem extends StatefulWidget {
   final List<Location> data;
   final Location value;
   final ValueChanged<Location> onChanged;
+  final VoidCallback onClear;
   const LocationFilterItem({
     Key key,
     @required this.data,
     @required this.value,
     this.onChanged,
+    this.onClear,
   }) : super(key: key);
   @override
   _LocationFilterItemState createState() => _LocationFilterItemState();
@@ -46,6 +48,7 @@ class _LocationFilterItemState extends State<LocationFilterItem> {
           widget.onChanged(value);
         });
       },
+      onClear: () => widget.onClear(),
       searchFn: (String keyword, List<DropdownMenuItem<Location>> items) =>
           items
               .where((element) => element.value.name

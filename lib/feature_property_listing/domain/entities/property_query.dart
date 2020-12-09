@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
+import 'package:nepal_homes/core/models/nullable.dart';
 
 class PropertyQuery extends Equatable {
   final int sort;
   final int page;
   final String agencyId;
-  final bool isProject;
   final String areaId;
   final String districtId;
   final String stateId;
@@ -19,10 +19,9 @@ class PropertyQuery extends Equatable {
   final int priceRanceId;
   final String roadType;
   PropertyQuery({
-    this.sort = 1,
-    this.page = 1,
+    this.sort,
+    this.page,
     this.agencyId,
-    this.isProject,
     this.areaId,
     this.districtId,
     this.stateId,
@@ -42,7 +41,6 @@ class PropertyQuery extends Equatable {
       sort,
       page,
       agencyId,
-      isProject,
       areaId,
       districtId,
       stateId,
@@ -58,38 +56,43 @@ class PropertyQuery extends Equatable {
   }
 
   PropertyQuery copyWith({
-    int sort,
-    int page,
-    String agencyId,
-    bool isProperty,
-    String areaId,
-    String districtId,
-    String stateId,
-    String municipalityId,
-    String propertyPurposeId,
-    bool isPremium,
-    bool isFeatured,
-    String propertyCategoryId,
-    String propertyTypeId,
-    int priceRanceId,
-    String roadType,
+    Nullable<int> sort,
+    Nullable<int> page,
+    Nullable<String> agencyId,
+    Nullable<String> areaId,
+    Nullable<String> districtId,
+    Nullable<String> stateId,
+    Nullable<String> municipalityId,
+    Nullable<String> propertyPurposeId,
+    Nullable<bool> isPremium,
+    Nullable<bool> isFeatured,
+    Nullable<String> propertyCategoryId,
+    Nullable<String> propertyTypeId,
+    Nullable<int> priceRanceId,
+    Nullable<String> roadType,
   }) {
     return PropertyQuery(
-      sort: sort ?? this.sort,
-      page: page ?? this.page,
-      agencyId: agencyId ?? this.agencyId,
-      isProject: isProperty ?? this.isProject,
-      areaId: areaId ?? this.areaId,
-      districtId: districtId ?? this.districtId,
-      stateId: stateId ?? this.stateId,
-      municipalityId: municipalityId ?? this.municipalityId,
-      propertyPurposeId: propertyPurposeId ?? this.propertyPurposeId,
-      isPremium: isPremium ?? this.isPremium,
-      isFeatured: isFeatured ?? this.isFeatured,
-      propertyCategoryId: propertyCategoryId ?? this.propertyCategoryId,
-      propertyTypeId: propertyTypeId ?? this.propertyTypeId,
-      priceRanceId: priceRanceId ?? this.priceRanceId,
-      roadType: roadType ?? this.roadType,
+      sort: sort == null ? this.sort : sort.value,
+      page: page == null ? this.page : page.value,
+      agencyId: agencyId == null ? this.agencyId : agencyId.value,
+      areaId: areaId == null ? this.areaId : areaId.value,
+      districtId: districtId == null ? this.districtId : districtId.value,
+      stateId: stateId == null ? this.stateId : stateId.value,
+      municipalityId:
+          municipalityId == null ? this.municipalityId : municipalityId.value,
+      propertyPurposeId: propertyPurposeId == null
+          ? this.propertyPurposeId
+          : propertyPurposeId.value,
+      isPremium: isPremium == null ? this.isPremium : isPremium.value,
+      isFeatured: isFeatured == null ? this.isFeatured : isFeatured.value,
+      propertyCategoryId: propertyCategoryId == null
+          ? this.propertyCategoryId
+          : propertyCategoryId.value,
+      propertyTypeId:
+          propertyTypeId == null ? this.propertyTypeId : propertyTypeId.value,
+      priceRanceId:
+          priceRanceId == null ? this.priceRanceId : priceRanceId.value,
+      roadType: roadType == null ? this.roadType : roadType.value,
     );
   }
 
@@ -98,7 +101,6 @@ class PropertyQuery extends Equatable {
       'sort': sort?.toString(),
       'page': page?.toString(),
       'agency_id': agencyId,
-      'is_project': isProject?.toString()?.toLowerCase(),
       'find_area_id': areaId,
       'find_district_id': districtId,
       'find_state_id': stateId,
@@ -120,7 +122,6 @@ class PropertyQuery extends Equatable {
       sort: map['sort'],
       page: map['page'],
       agencyId: map['agency_id'],
-      isProject: map['is_project'],
       areaId: map['find_area_id'],
       districtId: map['find_district_id'],
       stateId: map['find_state_id'],

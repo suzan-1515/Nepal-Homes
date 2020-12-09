@@ -1,3 +1,4 @@
+import 'package:nepal_homes/core/models/nullable.dart';
 import 'package:nepal_homes/feature_agencies/domain/entities/agent_entity.dart';
 import 'package:nepal_homes/feature_agencies/presentation/models/agent_model.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/address_entity.dart';
@@ -40,18 +41,26 @@ extension PropertyFilterEntityX on PropertyFilterEntity {
 
   PropertyQuery toQuery(PropertyQuery query) {
     return query.copyWith(
-        areaId: (this.location is AreaEntity) ? this.location.id : null,
-        stateId: (this.location is StateEntity) ? this.location.id : null,
-        districtId: (this.location is DistrictEntity) ? this.location.id : null,
-        municipalityId:
-            (this.location is MunicipalityEntity) ? this.location.id : null,
-        propertyPurposeId: this.propertyPurpose?.id,
-        isPremium: this.isPremium,
-        isFeatured: this.isFeatured,
-        propertyCategoryId: this.propertyCategory?.id,
-        propertyTypeId: this.propertyType?.id,
-        priceRanceId: this.priceRange,
-        roadType: this.roadType?.id,
-        sort: this.sort);
+      areaId: (this.location is AreaEntity)
+          ? Nullable<String>(this.location.id)
+          : Nullable<String>(null),
+      stateId: (this.location is StateEntity)
+          ? Nullable<String>(this.location.id)
+          : Nullable<String>(null),
+      districtId: (this.location is DistrictEntity)
+          ? Nullable<String>(this.location.id)
+          : Nullable<String>(null),
+      municipalityId: (this.location is MunicipalityEntity)
+          ? Nullable<String>(this.location.id)
+          : Nullable<String>(null),
+      propertyPurposeId: Nullable<String>(this.propertyPurpose?.id),
+      isPremium: Nullable<bool>(this.isPremium),
+      isFeatured: Nullable<bool>(this.isFeatured),
+      propertyCategoryId: Nullable<String>(this.propertyCategory?.id),
+      propertyTypeId: Nullable<String>(this.propertyType?.id),
+      priceRanceId: Nullable<int>(this.priceRange),
+      roadType: Nullable<String>(this.roadType?.id),
+      sort: Nullable<int>(this.sort),
+    );
   }
 }

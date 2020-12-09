@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nepal_homes/core/models/nullable.dart';
 import 'package:nepal_homes/core/widgets/cached_image_widget.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_purpose_entity.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/filter_model.dart';
@@ -23,8 +24,8 @@ class PropertyPurposeFilter extends StatelessWidget {
         PurposeFilterOptionsView(
           data: filter.entity.propertyMeta.propertyPurposes,
           selectedItem: filter.entity.propertyPurpose,
-          onChanged: (value) =>
-              filter.entity = filter.entity.copyWith(propertyPurpose: value),
+          onChanged: (value) => filter.entity = filter.entity.copyWith(
+              propertyPurpose: Nullable<PropertyPurposeEntity>(value)),
         ),
       ],
     );
@@ -81,7 +82,7 @@ class _PurposeFilterOptionsViewState extends State<PurposeFilterOptionsView> {
               onTap: (value) {
                 setState(() {
                   _selectedItem = value ? null : e;
-                  widget.onChanged(e);
+                  widget.onChanged(_selectedItem);
                 });
               },
             ),

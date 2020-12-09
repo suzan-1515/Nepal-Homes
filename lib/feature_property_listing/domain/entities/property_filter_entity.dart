@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:nepal_homes/core/models/nullable.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/location_entity.dart';
 
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_category_entity.dart';
@@ -51,28 +52,32 @@ class PropertyFilterEntity extends Equatable {
 
   PropertyFilterEntity copyWith({
     PropertyMetaEntity propertyMeta,
-    PropertyPurposeEntity propertyPurpose,
-    RoadTypeEntity roadType,
-    PropertyCategoryEntity propertyCategory,
-    PropertyTypeEntity propertyType,
-    Location location,
-    int priceRange,
-    bool isPremium,
-    bool isFeatured,
-    int sort,
+    Nullable<PropertyPurposeEntity> propertyPurpose,
+    Nullable<RoadTypeEntity> roadType,
+    Nullable<PropertyCategoryEntity> propertyCategory,
+    Nullable<PropertyTypeEntity> propertyType,
+    Nullable<Location> location,
+    Nullable<int> priceRange,
+    Nullable<bool> isPremium,
+    Nullable<bool> isFeatured,
+    Nullable<int> sort,
   }) {
     return PropertyFilterEntity(
-      propertyMeta: propertyMeta ?? this.propertyMeta,
-      propertyPurpose: propertyPurpose ?? this.propertyPurpose,
-      roadType: roadType ?? this.roadType,
-      propertyCategory: propertyCategory ?? this.propertyCategory,
-      propertyType: propertyType ?? this.propertyType,
-      location: location ?? this.location,
-      priceRange: priceRange ?? this.priceRange,
-      isPremium: isPremium ?? this.isPremium,
-      isFeatured: isFeatured ?? this.isFeatured,
-      sort: sort ?? this.sort,
-    );
+        propertyMeta: propertyMeta ?? this.propertyMeta,
+        propertyPurpose: propertyPurpose == null
+            ? this.propertyPurpose
+            : propertyPurpose.value,
+        roadType: roadType == null ? this.roadType : roadType.value,
+        propertyCategory: propertyCategory == null
+            ? this.propertyCategory
+            : propertyCategory.value,
+        propertyType:
+            propertyType == null ? this.propertyType : propertyType.value,
+        location: location == null ? this.location : location.value,
+        priceRange: priceRange == null ? this.priceRange : priceRange.value,
+        isPremium: isPremium == null ? this.isPremium : isPremium.value,
+        isFeatured: isFeatured == null ? this.isFeatured : isFeatured.value,
+        sort: sort == null ? this.sort : sort.value);
   }
 
   @override

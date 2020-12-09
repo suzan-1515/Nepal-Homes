@@ -44,9 +44,7 @@ class PropertyFilterScreen extends StatelessWidget {
           context.showMessage(state.message);
         }
       },
-      buildWhen: (previous, current) =>
-          !(current is PropertyFilterError) &&
-          !(current is PropertyFilterChanged),
+      buildWhen: (previous, current) => !(current is PropertyFilterError),
       builder: (context, state) {
         if (state is PropertyFilterLoadSuccess) {
           return ScopedModel<FilterUIModel>(
@@ -57,10 +55,11 @@ class PropertyFilterScreen extends StatelessWidget {
                 child: FilterView(),
                 floatingActionButton: FloatingActionButton.extended(
                   onPressed: () {
-                    context.read<PropertyFilterCubit>().applyFilter(
-                        propertyFilter:
-                            ScopedModel.of<FilterUIModel>(context).entity);
-                    Navigator.pop(context);
+                    var filter = ScopedModel.of<FilterUIModel>(context).entity;
+                    context
+                        .read<PropertyFilterCubit>()
+                        .applyFilter(propertyFilter: filter);
+                    Navigator.pop(context, filter);
                   },
                   label: Text('Apply Filters'),
                   icon: Icon(LineAwesomeIcons.filter),

@@ -9,7 +9,7 @@ class PriceModel extends PriceEntity {
   PriceModel({
     @required bool isPriceOnCall,
     @required bool isStartingFrom,
-    @required int value,
+    @required double value,
     @required CurrencyModel currency,
     @required PriceLabelModel label,
   }) : super(
@@ -25,7 +25,9 @@ class PriceModel extends PriceEntity {
   factory PriceModel.fromMap(Map<String, dynamic> json) => PriceModel(
         isPriceOnCall: json["is_price_on_call"],
         isStartingFrom: json["is_starting_from"],
-        value: json["value"],
+        value: json["value"] == null
+            ? null
+            : double.parse(json["value"].toString()),
         currency: json["currency"] == null
             ? null
             : CurrencyModel.fromMap(json["currency"]),

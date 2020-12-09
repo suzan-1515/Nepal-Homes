@@ -36,6 +36,6 @@ class PropertyFilterCubit extends Cubit<PropertyFilterState> {
   }
 
   applyFilter({@required PropertyFilterEntity propertyFilter}) {
-    emit(PropertyFilterChanged(filter: propertyFilter));
+    emit(PropertyFilterLoadSuccess(propertyFilter: propertyFilter));
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nepal_homes/core/models/nullable.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/road_type_entity.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/filter_model.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/property_road_type_filter_item.dart';
@@ -23,8 +24,8 @@ class PropertyRoadTypeFilter extends StatelessWidget {
         RoadTypeFilterOptionsView(
           data: filter.entity.propertyMeta.roadTypes,
           selectedItem: filter.entity.roadType,
-          onChanged: (value) =>
-              filter.entity = filter.entity.copyWith(roadType: value),
+          onChanged: (value) => filter.entity =
+              filter.entity.copyWith(roadType: Nullable<RoadTypeEntity>(value)),
         ),
       ],
     );
@@ -68,7 +69,7 @@ class _CategoryFilterOptionsViewState extends State<RoadTypeFilterOptionsView> {
               onTap: (value) {
                 setState(() {
                   _selectedItem = value ? e : null;
-                  widget.onChanged(e);
+                  widget.onChanged(_selectedItem);
                 });
               },
               selected: _selectedItem == e,
