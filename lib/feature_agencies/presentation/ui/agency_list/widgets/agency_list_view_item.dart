@@ -48,7 +48,6 @@ class AgencyListViewItem extends StatelessWidget {
                     ),
                     child: CachedImage(
                       agency.entity.logo.fullPath,
-                      tag: agency.entity.id,
                       fit: BoxFit.contain,
                     ),
                   ),

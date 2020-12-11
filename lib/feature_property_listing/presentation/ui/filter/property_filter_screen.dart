@@ -54,6 +54,7 @@ class PropertyFilterScreen extends StatelessWidget {
                 context: context,
                 child: FilterView(),
                 floatingActionButton: FloatingActionButton.extended(
+                  heroTag: 'apply-filter-tag',
                   onPressed: () {
                     var filter = ScopedModel.of<FilterUIModel>(context).entity;
                     context

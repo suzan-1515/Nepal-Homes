@@ -4,6 +4,7 @@ import 'package:nepal_homes/feature_agencies/presentation/ui/agency_list/agency_
 import 'package:nepal_homes/feature_auth/presentation/ui/login_screen.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/main/main_screen.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/splash/splash_screen.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/ui/detail/property_detail_screen.dart';
 
 class NavigationService {
   Route<dynamic> generateRoute(RouteSettings settings) {
@@ -23,6 +24,9 @@ class NavigationService {
       case AgencyDetailScreen.ROUTE_NAME:
         return MaterialPageRoute(
             builder: (_) => AgencyDetailScreen(), settings: settings);
+      case PropertyDetailScreen.ROUTE_NAME:
+        return MaterialPageRoute(
+            builder: (_) => PropertyDetailScreen(), settings: settings);
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

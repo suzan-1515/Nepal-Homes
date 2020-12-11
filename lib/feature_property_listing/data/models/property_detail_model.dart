@@ -44,8 +44,14 @@ class PropertyDetailWrapperModel extends PropertyDetailWrapperEntity {
     if (json == null || json['data'] == null) return null;
     return PropertyDetailWrapperModel(
       success: json["success"],
-      property: json["data"]["properties"],
-      relatedProperties: json["data"]["otherRelatedProperty"],
+      property: json["data"]["properties"] == null
+          ? null
+          : PropertyDetailModel.fromMap(json["data"]["properties"]),
+      relatedProperties: json["data"]["otherRelatedProperty"] == null
+          ? null
+          : json["data"]["otherRelatedProperty"]
+              .map<PropertyDetailModel>((x) => PropertyDetailModel.fromMap(x))
+              .toList(),
       msg: json["msg"],
     );
   }
@@ -137,8 +143,6 @@ class PropertyDetailModel extends PropertyDetailEntity {
   factory PropertyDetailModel.fromJson(String str) =>
       PropertyDetailModel.fromMap(json.decode(str));
 
-  String toJson() => json.encode(toMap());
-
   factory PropertyDetailModel.fromMap(Map<String, dynamic> json) =>
       PropertyDetailModel(
         basic: json["basic"] == null ? null : BasicModel.fromMap(json["basic"]),
@@ -182,12 +186,12 @@ class PropertyDetailModel extends PropertyDetailEntity {
         projectFeatures: json["project_features"] == null
             ? null
             : json["project_features"]
-                .map((x) => ProjectFeatureModel.fromMap(x))
+                .map<ProjectFeatureModel>((x) => ProjectFeatureModel.fromMap(x))
                 .toList(),
         projectPropertyType: json["project_property_type"] == null
             ? null
             : json["project_property_type"]
-                .map((x) => PropertyTypeModel.fromMap(x))
+                .map<PropertyTypeModel>((x) => PropertyTypeModel.fromMap(x))
                 .toList(),
         owenedBy: json["owened_by"],
         addedAt:

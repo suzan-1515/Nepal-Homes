@@ -5,13 +5,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 
 class CachedImage extends StatelessWidget {
   CachedImage(this.imageURL,
-      {this.tag, this.fit = BoxFit.cover, this.width, this.height});
+      {this.tag, this.fit = BoxFit.cover, this.width, this.height, this.color});
 
   final String imageURL;
   final String tag;
   final BoxFit fit;
   final double width;
   final double height;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +42,7 @@ class CachedImage extends StatelessWidget {
             child: Icon(FontAwesomeIcons.image, size: 32),
           ),
         ),
+        color: color,
       ),
     );
   }

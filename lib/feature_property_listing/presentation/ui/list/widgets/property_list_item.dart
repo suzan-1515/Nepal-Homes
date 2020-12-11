@@ -4,7 +4,8 @@ import 'package:nepal_homes/core/widgets/cached_image_widget.dart';
 import 'package:nepal_homes/core/widgets/icon_text.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_entity.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/property_model.dart';
-import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/building_stat_item.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/ui/detail/property_detail_screen.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/property_stat_item.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:nepal_homes/core/extensions/date_time.dart';
 
@@ -18,7 +19,7 @@ class PropertyListItem extends StatelessWidget {
       stats.add(
         Expanded(
           child: Center(
-            child: BuildingStatItem(
+            child: PropertyStatItem(
                 icon: Icon(
                   LineAwesomeIcons.ruler_combined,
                   size: 18,
@@ -33,7 +34,7 @@ class PropertyListItem extends StatelessWidget {
       stats.add(
         Expanded(
           child: Center(
-            child: BuildingStatItem(
+            child: PropertyStatItem(
                 icon: Icon(
                   LineAwesomeIcons.bed,
                   size: 18,
@@ -49,7 +50,7 @@ class PropertyListItem extends StatelessWidget {
       stats.add(
         Expanded(
           child: Center(
-            child: BuildingStatItem(
+            child: PropertyStatItem(
                 icon: Icon(
                   LineAwesomeIcons.road,
                   size: 18,
@@ -65,7 +66,7 @@ class PropertyListItem extends StatelessWidget {
       stats.add(
         Expanded(
           child: Center(
-            child: BuildingStatItem(
+            child: PropertyStatItem(
                 icon: Icon(
                   LineAwesomeIcons.bed,
                   size: 18,
@@ -81,7 +82,7 @@ class PropertyListItem extends StatelessWidget {
       stats.add(
         Expanded(
           child: Center(
-            child: BuildingStatItem(
+            child: PropertyStatItem(
                 icon: Icon(
                   LineAwesomeIcons.building,
                   size: 18,
@@ -107,7 +108,11 @@ class PropertyListItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: () => Navigator.pushNamed(
+          context,
+          PropertyDetailScreen.ROUTE_NAME,
+          arguments: PropertyDetailScreenArgs(property.entity.slugUrl),
+        ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -123,7 +128,6 @@ class PropertyListItem extends StatelessWidget {
                         property.entity.media.images.isEmpty)
                     ? ''
                     : property.entity.media.images.first.fullPath,
-                tag: property.entity.id,
                 fit: BoxFit.cover,
               ),
             ),
@@ -131,6 +135,7 @@ class PropertyListItem extends StatelessWidget {
               alignment: Alignment(0.9, .3),
               heightFactor: 0.2,
               child: FloatingActionButton(
+                heroTag: property.entity.id,
                 backgroundColor: theme.backgroundColor,
                 onPressed: () {},
                 child: Icon(

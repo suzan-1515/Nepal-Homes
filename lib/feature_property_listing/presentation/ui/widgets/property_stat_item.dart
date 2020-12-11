@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class BuildingStatItem extends StatelessWidget {
+class PropertyStatItem extends StatelessWidget {
   final Icon icon;
   final String count;
   final String title;
@@ -10,7 +10,7 @@ class BuildingStatItem extends StatelessWidget {
   final double titleSpacing;
   final double valueSpacing;
 
-  const BuildingStatItem(
+  const PropertyStatItem(
       {Key key,
       @required this.icon,
       @required this.count,
