@@ -48,6 +48,8 @@ class BuildingEntity extends Equatable {
         parking: parking ?? this.parking,
       );
 
+  bool get hasParking => (parking != null && parking.isNotEmpty);
+
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {

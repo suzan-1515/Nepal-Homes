@@ -123,34 +123,45 @@ class PropertyListItem extends StatelessWidget {
               decoration: BoxDecoration(
                 color: theme.highlightColor,
               ),
-              child: CachedImage(
-                (property.entity.media.images == null ||
-                        property.entity.media.images.isEmpty)
-                    ? ''
-                    : property.entity.media.images.first.fullPath,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Align(
-              alignment: Alignment(0.9, .3),
-              heightFactor: 0.2,
-              child: FloatingActionButton(
-                heroTag: property.entity.id,
-                backgroundColor: theme.backgroundColor,
-                onPressed: () {},
-                child: Icon(
-                  LineAwesomeIcons.heart,
-                  color: theme.iconTheme.color,
-                ),
+              child: Stack(
+                fit: StackFit.expand,
+                children: [
+                  CachedImage(
+                    (property.entity.media.images == null ||
+                            property.entity.media.images.isEmpty)
+                        ? ''
+                        : property.entity.media.images.first.fullPath,
+                    fit: BoxFit.cover,
+                  ),
+                  Positioned(
+                    right: 8,
+                    top: 8,
+                    child: RawMaterialButton(
+                      padding: const EdgeInsets.all(0.0),
+                      elevation: 2.0,
+                      child: Icon(
+                        LineAwesomeIcons.heart_1,
+                        color: theme.backgroundColor,
+                        size: 18,
+                      ),
+                      onPressed: () {},
+                      constraints: BoxConstraints.tightFor(
+                        width: 38.0,
+                        height: 38.0,
+                      ),
+                      shape: CircleBorder(),
+                      fillColor: theme.backgroundColor.withOpacity(0.5),
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(
-              height: 16.0,
+              height: 4.0,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
@@ -166,7 +177,7 @@ class PropertyListItem extends StatelessWidget {
                     visualDensity: VisualDensity.compact,
                     backgroundColor: Color.fromARGB(255, 143, 216, 160),
                     label: Text(
-                      '${property.entity.basic.propertyPurpose.title.toUpperCase()}',
+                      '${property.entity.basic.propertyPurpose?.title?.toUpperCase() ?? 'N/A'}',
                     ),
                     labelStyle: Theme.of(context).textTheme.overline.copyWith(
                           color: Colors.white,

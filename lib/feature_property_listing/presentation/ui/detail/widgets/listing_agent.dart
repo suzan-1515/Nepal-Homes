@@ -16,6 +16,7 @@ class ListingAgent extends StatelessWidget {
         ScopedModel.of<PropertyDetailUIModel>(context, rebuildOnChange: true);
     final theme = Theme.of(context);
     return BorderedContainer(
+      color: theme.primaryColor.withOpacity(0.1),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -50,23 +51,6 @@ class ListingAgent extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-              SizedBox(width: 8),
-              RawMaterialButton(
-                padding: const EdgeInsets.all(0.0),
-                elevation: 2.0,
-                child: Icon(
-                  LineAwesomeIcons.sms,
-                  color: theme.primaryColor,
-                  size: 18,
-                ),
-                onPressed: () {},
-                constraints: BoxConstraints.tightFor(
-                  width: 48.0,
-                  height: 48.0,
-                ),
-                shape: CircleBorder(),
-                fillColor: theme.backgroundColor,
               ),
               SizedBox(width: 8),
               RawMaterialButton(

@@ -27,6 +27,12 @@ class Overview extends StatelessWidget {
               runSpacing: 12.0,
               children: [
                 OverviewItem(
+                  icon: LineAwesomeIcons.key,
+                  value:
+                      '${property.entity.prefix}${property.entity.propertyId ?? 'N/A'}',
+                  title: 'Property Id',
+                ),
+                OverviewItem(
                   icon: LineAwesomeIcons.compass,
                   value:
                       property.entity.locationProperty?.propertyFace?.title ??
@@ -49,7 +55,7 @@ class Overview extends StatelessWidget {
                   icon: LineAwesomeIcons.road,
                   value:
                       '${property.entity.locationProperty?.roadAccessRoadType?.title ?? 'N/A'}',
-                  title: 'Road Access',
+                  title: 'Road Type',
                 ),
                 OverviewItem(
                   icon: LineAwesomeIcons.area_chart,
@@ -92,6 +98,13 @@ class Overview extends StatelessWidget {
                     icon: LineAwesomeIcons.dungeon,
                     value: '${property.entity.building?.noOf?.hall ?? 'N/A'}',
                     title: 'Hall',
+                  ),
+                  OverviewItem(
+                    icon: LineAwesomeIcons.car,
+                    value: (property.entity.building?.hasParking ?? false)
+                        ? property.entity.building?.parking
+                        : 'N/A',
+                    title: 'Parking',
                   ),
                 ],
               ],

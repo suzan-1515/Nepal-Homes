@@ -25,9 +25,7 @@ class PropertyDetailCubit extends Cubit<PropertyDetailState> {
       if (entity == null)
         emit(PropertyDetailLoadEmpty(message: 'Unable to load data.'));
       else
-        emit(PropertyDetailLoadSuccess(
-            propertyDetailEntity: entity.property,
-            relatedProperties: entity.relatedProperties.toUIModel));
+        emit(PropertyDetailLoadSuccess(propertyDetailEntity: entity));
     } catch (e) {
       log('Property detail load error: ', error: e);
       emit(PropertyDetailLoadError(

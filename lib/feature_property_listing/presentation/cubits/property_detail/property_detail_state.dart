@@ -12,14 +12,12 @@ class PropertyDetailInitial extends PropertyDetailState {}
 class PropertyDetailLoading extends PropertyDetailState {}
 
 class PropertyDetailLoadSuccess extends PropertyDetailState {
-  final PropertyDetailEntity propertyDetailEntity;
-  final List<PropertyDetailUIModel> relatedProperties;
+  final PropertyDetailWrapperEntity propertyDetailEntity;
 
-  PropertyDetailLoadSuccess(
-      {@required this.propertyDetailEntity, @required this.relatedProperties});
+  PropertyDetailLoadSuccess({@required this.propertyDetailEntity});
 
   @override
-  List<Object> get props => [this.propertyDetailEntity, relatedProperties];
+  List<Object> get props => [this.propertyDetailEntity];
 }
 
 class PropertyDetailLoadEmpty extends PropertyDetailState {
