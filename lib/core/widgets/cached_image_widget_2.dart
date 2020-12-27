@@ -5,10 +5,11 @@ import 'package:flutter_advanced_networkimage/transition.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CachedImage extends StatelessWidget {
-  CachedImage(this.imageURL, {this.tag});
+  CachedImage(this.imageURL, {this.tag, this.fit = BoxFit.cover});
 
   final String imageURL;
   final String tag;
+  final BoxFit fit;
 
   @override
   Widget build(BuildContext context) {

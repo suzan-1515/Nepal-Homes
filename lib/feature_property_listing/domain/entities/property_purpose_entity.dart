@@ -47,4 +47,7 @@ class PropertyPurposeEntity extends Equatable {
       };
   @override
   List<Object> get props => [id, media, description, title, order];
+
+  @override
+  bool get stringify => true;
 }

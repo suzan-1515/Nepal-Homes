@@ -20,12 +20,13 @@ class _MoreMenuScreenState extends State<MoreMenuScreen>
     return Container(
       color: Theme.of(context).backgroundColor,
       child: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         physics: BouncingScrollPhysics(),
         children: <Widget>[
           SizedBox(height: 8),
           AuthInfo(),
           Divider(
-            thickness: 4,
+            thickness: 1,
           ),
           SizedBox(height: 8),
           Text(

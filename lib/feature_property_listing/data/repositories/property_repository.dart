@@ -4,6 +4,8 @@ import 'package:nepal_homes/core/services/services.dart';
 import 'package:nepal_homes/feature_property_listing/data/datasources/remote/remote_data_source.dart';
 import 'package:nepal_homes/feature_property_listing/data/models/location_model.dart';
 import 'package:nepal_homes/feature_property_listing/data/models/property_meta_model.dart';
+import 'package:nepal_homes/feature_property_listing/domain/entities/hot_property_entity.dart';
+import 'package:nepal_homes/feature_property_listing/domain/entities/featured_property_entity.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/location_entity.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_detail_entity.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_meta_entity.dart';
@@ -55,5 +57,29 @@ class PropertyRepository with Repository {
     LocationModel locationModel = results[1];
 
     return propertyMetaModel.copyWith(location: locationModel);
+  }
+
+  @override
+  Future<FeaturedPropertyEntity> getFeaturedProperties() async {
+    if (!(await _networkInfo.isConnected)) throw NetworkException();
+    return _remoteDataSource.fetchFeaturedProperties();
+  }
+
+  @override
+  Future<HotPropertyEntity> getHotProperties() async {
+    if (!(await _networkInfo.isConnected)) throw NetworkException();
+    return _remoteDataSource.fetchHotProperties();
+  }
+
+  @override
+  Future<PaginatedPropertyEntity> getPremuimProperties() async {
+    if (!(await _networkInfo.isConnected)) throw NetworkException();
+    return _remoteDataSource.fetchPremuimProperties();
+  }
+
+  @override
+  Future<PaginatedPropertyEntity> getRecentProperties() async {
+    if (!(await _networkInfo.isConnected)) throw NetworkException();
+    return _remoteDataSource.fetchRecentProperties();
   }
 }

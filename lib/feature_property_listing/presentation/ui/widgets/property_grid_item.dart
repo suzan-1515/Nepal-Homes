@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:nepal_homes/core/constants/api_url_constants.dart';
 import 'package:nepal_homes/core/widgets/cached_image_widget.dart';
 import 'package:nepal_homes/core/widgets/icon_text.dart';
 
@@ -45,17 +46,18 @@ class PropertyGridItem extends StatelessWidget {
                 color: theme.highlightColor,
               ),
               child: CachedImage(
-                (image == null || image.isEmpty) ? '' : image,
+                (image == null || image.isEmpty)
+                    ? APIUrlConstants.DEFAULT_IMAGE_URL
+                    : image,
                 fit: BoxFit.cover,
               ),
             ),
             SizedBox(
-              height: 16.0,
+              height: 8.0,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(

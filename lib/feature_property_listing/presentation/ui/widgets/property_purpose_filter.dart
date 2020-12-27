@@ -51,10 +51,17 @@ class PurposeFilterOptionsView extends StatefulWidget {
 
 class _PurposeFilterOptionsViewState extends State<PurposeFilterOptionsView> {
   PropertyPurposeEntity _selectedItem;
+
   @override
   void initState() {
     super.initState();
     _selectedItem = widget.selectedItem;
+  }
+
+  @override
+  void didUpdateWidget(covariant PurposeFilterOptionsView oldWidget) {
+    this._selectedItem = widget.selectedItem;
+    super.didUpdateWidget(oldWidget);
   }
 
   @override

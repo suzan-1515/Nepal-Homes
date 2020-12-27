@@ -21,12 +21,17 @@ class _PropertyListScreenState extends State<PropertyListScreen>
       child: Builder(
         builder: (context) => Scaffold(
           appBar: AppBar(
-            title: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search properties',
-                prefixIcon: Icon(LineAwesomeIcons.search),
-              ),
+            title: Text(
+              'Properties',
+              style: Theme.of(context).textTheme.headline6,
             ),
+            // bottom: PreferredSize(
+            //   preferredSize: Size.fromHeight(40),
+            //   child: Padding(
+            //     padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            //     child: const PropertyListHeader(),
+            //   ),
+            // ),
             automaticallyImplyLeading: false,
             actions: [
               IconButton(

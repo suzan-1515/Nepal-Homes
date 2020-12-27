@@ -15,8 +15,7 @@ class PriceView extends StatelessWidget {
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
       text: TextSpan(
-          text:
-              '${(property.entity.price.isPriceOnCall ?? true) ? 'Price on Call' : property.entity.price.formattedValue()}',
+          text: property.entity.price.resolvedPrice ?? 'N/A',
           style: theme.textTheme.headline6.copyWith(
               fontWeight: FontWeight.bold,
               color: Color.fromARGB(255, 47, 57, 72)),

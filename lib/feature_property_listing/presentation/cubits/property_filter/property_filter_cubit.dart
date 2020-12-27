@@ -7,6 +7,7 @@ import 'package:nepal_homes/core/usecases/usecase.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_filter_entity.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_meta_entity.dart';
 import 'package:nepal_homes/feature_property_listing/domain/usecases/get_property_meta_use_case.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/cubits/property_list/property_cubit.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/extensions/property_extensions.dart';
 
 part 'property_filter_state.dart';
@@ -36,6 +37,11 @@ class PropertyFilterCubit extends Cubit<PropertyFilterState> {
   }
 
   applyFilter({@required PropertyFilterEntity propertyFilter}) {
+    emit(PropertyFilterLoadSuccess(propertyFilter: propertyFilter));
+  }
+
+  resetFilter({@required PropertyFilterEntity propertyFilter}) {
+    emit(PropertyFilterLoading());
     emit(PropertyFilterLoadSuccess(propertyFilter: propertyFilter));
   }
 }

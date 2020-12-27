@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nepal_homes/core/widgets/empty_data_widget.dart';
@@ -19,9 +21,12 @@ class PropertyList extends StatefulWidget {
 class _PropertyListState extends State<PropertyList> {
   var _propertyQuery = PropertyQuery();
   PropertyCubit _propertyQubit;
+  Completer<void> _refreshCompleter;
+
   @override
   void initState() {
     super.initState();
+    _refreshCompleter = Completer<void>();
     _propertyQubit = context.read<PropertyCubit>();
     _propertyQubit.getProperties(
       query: _propertyQuery,
@@ -29,9 +34,26 @@ class _PropertyListState extends State<PropertyList> {
   }
 
   @override
+  void dispose() {
+    _refreshCompleter?.complete();
+    super.dispose();
+  }
+
+  Future<void> _onRefresh() {
+    _propertyQubit.refreshProperties(
+      query: _propertyQuery,
+    );
+    return _refreshCompleter.future;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<PropertyCubit, PropertyState>(
+      listenWhen: (previous, current) =>
+          !(current is PropertyLoading) && !(current is PropertyLoadingMore),
       listener: (context, state) {
+        _refreshCompleter?.complete();
+        _refreshCompleter = Completer();
         if (state is PropertyError) {
           context.showMessage(state.message);
         } else if (state is PropertyLoadError) {
@@ -52,6 +74,7 @@ class _PropertyListState extends State<PropertyList> {
             hasMore: state.hasMore,
             onLoadMore: () =>
                 _propertyQubit.getMoreProperties(query: _propertyQuery),
+            onRefresh: _onRefresh,
           );
         } else if (state is PropertyLoadError) {
           return Center(

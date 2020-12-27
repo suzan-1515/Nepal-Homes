@@ -28,6 +28,12 @@ class _LocationFilterItemState extends State<LocationFilterItem> {
   }
 
   @override
+  void didUpdateWidget(covariant LocationFilterItem oldWidget) {
+    if (this._currentValue != widget.value) this._currentValue = widget.value;
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SearchableDropdown.single(
       items: this

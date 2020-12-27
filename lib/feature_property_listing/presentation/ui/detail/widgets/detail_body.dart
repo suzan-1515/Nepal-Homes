@@ -8,6 +8,7 @@ import 'package:scoped_model/scoped_model.dart';
 
 import 'address_view.dart';
 import 'category_view.dart';
+import 'image_carousel.dart';
 import 'ribbon_view.dart';
 import 'location_map.dart';
 import 'price_view.dart';
@@ -22,8 +23,13 @@ class DetailBody extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          if (property.entity.media?.images?.isNotEmpty ?? false)
+            DetailImageCarousel(
+              images:
+                  property.entity.media.images.map((e) => e.fullPath).toList(),
+            ),
           const SizedBox(
             height: 8.0,
           ),

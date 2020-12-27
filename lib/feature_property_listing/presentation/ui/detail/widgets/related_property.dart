@@ -40,7 +40,9 @@ class RelatedProperty extends StatelessWidget {
                             arguments: PropertyDetailScreenArgs(e.slugUrl),
                           ),
                           momentAgo: e.addedAt.momentAgo,
-                          image: e.media?.images?.first?.fullPath,
+                          image: (e.media?.images?.isEmpty ?? true)
+                              ? null
+                              : e.media?.images?.first?.fullPath,
                           category: e.basic.propertyCategory?.title,
                           purpose: e.basic.propertyPurpose?.title,
                           price:

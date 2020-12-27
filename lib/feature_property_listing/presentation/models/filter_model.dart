@@ -11,4 +11,7 @@ class FilterUIModel extends Model {
   }
 
   PropertyFilterEntity get entity => this._propertyFilter;
+
+  PropertyFilterEntity get reset =>
+      PropertyFilterEntity(propertyMeta: this._propertyFilter.propertyMeta);
 }

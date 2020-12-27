@@ -38,6 +38,14 @@ class _PropertyPriceRangeFilterState extends State<PropertyPriceRangeFilter> {
   }
 
   @override
+  void didUpdateWidget(covariant PropertyPriceRangeFilter oldWidget) {
+    _currentRangeValue = widget.filter.entity.priceRange == null
+        ? 0
+        : (widget.filter.entity.priceRange).toDouble();
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,

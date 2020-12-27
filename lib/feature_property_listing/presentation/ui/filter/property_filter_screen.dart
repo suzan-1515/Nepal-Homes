@@ -29,6 +29,25 @@ class PropertyFilterScreen extends StatelessWidget {
             onPressed: () => Navigator.pop(context),
           ),
           automaticallyImplyLeading: false,
+          actions: [
+            FlatButton(
+              visualDensity: VisualDensity.compact,
+              child: Text(
+                'Reset',
+                style: Theme.of(context)
+                    .textTheme
+                    .button
+                    .copyWith(color: Theme.of(context).accentColor),
+              ),
+              onPressed: () {
+                var filter = ScopedModel.of<FilterUIModel>(context);
+                filter.entity = filter.reset;
+                context
+                    .read<PropertyFilterCubit>()
+                    .resetFilter(propertyFilter: filter.entity);
+              },
+            ),
+          ],
         ),
         body: child,
         floatingActionButton: floatingActionButton,

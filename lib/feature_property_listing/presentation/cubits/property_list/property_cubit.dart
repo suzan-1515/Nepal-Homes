@@ -52,7 +52,7 @@ class PropertyCubit extends Cubit<PropertyState> {
     try {
       final PaginatedPropertyEntity paginatedPropertyEntity =
           await getPropertiesUseCase.call(
-        GetPropertiesUseCaseParams(query.copyWith(page: Nullable<int>(_page))),
+        GetPropertiesUseCaseParams(query.copyWith(page: Nullable<int>(1))),
       );
       if (paginatedPropertyEntity == null ||
           paginatedPropertyEntity.data == null ||
@@ -63,6 +63,7 @@ class PropertyCubit extends Cubit<PropertyState> {
           emit(PropertyLoadEmpty(message: 'Property data not available.'));
       } else {
         _page = 1;
+        emit(PropertyLoading());
         emit(PropertyLoadSuccess(paginatedPropertyEntity.data.toUIModel,
             hasMore:
                 (paginatedPropertyEntity.page * paginatedPropertyEntity.size) <

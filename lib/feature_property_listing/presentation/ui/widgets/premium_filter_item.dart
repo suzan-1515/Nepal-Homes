@@ -25,6 +25,12 @@ class _PremiumFilterItemState extends State<PremiumFilterItem> {
   }
 
   @override
+  void didUpdateWidget(covariant PremiumFilterItem oldWidget) {
+    this._value = widget.value;
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,

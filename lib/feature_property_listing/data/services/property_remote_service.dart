@@ -4,6 +4,8 @@ import 'package:nepal_homes/feature_property_listing/domain/entities/property_qu
 
 class PropertyRemoteService with RemoteService {
   static const PROPERTY_ENDPOINT = '/property/public/data';
+  static const FEATURED_PROPERTY_ENDPOINT = '/property/type/featured_property';
+  static const HOT_PROPERTY_ENDPOINT = '/property/type/hot_property';
   static const META_ENDPOINT = '/enum';
   static const LOCATION_ENDPOINT = '/static/nepal/all';
   final HttpManager _httpManager;
@@ -49,6 +51,38 @@ class PropertyRemoteService with RemoteService {
   @override
   Future fetchLocations() async {
     var call = await _httpManager.get(path: LOCATION_ENDPOINT);
+    return call;
+  }
+
+  @override
+  Future fetchFeaturedProperties() async {
+    var call = await _httpManager.get(path: FEATURED_PROPERTY_ENDPOINT);
+
+    return call;
+  }
+
+  @override
+  Future fetchHotProperties() async {
+    var call = await _httpManager.get(path: HOT_PROPERTY_ENDPOINT);
+
+    return call;
+  }
+
+  @override
+  Future fetchPremuimProperties() async {
+    Map<String, String> q = {
+      'find_is_premium': 'true',
+    };
+    var call = await _httpManager.get(path: PROPERTY_ENDPOINT, query: q);
+    return call;
+  }
+
+  @override
+  Future fetchRecentProperties() async {
+    Map<String, String> q = {
+      'size': '4',
+    };
+    var call = await _httpManager.get(path: PROPERTY_ENDPOINT, query: q);
     return call;
   }
 }

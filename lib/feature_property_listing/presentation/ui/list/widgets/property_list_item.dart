@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:nepal_homes/core/constants/api_url_constants.dart';
 import 'package:nepal_homes/core/widgets/cached_image_widget.dart';
 import 'package:nepal_homes/core/widgets/icon_text.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_entity.dart';
@@ -127,9 +128,9 @@ class PropertyListItem extends StatelessWidget {
                 fit: StackFit.expand,
                 children: [
                   CachedImage(
-                    (property.entity.media.images == null ||
-                            property.entity.media.images.isEmpty)
-                        ? ''
+                    (property.entity.media?.images == null ||
+                            (property.entity.media?.images?.isEmpty ?? true))
+                        ? APIUrlConstants.DEFAULT_IMAGE_URL
                         : property.entity.media.images.first.fullPath,
                     fit: BoxFit.cover,
                   ),

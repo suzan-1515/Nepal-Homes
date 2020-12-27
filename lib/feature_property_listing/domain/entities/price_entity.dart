@@ -40,6 +40,9 @@ class PriceEntity extends Equatable {
       NumberFormat.currency(locale: "en_US", symbol: "Rs. ", decimalDigits: 0)
           .format(value);
 
+  String get resolvedPrice =>
+      '${(isPriceOnCall ?? true) ? 'Price on Call' : formattedValue()}';
+
   String toJson() => json.encode(toMap());
 
   Map<String, dynamic> toMap() => {

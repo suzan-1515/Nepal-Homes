@@ -58,6 +58,13 @@ class _CategoryFilterOptionsViewState extends State<TypeFilterOptionsView> {
   }
 
   @override
+  void didUpdateWidget(covariant TypeFilterOptionsView oldWidget) {
+    if (this._selectedItem != widget.selectedItem)
+      this._selectedItem = widget.selectedItem;
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Wrap(
       direction: Axis.horizontal,

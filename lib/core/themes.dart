@@ -14,7 +14,7 @@ final lightTheme = ThemeData(
   ),
   brightness: Brightness.light,
   primarySwatch: Colors.primaries[5],
-  accentColor: Colors.blueAccent,
+  accentColor: Color.fromARGB(255, 45, 54, 121),
   dividerColor: Colors.black26,
   scaffoldBackgroundColor: Colors.grey[100],
   backgroundColor: Colors.grey[100],
