@@ -34,6 +34,8 @@ class UserEntity extends Equatable {
     @required this.updatedAt,
   });
 
+  String get firstName => this.fullname?.split(' ')?.first;
+
   @override
   List<Object> get props {
     return [

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/property_detail_model.dart';
-import 'package:nepal_homes/core/extensions/date_time.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class CategoryView extends StatelessWidget {

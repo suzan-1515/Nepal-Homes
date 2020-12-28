@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:nepal_homes/core/constants/api_url_constants.dart';
 import 'package:nepal_homes/core/widgets/cached_image_widget.dart';
 import 'package:nepal_homes/core/widgets/icon_text.dart';
 import 'package:nepal_homes/feature_agencies/presentation/models/agency_detail_model.dart';
@@ -9,6 +11,7 @@ import 'package:scoped_model/scoped_model.dart';
 
 class AgencyInfo extends StatelessWidget {
   const AgencyInfo();
+
   @override
   Widget build(BuildContext context) {
     final agency =
@@ -31,6 +34,11 @@ class AgencyInfo extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Theme.of(context).backgroundColor,
                 borderRadius: BorderRadius.circular(90.0),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                    image: AdvancedNetworkImage(
+                        agency.entity.agency.logo?.fullPath ??
+                            APIUrlConstants.DEFAULT_IMAGE_URL)),
                 boxShadow: [
                   BoxShadow(
                     color: Theme.of(context).highlightColor.withOpacity(0.5),
@@ -39,11 +47,6 @@ class AgencyInfo extends StatelessWidget {
                     offset: Offset(0, 2), // changes position of shadow
                   ),
                 ],
-              ),
-              child: CachedImage(
-                agency.entity.agency.logo.fullPath,
-                tag: agency.entity.agency.id,
-                fit: BoxFit.contain,
               ),
             ),
           ),

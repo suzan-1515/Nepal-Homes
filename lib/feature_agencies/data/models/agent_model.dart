@@ -20,6 +20,6 @@ class AgentModel extends AgentEntity {
         name: json["name"],
         email: json["email"],
         mobileNo: json["mobile_no"],
-        image: ImageModel.fromMap(json["image"]),
+        image: (json['image']==null)?null:ImageModel.fromMap(json["image"]),
       );
 }

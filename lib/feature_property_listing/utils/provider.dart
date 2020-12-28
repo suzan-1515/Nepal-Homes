@@ -15,6 +15,7 @@ import 'package:nepal_homes/feature_property_listing/domain/usecases/get_propert
 import 'package:nepal_homes/feature_property_listing/domain/usecases/usecases.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/cubits/featured_property_list/featured_property_cubit.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/cubits/hot_property_list/hot_property_cubit.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/cubits/property_category/property_category_cubit.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/cubits/property_detail/property_detail_cubit.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/cubits/property_filter/property_filter_cubit.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/cubits/property_list/property_cubit.dart';
@@ -22,6 +23,7 @@ import 'package:nepal_homes/feature_property_listing/presentation/cubits/recent_
 
 class PropertyProvider {
   PropertyProvider._();
+
   static setup() {
     GetIt.I.registerLazySingleton<RemoteService>(
         () => PropertyRemoteService(GetIt.I.get<HttpManager>()));
@@ -48,6 +50,8 @@ class PropertyProvider {
         () => GetPropertyDetailUseCase(GetIt.I.get<Repository>()));
     GetIt.I.registerLazySingleton<GetPropertyMetaUseCase>(
         () => GetPropertyMetaUseCase(GetIt.I.get<Repository>()));
+    GetIt.I.registerLazySingleton<GetPropertyCategoriesUseCase>(
+        () => GetPropertyCategoriesUseCase(GetIt.I.get<Repository>()));
 
     GetIt.I.registerFactory<PropertyCubit>(() => PropertyCubit(
           getPropertiesUseCase: GetIt.I.get<GetPropertiesUseCase>(),
@@ -70,6 +74,10 @@ class PropertyProvider {
     GetIt.I.registerFactory<PropertyFilterCubit>(() => PropertyFilterCubit(
           getPropertyMetaUseCase: GetIt.I.get<GetPropertyMetaUseCase>(),
         )..getMeta());
+    GetIt.I.registerFactory<PropertyCategoryCubit>(() => PropertyCategoryCubit(
+          getPropertyCategoriesUseCase:
+              GetIt.I.get<GetPropertyCategoriesUseCase>(),
+        )..getCategories());
   }
 
   static BlocProvider<PropertyCubit> propertyBlocProvider({
@@ -79,6 +87,7 @@ class PropertyProvider {
         create: (context) => GetIt.I.get<PropertyCubit>(),
         child: child,
       );
+
   static BlocProvider<HotPropertyCubit> hotPropertyBlocProvider({
     @required Widget child,
   }) =>
@@ -86,6 +95,7 @@ class PropertyProvider {
         create: (context) => GetIt.I.get<HotPropertyCubit>(),
         child: child,
       );
+
   static BlocProvider<FeaturedPropertyCubit> featuredPropertyBlocProvider({
     @required Widget child,
   }) =>
@@ -93,6 +103,7 @@ class PropertyProvider {
         create: (context) => GetIt.I.get<FeaturedPropertyCubit>(),
         child: child,
       );
+
   static BlocProvider<RecentPropertyCubit> recentPropertyBlocProvider({
     @required Widget child,
   }) =>
@@ -100,6 +111,15 @@ class PropertyProvider {
         create: (context) => GetIt.I.get<RecentPropertyCubit>(),
         child: child,
       );
+
+  static BlocProvider<PropertyCategoryCubit> propertyCategoryBlocProvider({
+    @required Widget child,
+  }) =>
+      BlocProvider<PropertyCategoryCubit>(
+        create: (context) => GetIt.I.get<PropertyCategoryCubit>(),
+        child: child,
+      );
+
   static MultiBlocProvider propertyMultiBlocProvider({
     @required Widget child,
   }) =>
@@ -114,6 +134,7 @@ class PropertyProvider {
         ],
         child: child,
       );
+
   static BlocProvider<PropertyDetailCubit> propertyDetailBlocProvider({
     @required Widget child,
     @required String slug,
@@ -122,6 +143,7 @@ class PropertyProvider {
         create: (context) => GetIt.I.get<PropertyDetailCubit>(param1: slug),
         child: child,
       );
+
   static BlocProvider<PropertyFilterCubit> propertyMetaBlocProvider({
     @required Widget child,
   }) =>

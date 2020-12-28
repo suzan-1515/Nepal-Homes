@@ -96,6 +96,7 @@ class PropertyDetailModel extends PropertyDetailEntity {
     @required int propertyId,
     @required AgencyEntity agency,
     @required AgentEntity agent,
+    @required AgentEntity addedBy,
     @required DateTime verifiedAt,
     @required String verifiedBy,
   }) : super(
@@ -135,6 +136,7 @@ class PropertyDetailModel extends PropertyDetailEntity {
           propertyId: propertyId,
           agency: agency,
           agent: agent,
+          addedBy: addedBy,
           verifiedAt: verifiedAt,
           verifiedBy: verifiedBy,
           id: id,
@@ -203,6 +205,9 @@ class PropertyDetailModel extends PropertyDetailEntity {
         agent: json["agent_id"] == null
             ? null
             : AgentModel.fromMap(json["agent_id"]),
+        addedBy: json["added_by"] == null
+            ? null
+            : AgentModel.fromMap(json["added_by"]),
         verifiedAt: json["verified_at"] == null
             ? null
             : DateTime.parse(json["verified_at"]),

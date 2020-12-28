@@ -2,6 +2,7 @@ import 'package:flutter_advanced_networkimage/provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:nepal_homes/core/constants/api_url_constants.dart';
 import 'package:nepal_homes/core/widgets/bordered_container.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/property_detail_model.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/detail/widgets/section_header.dart';
@@ -15,6 +16,7 @@ class ListingAgent extends StatelessWidget {
     final property =
         ScopedModel.of<PropertyDetailUIModel>(context, rebuildOnChange: true);
     final theme = Theme.of(context);
+    final agent = property.entity.agent ==null?property.entity.addedBy:property.entity.agent;
     return BorderedContainer(
       color: theme.primaryColor.withOpacity(0.1),
       child: Column(
@@ -27,7 +29,7 @@ class ListingAgent extends StatelessWidget {
             children: [
               CircleAvatar(
                 backgroundImage: AdvancedNetworkImage(
-                    property.entity.agent?.image?.fullPath ?? ''),
+                    agent?.image?.fullPath ?? APIUrlConstants.DEFAULT_IMAGE_URL),
                 backgroundColor: theme.highlightColor,
                 radius: 24,
               ),
@@ -38,7 +40,7 @@ class ListingAgent extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      property.entity.agent?.name ?? 'N/A',
+                      agent?.name ?? 'N/A',
                       style: theme.textTheme.subtitle1.copyWith(
                           fontWeight: FontWeight.bold,
                           color: Color.fromARGB(255, 47, 57, 72)),

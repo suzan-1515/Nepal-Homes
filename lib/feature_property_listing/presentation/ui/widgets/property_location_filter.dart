@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nepal_homes/core/models/nullable.dart';
-import 'package:nepal_homes/feature_property_listing/domain/entities/address_entity.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/location_entity.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/filter_model.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/location_filter_item.dart';

@@ -2,6 +2,7 @@ import 'package:meta/meta.dart';
 import 'package:nepal_homes/feature_property_listing/data/models/featured_property_model.dart';
 import 'package:nepal_homes/feature_property_listing/data/models/hot_property_model.dart';
 import 'package:nepal_homes/feature_property_listing/data/models/location_model.dart';
+import 'package:nepal_homes/feature_property_listing/data/models/property_category_model.dart';
 import 'package:nepal_homes/feature_property_listing/data/models/property_detail_model.dart';
 import 'package:nepal_homes/feature_property_listing/data/models/property_meta_model.dart';
 import 'package:nepal_homes/feature_property_listing/data/models/property_model.dart';
@@ -13,11 +14,12 @@ mixin RemoteDataSource {
   Future<HotPropertyModel> fetchHotProperties();
   Future<FeaturedPropertyModel> fetchFeaturedProperties();
   Future<PaginatedPropertyModel> fetchRecentProperties();
-  Future<PaginatedPropertyModel> fetchPremuimProperties();
+  Future<PaginatedPropertyModel> fetchPremiumProperties();
   Future<PropertyDetailWrapperModel> fetchPropertyDetail(
       {@required String slug});
   Future<PaginatedPropertyModel> fetchPropertiesByAgency(
       {@required PropertyQuery query});
   Future<PropertyMetaModel> fetchPropertyMetas();
+  Future<List<PropertyCategoryModel>> fetchPropertyCategories();
   Future<LocationModel> fetchLocations();
 }

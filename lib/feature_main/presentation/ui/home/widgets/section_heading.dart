@@ -5,8 +5,9 @@ class SectionHeading extends StatelessWidget {
   final VoidCallback onViewAllTap;
 
   const SectionHeading(
-      {Key key, @required this.title, @required this.onViewAllTap})
+      {Key key, @required this.title, this.onViewAllTap})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -22,15 +23,17 @@ class SectionHeading extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(width: 8),
-        FlatButton(
-          visualDensity: VisualDensity.compact,
-          child: Text(
-            'View All',
-            style: theme.textTheme.button.copyWith(color: theme.primaryColor),
+        if (onViewAllTap != null) ...[
+          SizedBox(width: 8),
+          FlatButton(
+            visualDensity: VisualDensity.compact,
+            child: Text(
+              'View All',
+              style: theme.textTheme.button.copyWith(color: theme.primaryColor),
+            ),
+            onPressed: onViewAllTap,
           ),
-          onPressed: onViewAllTap,
-        ),
+        ],
       ],
     );
   }

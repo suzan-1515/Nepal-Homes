@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nepal_homes/core/services/services.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/main/main_screen.dart';
+import 'package:nepal_homes/feature_main/presentation/ui/splash/splash_screen.dart';
 import 'package:nepal_homes/feature_main/utils/provider.dart';
 import 'package:nepali_utils/nepali_utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,7 +56,7 @@ class App extends StatelessWidget {
               return MaterialApp(
                 theme: _getTheme(settings.useDarkMode, settings.usePitchBlack),
                 onGenerateRoute: GetIt.I.get<NavigationService>().generateRoute,
-                initialRoute: MainScreen.ROUTE_NAME,
+                initialRoute: SplashScreen.ROUTE_NAME,
                 themeMode: settings.themeSetBySystem
                     ? ThemeMode.system
                     : _getThemeMode(

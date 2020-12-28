@@ -5,13 +5,12 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_detail_entity.dart';
 import 'package:nepal_homes/feature_property_listing/domain/usecases/usecases.dart';
-import 'package:nepal_homes/feature_property_listing/presentation/extensions/property_extensions.dart';
-import 'package:nepal_homes/feature_property_listing/presentation/models/property_detail_model.dart';
 
 part 'property_detail_state.dart';
 
 class PropertyDetailCubit extends Cubit<PropertyDetailState> {
   final GetPropertyDetailUseCase getPropertyDetailUseCase;
+
   PropertyDetailCubit({@required this.getPropertyDetailUseCase})
       : super(PropertyDetailInitial());
 

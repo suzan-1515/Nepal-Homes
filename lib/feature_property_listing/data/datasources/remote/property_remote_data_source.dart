@@ -2,6 +2,7 @@ import 'package:nepal_homes/feature_property_listing/data/datasources/remote/rem
 import 'package:nepal_homes/feature_property_listing/data/models/hot_property_model.dart';
 import 'package:nepal_homes/feature_property_listing/data/models/featured_property_model.dart';
 import 'package:nepal_homes/feature_property_listing/data/models/location_model.dart';
+import 'package:nepal_homes/feature_property_listing/data/models/property_category_model.dart';
 import 'package:nepal_homes/feature_property_listing/data/models/property_detail_model.dart';
 import 'package:nepal_homes/feature_property_listing/data/models/property_meta_model.dart';
 import 'package:nepal_homes/feature_property_listing/data/models/property_model.dart';
@@ -57,8 +58,8 @@ class PropertyRemoteDataSource with RemoteDataSource {
   }
 
   @override
-  Future<PaginatedPropertyModel> fetchPremuimProperties() async {
-    var response = await _remoteService.fetchPremuimProperties();
+  Future<PaginatedPropertyModel> fetchPremiumProperties() async {
+    var response = await _remoteService.fetchPremiumProperties();
     return PaginatedPropertyModel.fromMap(response);
   }
 
@@ -66,5 +67,11 @@ class PropertyRemoteDataSource with RemoteDataSource {
   Future<PaginatedPropertyModel> fetchRecentProperties() async {
     var response = await _remoteService.fetchRecentProperties();
     return PaginatedPropertyModel.fromMap(response);
+  }
+
+  @override
+  Future<List<PropertyCategoryModel>> fetchPropertyCategories() async{
+    var response = await _remoteService.fetchPropertyCategories();
+    return response['data']['property_category']?.map<PropertyCategoryModel>((e)=>PropertyCategoryModel.fromMap(e))?.toList();
   }
 }

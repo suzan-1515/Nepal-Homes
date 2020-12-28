@@ -1,12 +1,7 @@
-import 'dart:developer';
-
-import 'package:flutter_advanced_networkimage/provider.dart';
 
 import 'package:flutter/material.dart';
-import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:nepal_homes/core/widgets/bordered_container.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/property_detail_model.dart';
-import 'package:nepal_homes/feature_property_listing/presentation/ui/detail/widgets/amenity_item.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/detail/widgets/section_header.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:webview_flutter/webview_flutter.dart';

@@ -6,6 +6,7 @@ import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/pro
 import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/property_price_range_filter.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/property_purpose_filter.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/property_road_type_filter.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/property_sort_filter.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/property_type_filter.dart';
 import 'package:scoped_model/scoped_model.dart';
 
@@ -20,6 +21,8 @@ class FilterView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            PropertySortFilter(filter: filter),
+            SizedBox(height: 16),
             PropertyPurposeFilter(filter: filter),
             SizedBox(height: 16),
             PropertyPremiumFeaturedFilter(filter: filter),

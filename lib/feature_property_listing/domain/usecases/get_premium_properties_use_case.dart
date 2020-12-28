@@ -13,7 +13,7 @@ class GetPremiumPropertiesUseCase
   @override
   Future<PaginatedPropertyEntity> call(NoParams params) {
     try {
-      return this._repository.getPremuimProperties();
+      return this._repository.getPremiumProperties();
     } catch (e) {
       log('GetPremiumPropertiesUseCase unsuccessful.', error: e);
       throw e;

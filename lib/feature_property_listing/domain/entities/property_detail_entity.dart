@@ -94,6 +94,7 @@ class PropertyDetailEntity extends Equatable {
     @required this.propertyId,
     @required this.agency,
     @required this.agent,
+    @required this.addedBy,
     @required this.verifiedAt,
     @required this.verifiedBy,
   });
@@ -135,6 +136,7 @@ class PropertyDetailEntity extends Equatable {
   final int propertyId;
   final AgencyEntity agency;
   final AgentEntity agent;
+  final AgentEntity addedBy;
   final DateTime verifiedAt;
   final String verifiedBy;
 
@@ -176,6 +178,7 @@ class PropertyDetailEntity extends Equatable {
     int propertyId,
     AgencyEntity agency,
     AgentEntity agent,
+    AgentEntity addedBy,
     DateTime verifiedAt,
     String verifiedBy,
   }) {
@@ -217,6 +220,7 @@ class PropertyDetailEntity extends Equatable {
       propertyId: propertyId ?? this.propertyId,
       agency: agency ?? this.agency,
       agent: agent ?? this.agent,
+      addedBy: addedBy ?? this.addedBy,
       verifiedAt: verifiedAt ?? this.verifiedAt,
       verifiedBy: verifiedBy ?? this.verifiedBy,
     );
@@ -264,6 +268,7 @@ class PropertyDetailEntity extends Equatable {
       'property_id': propertyId,
       'agency_id': agency?.toMap(),
       'agent_id': agent?.toMap(),
+      'added_by': addedBy?.toMap(),
       'verified_at': verifiedAt?.millisecondsSinceEpoch,
       'verified_by': verifiedBy,
     };
@@ -309,6 +314,7 @@ class PropertyDetailEntity extends Equatable {
       propertyId,
       agency,
       agent,
+      addedBy,
       verifiedAt,
       verifiedBy,
     ];

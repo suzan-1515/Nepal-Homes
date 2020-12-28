@@ -13,76 +13,69 @@ class PropertyRemoteService with RemoteService {
   PropertyRemoteService(this._httpManager);
 
   @override
-  Future fetchPropertyDetail({String slug}) async {
+  Future fetchPropertyDetail({String slug}) {
     var path = '$PROPERTY_ENDPOINT/$slug';
-    var call = await _httpManager.get(path: path);
-
-    return call;
+    return _httpManager.get(path: path);
   }
 
   @override
-  Future fetchProperties({PropertyQuery query}) async {
+  Future fetchProperties({PropertyQuery query})  {
     // Map<String, String> headers = {
     //   'Authorization': 'Bearer $token',
     // };
-    var call =
-        await _httpManager.get(path: PROPERTY_ENDPOINT, query: query.toMap());
 
-    return call;
+
+    return _httpManager.get(path: PROPERTY_ENDPOINT, query: query.toMap());
   }
 
   @override
-  Future fetchPropertiesByAgency({PropertyQuery query}) async {
+  Future fetchPropertiesByAgency({PropertyQuery query}) {
     Map<String, String> q = {
       'agency_id': query.agencyId,
       'sort': query.sort?.toString(),
       'find_property_purpose': query.propertyPurposeId,
     };
-    var call = await _httpManager.get(path: PROPERTY_ENDPOINT, query: q);
-    return call;
+    return _httpManager.get(path: PROPERTY_ENDPOINT, query: q);
   }
 
   @override
-  Future fetchPropertyMetas() async {
-    var call = await _httpManager.get(path: META_ENDPOINT);
-    return call;
+  Future fetchPropertyMetas() {
+    return _httpManager.get(path: META_ENDPOINT);
   }
 
   @override
-  Future fetchLocations() async {
-    var call = await _httpManager.get(path: LOCATION_ENDPOINT);
-    return call;
+  Future fetchLocations() {
+    return _httpManager.get(path: LOCATION_ENDPOINT);
   }
 
   @override
-  Future fetchFeaturedProperties() async {
-    var call = await _httpManager.get(path: FEATURED_PROPERTY_ENDPOINT);
-
-    return call;
+  Future fetchFeaturedProperties() {
+    return _httpManager.get(path: FEATURED_PROPERTY_ENDPOINT);
   }
 
   @override
-  Future fetchHotProperties() async {
-    var call = await _httpManager.get(path: HOT_PROPERTY_ENDPOINT);
-
-    return call;
+  Future fetchHotProperties() {
+    return _httpManager.get(path: HOT_PROPERTY_ENDPOINT);
   }
 
   @override
-  Future fetchPremuimProperties() async {
+  Future fetchPremiumProperties() {
     Map<String, String> q = {
       'find_is_premium': 'true',
     };
-    var call = await _httpManager.get(path: PROPERTY_ENDPOINT, query: q);
-    return call;
+    return _httpManager.get(path: PROPERTY_ENDPOINT, query: q);
   }
 
   @override
-  Future fetchRecentProperties() async {
+  Future fetchRecentProperties()  {
     Map<String, String> q = {
       'size': '4',
     };
-    var call = await _httpManager.get(path: PROPERTY_ENDPOINT, query: q);
-    return call;
+    return _httpManager.get(path: PROPERTY_ENDPOINT, query: q);
+  }
+
+  @override
+  Future fetchPropertyCategories(){
+    return _httpManager.get(path: META_ENDPOINT);
   }
 }

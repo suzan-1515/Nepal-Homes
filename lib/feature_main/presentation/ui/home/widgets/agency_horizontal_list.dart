@@ -9,30 +9,29 @@ class AgencyHorizontalList extends StatelessWidget {
 
   const AgencyHorizontalList({Key key, @required this.properties})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return OrientationBuilder(
-      builder: (context, orientation) => StaggeredGridView.countBuilder(
-        primary: false,
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        crossAxisCount: orientation == Orientation.portrait ? 2 : 3,
-        itemCount: properties.length,
-        itemBuilder: (context, index) {
-          final e = properties[index].entity;
-          return AgencyGridViewItem(
-            onTap: () => Navigator.pushNamed(
-              context,
-              AgencyDetailScreen.ROUTE_NAME,
-              arguments: AgencyDetailScreenArgs(e.id),
-            ),
-            image: e.logo?.fullPath,
-            propertyCount: e.productCount,
-            title: e.title,
-          );
-        },
-        staggeredTileBuilder: (index) => StaggeredTile.fit(1),
-      ),
+    return StaggeredGridView.countBuilder(
+      primary: false,
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      crossAxisCount: 2,
+      itemCount: properties.length,
+      itemBuilder: (context, index) {
+        final e = properties[index].entity;
+        return AgencyGridViewItem(
+          onTap: () => Navigator.pushNamed(
+            context,
+            AgencyDetailScreen.ROUTE_NAME,
+            arguments: AgencyDetailScreenArgs(e.id),
+          ),
+          image: e.logo?.fullPath,
+          propertyCount: e.productCount,
+          title: e.title,
+        );
+      },
+      staggeredTileBuilder: (index) => StaggeredTile.fit(1),
     );
   }
 }
