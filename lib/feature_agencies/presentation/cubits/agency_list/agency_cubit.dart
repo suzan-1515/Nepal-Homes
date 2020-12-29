@@ -6,20 +6,22 @@ import 'package:meta/meta.dart';
 import 'package:nepal_homes/core/models/page_config.dart';
 import 'package:nepal_homes/feature_agencies/domain/entities/agency_entity.dart';
 import 'package:nepal_homes/feature_agencies/domain/usecases/usecases.dart';
-import 'package:nepal_homes/feature_agencies/presentation/models/agency_model.dart';
 import 'package:nepal_homes/feature_agencies/presentation/extensions/agency_extensions.dart';
+import 'package:nepal_homes/feature_agencies/presentation/models/agency_model.dart';
 
 part 'agency_state.dart';
 
 class AgencyCubit extends Cubit<AgencyState> {
   final GetAgenciesUseCase getAgenciesUseCase;
   final GetAgencyDetailUseCase getAgencyDetailUseCase;
+
   AgencyCubit(
       {@required this.getAgenciesUseCase,
       @required this.getAgencyDetailUseCase})
       : super(AgencyInitial());
 
   int _page = 1;
+
   int get page => this._page;
 
   getAgencies() async {

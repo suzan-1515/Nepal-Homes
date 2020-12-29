@@ -13,6 +13,7 @@ import 'core/network/http_manager/app_http_manager.dart';
 import 'core/network/http_manager/http_manager.dart';
 import 'core/network/network_info.dart';
 import 'feature_auth/utils/providers.dart';
+import 'feature_news/utils/provider.dart';
 
 class GlobalProvider {
   GlobalProvider._();
@@ -65,5 +66,6 @@ class GlobalProvider {
     SettingsProvider.setup();
     PropertyProvider.setup();
     AgencyProvider.setup();
+    NewsProvider.setup();
   }
 }

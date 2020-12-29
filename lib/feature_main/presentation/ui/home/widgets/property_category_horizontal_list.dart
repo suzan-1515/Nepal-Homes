@@ -1,5 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:nepal_homes/core/constants/api_url_constants.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_category_entity.dart';
 
@@ -35,8 +35,9 @@ class PropertyCategoryHorizontalList extends StatelessWidget {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AdvancedNetworkImage(x.media?.fullPath ??
-                                  APIUrlConstants.DEFAULT_IMAGE_URL),
+                              image: CachedNetworkImageProvider(
+                                  x.media?.fullPath ??
+                                      APIUrlConstants.DEFAULT_IMAGE_URL),
                             ),
                             boxShadow: [
                               BoxShadow(

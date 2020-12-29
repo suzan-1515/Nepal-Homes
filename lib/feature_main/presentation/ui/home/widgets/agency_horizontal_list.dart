@@ -12,11 +12,13 @@ class AgencyHorizontalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final crossAxisCount = MediaQuery.of(context).orientation == Orientation.portrait?2:3;
     return StaggeredGridView.countBuilder(
+      key: UniqueKey(),
       primary: false,
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      crossAxisCount: 2,
+      crossAxisCount: crossAxisCount,
       itemCount: properties.length,
       itemBuilder: (context, index) {
         final e = properties[index].entity;

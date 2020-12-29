@@ -34,7 +34,7 @@ class AgencySection extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is AgencyLoadSuccess) {
-              return AgencyHorizontalList(properties: state.agencies);
+              return AgencyHorizontalList(properties: state.agencies.take(6).toList());
             } else if (state is AgencyLoadError) {
               return Center(
                 child: ErrorDataView(

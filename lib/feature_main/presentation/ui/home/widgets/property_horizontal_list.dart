@@ -10,7 +10,9 @@ class PropertyHorizontalList extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final crossAxisExtent = MediaQuery.of(context).size.width * 0.7;
+    final crossAxisExtent = MediaQuery.of(context).orientation == Orientation.portrait
+        ? MediaQuery.of(context).size.width * 0.7
+        : MediaQuery.of(context).size.width * 0.4;
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,

@@ -2,8 +2,7 @@ import 'dart:developer';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_networkimage/zoomable.dart';
-import 'package:nepal_homes/core/widgets/cached_image_widget_2.dart';
+import 'package:nepal_homes/core/widgets/cached_image_widget.dart';
 
 class DetailImageCarousel extends StatefulWidget {
   const DetailImageCarousel({
@@ -39,11 +38,8 @@ class _DetailImageCarouselState extends State<DetailImageCarousel> {
             },
             child: CarouselSlider.builder(
               itemCount: widget.images.length,
-              itemBuilder: (BuildContext context, int itemIndex) =>
-                  ZoomableWidget(
-                child: CachedImage(
-                  widget.images[itemIndex] ?? '',
-                ),
+              itemBuilder: (BuildContext context, int itemIndex) => CachedImage(
+                widget.images[itemIndex] ?? '',
               ),
               options: CarouselOptions(
                 pageViewKey: PageStorageKey('property-detail-carousel'),
