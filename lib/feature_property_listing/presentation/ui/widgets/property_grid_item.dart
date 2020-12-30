@@ -14,9 +14,11 @@ class PropertyGridItem extends StatelessWidget {
     this.price,
     this.priceLabel,
     this.address,
+    this.imageHeight = 100,
   });
 
   final String image;
+  final double imageHeight;
   final VoidCallback onTap;
   final String category;
   final String purpose;
@@ -41,7 +43,7 @@ class PropertyGridItem extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              height: 100,
+              height: imageHeight,
               decoration: BoxDecoration(
                 color: theme.highlightColor,
               ),
@@ -113,7 +115,7 @@ class PropertyGridItem extends StatelessWidget {
                     maxLines: 2,
                     style: Theme.of(context)
                         .textTheme
-                        .bodyText2
+                        .caption
                         .copyWith(color: Color.fromARGB(255, 145, 152, 161)),
                   ),
                   icon: Icon(

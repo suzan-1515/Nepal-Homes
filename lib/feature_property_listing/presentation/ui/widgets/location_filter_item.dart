@@ -52,8 +52,8 @@ class _LocationFilterItemState extends State<LocationFilterItem> {
       onChanged: (value) {
         setState(() {
           _currentValue = value;
-          widget.onChanged(value);
         });
+        widget.onChanged(value);
       },
       onClear: () => widget.onClear(),
       searchFn: (String keyword, List<DropdownMenuItem<Location>> items) =>

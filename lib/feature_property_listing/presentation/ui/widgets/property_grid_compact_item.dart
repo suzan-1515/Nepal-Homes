@@ -11,6 +11,7 @@ class PropertyGridCompactItem extends StatelessWidget {
     this.price,
     this.priceLabel,
     this.address,
+    this.imageHeight = 100,
   });
 
   final String image;
@@ -18,6 +19,7 @@ class PropertyGridCompactItem extends StatelessWidget {
   final String price;
   final String priceLabel;
   final String address;
+  final double imageHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +37,7 @@ class PropertyGridCompactItem extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              height: 100,
+              height: imageHeight,
               decoration: BoxDecoration(
                 color: theme.highlightColor,
               ),

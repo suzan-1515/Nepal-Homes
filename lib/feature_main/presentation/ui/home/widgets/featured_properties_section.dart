@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nepal_homes/core/widgets/empty_data_widget.dart';
 import 'package:nepal_homes/core/widgets/error_data_widget.dart';
 import 'package:nepal_homes/core/widgets/progress_widget.dart';
-import 'package:nepal_homes/feature_main/presentation/ui/home/widgets/property_horizontal_list.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/property_horizontal_list.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/cubits/featured_property_list/featured_property_cubit.dart';
 import 'package:nepal_homes/feature_property_listing/utils/provider.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/extensions/property_extensions.dart';

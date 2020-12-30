@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:nepal_homes/core/models/nullable.dart';
 import 'package:nepal_homes/core/widgets/cached_image_widget.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_purpose_entity.dart';
@@ -8,10 +10,12 @@ import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/pur
 
 class PropertyPurposeFilter extends StatelessWidget {
   final FilterUIModel filter;
+
   const PropertyPurposeFilter({
     Key key,
     @required this.filter,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -68,33 +72,35 @@ class _PurposeFilterOptionsViewState extends State<PurposeFilterOptionsView> {
   Widget build(BuildContext context) {
     final crossAxisCount =
         MediaQuery.of(context).orientation == Orientation.portrait ? 2 : 3;
-    return GridView.count(
+    return StaggeredGridView.countBuilder(
+      key: UniqueKey(),
+      primary: false,
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
       crossAxisCount: crossAxisCount,
-      childAspectRatio: 1.5,
+      itemCount: widget.data.length,
       mainAxisSpacing: 8.0,
       crossAxisSpacing: 8.0,
-      primary: false,
-      shrinkWrap: true,
-      children: widget.data
-          .map(
-            (e) => PurposeFilterItem(
-              title: e.title,
-              icon: CachedImage(
-                e.media.fullPath,
-                width: 48,
-                height: 48,
-                fit: BoxFit.cover,
-              ),
-              selected: _selectedItem == e,
-              onTap: (value) {
-                setState(() {
-                  _selectedItem = value ? null : e;
-                  widget.onChanged(_selectedItem);
-                });
-              },
-            ),
-          )
-          .toList(),
+      itemBuilder: (context, index) {
+        final e = widget.data[index];
+        return PurposeFilterItem(
+          title: e.title,
+          icon: CachedImage(
+            e.media.fullPath,
+            width: 0.1.sw,
+            height: 0.1.sw,
+            fit: BoxFit.cover,
+          ),
+          selected: _selectedItem == e,
+          onTap: (value) {
+            setState(() {
+              _selectedItem = value ? null : e;
+            });
+            widget.onChanged(_selectedItem);
+          },
+        );
+      },
+      staggeredTileBuilder: (index) => StaggeredTile.fit(1),
     );
   }
 }

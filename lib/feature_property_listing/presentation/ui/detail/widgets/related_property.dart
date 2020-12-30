@@ -1,20 +1,26 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:nepal_homes/core/extensions/date_time.dart';
 import 'package:nepal_homes/core/widgets/bordered_container.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/property_detail_model.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/detail/widgets/section_header.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/property_grid_item.dart';
-import 'package:nepal_homes/core/extensions/date_time.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 import '../property_detail_screen.dart';
 
 class RelatedProperty extends StatelessWidget {
   const RelatedProperty();
+
   @override
   Widget build(BuildContext context) {
     final property =
         ScopedModel.of<PropertyDetailUIModel>(context, rebuildOnChange: true);
-    final crossAxisExtent = MediaQuery.of(context).size.width * 0.7;
+    // final mediaQuery = MediaQuery.of(context);
+    final crossAxisExtent =300.0;
+    final itemCoverHeight = 100.0;
     return BorderedContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -34,6 +40,7 @@ class RelatedProperty extends StatelessWidget {
                   ?.map<Widget>((e) => SizedBox(
                         width: crossAxisExtent,
                         child: PropertyGridItem(
+                          imageHeight: itemCoverHeight,
                           onTap: () => Navigator.pushNamed(
                             context,
                             PropertyDetailScreen.ROUTE_NAME,

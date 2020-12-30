@@ -8,7 +8,7 @@ import 'package:nepal_homes/feature_agencies/presentation/cubits/agency_list/age
 import 'package:nepal_homes/feature_agencies/presentation/ui/agency_list/agency_list_screen.dart';
 import 'package:nepal_homes/feature_agencies/utils/provider.dart';
 
-import 'agency_horizontal_list.dart';
+import '../../../../../feature_agencies/presentation/ui/widgets/agency_horizontal_list.dart';
 import 'section_container.dart';
 import 'section_heading.dart';
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:nepal_homes/core/constants/api_url_constants.dart';
+import 'package:nepal_homes/core/extensions/date_time.dart';
 import 'package:nepal_homes/core/widgets/cached_image_widget.dart';
 import 'package:nepal_homes/core/widgets/icon_text.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_entity.dart';
@@ -8,10 +9,11 @@ import 'package:nepal_homes/feature_property_listing/presentation/models/propert
 import 'package:nepal_homes/feature_property_listing/presentation/ui/detail/property_detail_screen.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/property_stat_item.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:nepal_homes/core/extensions/date_time.dart';
 
 class PropertyListItem extends StatelessWidget {
-  const PropertyListItem();
+  final double coverHeight;
+
+  const PropertyListItem({Key key, this.coverHeight = 120}) : super(key: key);
 
   List<Widget> _buildStatRowItems(PropertyEntity property) {
     final stats = <Widget>[];
@@ -120,7 +122,7 @@ class PropertyListItem extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              height: 120,
+              height: coverHeight,
               decoration: BoxDecoration(
                 color: theme.highlightColor,
               ),

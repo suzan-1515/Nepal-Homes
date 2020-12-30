@@ -7,7 +7,7 @@ import 'package:nepal_homes/core/widgets/progress_widget.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/cubits/property_category/property_category_cubit.dart';
 import 'package:nepal_homes/feature_property_listing/utils/provider.dart';
 
-import 'property_category_horizontal_list.dart';
+import '../../../../../feature_property_listing/presentation/ui/widgets/property_category_horizontal_list.dart';
 import 'section_container.dart';
 import 'section_heading.dart';
 

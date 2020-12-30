@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nepal_homes/core/services/services.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/main/main_screen.dart';
@@ -53,20 +54,24 @@ class App extends StatelessWidget {
                 state is SettingsPitchBlackModeChangedState ||
                 state is SettingsSystemThemeChangedState) {
               var settings = context.watch<SettingsCubit>().settings;
-              return MaterialApp(
-                theme: _getTheme(settings.useDarkMode, settings.usePitchBlack),
-                onGenerateRoute: GetIt.I.get<NavigationService>().generateRoute,
-                initialRoute: SplashScreen.ROUTE_NAME,
-                themeMode: settings.themeSetBySystem
-                    ? ThemeMode.system
-                    : _getThemeMode(
-                        settings.themeSetBySystem, settings.useDarkMode),
-                darkTheme: settings.usePitchBlack
-                    ? Themes.pitchBlack
-                    : Themes.darkTheme,
-                navigatorObservers: [
-                  GetIt.I.get<AnalyticsService>().getAnalyticsObserver(),
-                ],
+              return ScreenUtilInit(
+                designSize: Size(412, 684),
+                allowFontScaling: false,
+                child: MaterialApp(
+                  theme: _getTheme(settings.useDarkMode, settings.usePitchBlack),
+                  onGenerateRoute: GetIt.I.get<NavigationService>().generateRoute,
+                  initialRoute: SplashScreen.ROUTE_NAME,
+                  themeMode: settings.themeSetBySystem
+                      ? ThemeMode.system
+                      : _getThemeMode(
+                          settings.themeSetBySystem, settings.useDarkMode),
+                  darkTheme: settings.usePitchBlack
+                      ? Themes.pitchBlack
+                      : Themes.darkTheme,
+                  navigatorObservers: [
+                    GetIt.I.get<AnalyticsService>().getAnalyticsObserver(),
+                  ],
+                ),
               );
             }
 

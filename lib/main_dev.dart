@@ -1,12 +1,16 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get_it/get_it.dart';
 import 'package:nepal_homes/core/services/services.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/main/main_screen.dart';
 import 'package:nepal_homes/feature_main/utils/provider.dart';
 import 'package:nepali_utils/nepali_utils.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'core/themes.dart' as Themes;
 import 'feature_auth/utils/providers.dart';
 import 'feature_main/presentation/blocs/settings/settings_cubit.dart';
@@ -17,7 +21,10 @@ Future<void> main() async {
   await Firebase.initializeApp();
   NepaliUtils(Language.nepali);
   GlobalProvider.setup(await SharedPreferences.getInstance());
-  runApp(App());
+  runApp(DevicePreview(
+    enabled: !kReleaseMode,
+    builder: (context) => App(),
+  ));
 }
 
 class App extends StatelessWidget {
@@ -52,20 +59,26 @@ class App extends StatelessWidget {
                 state is SettingsPitchBlackModeChangedState ||
                 state is SettingsSystemThemeChangedState) {
               var settings = context.watch<SettingsCubit>().settings;
-              return MaterialApp(
-                theme: _getTheme(settings.useDarkMode, settings.usePitchBlack),
-                onGenerateRoute: GetIt.I.get<NavigationService>().generateRoute,
-                initialRoute: MainScreen.ROUTE_NAME,
-                themeMode: settings.themeSetBySystem
-                    ? ThemeMode.system
-                    : _getThemeMode(
-                        settings.themeSetBySystem, settings.useDarkMode),
-                darkTheme: settings.usePitchBlack
-                    ? Themes.pitchBlack
-                    : Themes.darkTheme,
-                navigatorObservers: [
-                  GetIt.I.get<AnalyticsService>().getAnalyticsObserver(),
-                ],
+              return ScreenUtilInit(
+                designSize: Size(750, 1334),
+                allowFontScaling: false,
+                child: MaterialApp(
+                  theme:
+                      _getTheme(settings.useDarkMode, settings.usePitchBlack),
+                  onGenerateRoute:
+                      GetIt.I.get<NavigationService>().generateRoute,
+                  initialRoute: MainScreen.ROUTE_NAME,
+                  themeMode: settings.themeSetBySystem
+                      ? ThemeMode.system
+                      : _getThemeMode(
+                          settings.themeSetBySystem, settings.useDarkMode),
+                  darkTheme: settings.usePitchBlack
+                      ? Themes.pitchBlack
+                      : Themes.darkTheme,
+                  navigatorObservers: [
+                    GetIt.I.get<AnalyticsService>().getAnalyticsObserver(),
+                  ],
+                ),
               );
             }
 

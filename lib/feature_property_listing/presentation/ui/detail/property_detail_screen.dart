@@ -53,7 +53,7 @@ class PropertyDetailScreen extends StatelessWidget {
                     model: state.propertyDetailEntity.toUIModel,
                     child: SingleChildScrollView(
                       physics: BouncingScrollPhysics(),
-                      child: const DetailBody(),
+                      child: DetailBody(),
                     ),
                   );
                 } else if (state is PropertyDetailLoadEmpty) {

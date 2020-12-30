@@ -9,13 +9,14 @@ import 'package:scoped_model/scoped_model.dart';
 import 'address_view.dart';
 import 'category_view.dart';
 import 'image_carousel.dart';
-import 'ribbon_view.dart';
 import 'location_map.dart';
 import 'price_view.dart';
 import 'related_property.dart';
+import 'ribbon_view.dart';
 
 class DetailBody extends StatelessWidget {
   const DetailBody();
+
   @override
   Widget build(BuildContext context) {
     final property = ScopedModel.of<PropertyDetailUIModel>(context);

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:nepal_homes/core/widgets/bordered_container.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/property_detail_model.dart';
@@ -13,7 +12,10 @@ class LocationMap extends StatelessWidget {
   Widget build(BuildContext context) {
     final property =
         ScopedModel.of<PropertyDetailUIModel>(context, rebuildOnChange: true);
-    final mapHeight = MediaQuery.of(context).size.height * .30;
+    final mediaQuery = MediaQuery.of(context);
+    final mapHeight = mediaQuery.orientation == Orientation.portrait
+        ? mediaQuery.size.height * .30
+        : mediaQuery.size.height * .60;
     return BorderedContainer(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Column(

@@ -31,7 +31,6 @@ class PurposeFilterItem extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             icon,
             SizedBox(height: 16.0),
