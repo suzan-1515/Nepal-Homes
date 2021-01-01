@@ -1,8 +1,7 @@
-import 'dart:developer';
-
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:nepal_homes/core/widgets/cached_image_widget.dart';
+import 'package:nepal_homes/core/widgets/gallery_view_screen.dart';
 
 class DetailImageCarousel extends StatefulWidget {
   const DetailImageCarousel({
@@ -30,59 +29,63 @@ class _DetailImageCarouselState extends State<DetailImageCarousel> {
     final theme = Theme.of(context);
     return ClipRRect(
       borderRadius: BorderRadius.circular(6.0),
-      child: Stack(
-        children: [
-          GestureDetector(
-            onTap: () {
-              log('Image tapped ${_currentIndex.value}');
-            },
-            child: CarouselSlider.builder(
-              itemCount: widget.images.length,
-              itemBuilder: (BuildContext context, int itemIndex) => CachedImage(
-                widget.images[itemIndex] ?? '',
-              ),
-              options: CarouselOptions(
-                pageViewKey: PageStorageKey('property-detail-carousel'),
-                initialPage: 0,
-                viewportFraction: 1,
-                enableInfiniteScroll: true,
-                autoPlay: true,
-                enlargeCenterPage: false,
-                autoPlayInterval: Duration(seconds: 5),
-                autoPlayAnimationDuration: Duration(milliseconds: 800),
-                autoPlayCurve: Curves.fastOutSlowIn,
-                onPageChanged: (index, reason) => _currentIndex.value = index,
-                scrollDirection: Axis.horizontal,
+      child: AspectRatio(
+        aspectRatio: 16 / 9,
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(context, GalleryViewScreen.ROUTE,
+                  arguments: GalleryViewScreenArgs(
+                      images: widget.images,
+                      currentIndex: _currentIndex.value)),
+              child: PageView(
+                children: widget.images
+                    ?.map((e) => CachedImage(
+                          e,
+                          tag: e,
+                        ))
+                    ?.toList(),
+                onPageChanged: (value) {
+                  _currentIndex.value = value;
+                },
               ),
             ),
-          ),
-          Positioned(
-            bottom: 0,
-            right: 0,
-            left: 0,
-            child: ValueListenableBuilder(
-              valueListenable: _currentIndex,
-              builder: (context, value, child) => Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: widget.images.map((url) {
-                  int index = widget.images.indexOf(url);
-                  return Container(
-                    width: 8.0,
-                    height: 8.0,
-                    margin:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: value == index
-                          ? theme.primaryColor
-                          : Color.fromRGBO(0, 0, 0, 0.4),
-                    ),
-                  );
-                })?.toList(),
+            Positioned(
+              bottom: 16.0,
+              right: 16.0,
+              child: ValueListenableBuilder(
+                valueListenable: _currentIndex,
+                builder: (context, value, child) => Container(
+                  padding: const EdgeInsets.all(8.0),
+                  alignment: Alignment.center,
+                  decoration: ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                    color: Colors.black54,
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        LineAwesomeIcons.images,
+                        color: Colors.white,
+                        size: 18,
+                      ),
+                      SizedBox(width: 8),
+                      Text(
+                        '${value + 1} \\ ${widget.images.length}',
+                        style: theme.textTheme.button.copyWith(
+                            color: theme.backgroundColor,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

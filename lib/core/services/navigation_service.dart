@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nepal_homes/core/widgets/gallery_view_screen.dart';
 import 'package:nepal_homes/feature_agencies/presentation/ui/agency_detail/agency_detail_screen.dart';
 import 'package:nepal_homes/feature_agencies/presentation/ui/agency_list/agency_list_screen.dart';
 import 'package:nepal_homes/feature_auth/presentation/ui/login_screen.dart';
@@ -39,6 +40,9 @@ class NavigationService {
       case PropertyListScreen.ROUTE_NAME:
         return MaterialPageRoute(
             builder: (_) => PropertyListScreen(), settings: settings);
+      case GalleryViewScreen.ROUTE:
+        return MaterialPageRoute(
+            builder: (_) => GalleryViewScreen(), settings: settings);
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
