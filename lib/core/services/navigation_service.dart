@@ -5,6 +5,9 @@ import 'package:nepal_homes/feature_auth/presentation/ui/login_screen.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/main/main_screen.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/splash/splash_screen.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/detail/property_detail_screen.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/ui/list/all/property_list_screen.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/ui/list/featured/featured_property_list_screen.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/ui/list/hot/hot_property_list_screen.dart';
 
 class NavigationService {
   Route<dynamic> generateRoute(RouteSettings settings) {
@@ -27,6 +30,15 @@ class NavigationService {
       case PropertyDetailScreen.ROUTE_NAME:
         return MaterialPageRoute(
             builder: (_) => PropertyDetailScreen(), settings: settings);
+      case HotPropertyListScreen.ROUTE_NAME:
+        return MaterialPageRoute(
+            builder: (_) => HotPropertyListScreen(), settings: settings);
+      case FeaturedPropertyListScreen.ROUTE_NAME:
+        return MaterialPageRoute(
+            builder: (_) => FeaturedPropertyListScreen(), settings: settings);
+      case PropertyListScreen.ROUTE_NAME:
+        return MaterialPageRoute(
+            builder: (_) => PropertyListScreen(), settings: settings);
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

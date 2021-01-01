@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/property_model.dart';
-import 'package:nepal_homes/feature_property_listing/presentation/ui/list/widgets/property_list_item.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/property_list_item.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class PropertyListBuilder extends StatelessWidget {

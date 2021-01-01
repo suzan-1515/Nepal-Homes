@@ -2,17 +2,21 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nepal_homes/core/extensions/view.dart';
 import 'package:nepal_homes/core/widgets/empty_data_widget.dart';
 import 'package:nepal_homes/core/widgets/error_data_widget.dart';
 import 'package:nepal_homes/core/widgets/progress_widget.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_query.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/cubits/property_filter/property_filter_cubit.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/cubits/property_list/property_cubit.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/extensions/property_extensions.dart';
-import 'package:nepal_homes/core/extensions/view.dart';
-import 'package:nepal_homes/feature_property_listing/presentation/ui/list/widgets/property_list_builder.dart';
+
+import 'property_list_builder.dart';
 
 class PropertyList extends StatefulWidget {
-  const PropertyList();
+  const PropertyList({Key key, this.query});
+
+  final PropertyQuery query;
 
   @override
   _PropertyListState createState() => _PropertyListState();
@@ -28,9 +32,22 @@ class _PropertyListState extends State<PropertyList> {
     super.initState();
     _refreshCompleter = Completer<void>();
     _propertyQubit = context.read<PropertyCubit>();
+    this._propertyQuery = widget.query;
     _propertyQubit.getProperties(
       query: _propertyQuery,
     );
+  }
+
+  @override
+  void didUpdateWidget(covariant PropertyList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (this._propertyQuery != widget.query) {
+      this._propertyQuery = widget.query;
+      _propertyQubit.getProperties(
+        query: _propertyQuery,
+      );
+      context.read<PropertyFilterCubit>().updateFilter(query: _propertyQuery);
+    }
   }
 
   @override
@@ -93,7 +110,7 @@ class _PropertyListState extends State<PropertyList> {
           );
         }
         return Center(
-          child: ProgressView(),
+          child: const ProgressView(),
         );
       },
     );

@@ -37,7 +37,7 @@ class DynamicLinkService {
 
       if (uri != null) {
         log('[DynamicLinkService] DeepLink onLinkReceived: ${uri.toString()}');
-        // _linkSubject.add(uri);
+        _linkSubject.add(uri);
       }
     }, onError: (e) {
       log('[DynamicLinkService] DeepLink onLinkError', error: e);

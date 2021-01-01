@@ -15,10 +15,13 @@ part 'property_state.dart';
 
 class PropertyCubit extends Cubit<PropertyState> {
   final GetPropertiesUseCase getPropertiesUseCase;
-  PropertyCubit({@required this.getPropertiesUseCase})
-      : super(PropertyInitial());
+
+  PropertyCubit({
+    @required this.getPropertiesUseCase,
+  }) : super(PropertyInitial());
 
   int _page = 1;
+
   int get page => this._page;
 
   getProperties({PropertyQuery query}) async {
@@ -27,7 +30,7 @@ class PropertyCubit extends Cubit<PropertyState> {
     try {
       _page = 1;
       final PaginatedPropertyEntity paginatedPropertyEntity =
-          await getPropertiesUseCase.call(
+      await getPropertiesUseCase.call(
         GetPropertiesUseCaseParams(query.copyWith(page: Nullable<int>(_page))),
       );
       if (paginatedPropertyEntity == null ||
@@ -37,13 +40,13 @@ class PropertyCubit extends Cubit<PropertyState> {
       else
         emit(PropertyLoadSuccess(paginatedPropertyEntity.data.toUIModel,
             hasMore:
-                (paginatedPropertyEntity.page * paginatedPropertyEntity.size) <
-                    paginatedPropertyEntity.totaldata));
+            (paginatedPropertyEntity.page * paginatedPropertyEntity.size) <
+                paginatedPropertyEntity.totaldata));
     } catch (e) {
       log('Properties load error: ', error: e);
       emit(PropertyLoadError(
           message:
-              'Unable to load property data. Make sure you are connected to Internet.'));
+          'Unable to load property data. Make sure you are connected to Internet.'));
     }
   }
 
@@ -51,7 +54,7 @@ class PropertyCubit extends Cubit<PropertyState> {
     if (state is PropertyLoading) return;
     try {
       final PaginatedPropertyEntity paginatedPropertyEntity =
-          await getPropertiesUseCase.call(
+      await getPropertiesUseCase.call(
         GetPropertiesUseCaseParams(query.copyWith(page: Nullable<int>(1))),
       );
       if (paginatedPropertyEntity == null ||
@@ -66,14 +69,14 @@ class PropertyCubit extends Cubit<PropertyState> {
         emit(PropertyLoading());
         emit(PropertyLoadSuccess(paginatedPropertyEntity.data.toUIModel,
             hasMore:
-                (paginatedPropertyEntity.page * paginatedPropertyEntity.size) <
-                    paginatedPropertyEntity.totaldata));
+            (paginatedPropertyEntity.page * paginatedPropertyEntity.size) <
+                paginatedPropertyEntity.totaldata));
       }
     } catch (e) {
       log('Properties refresh error: ', error: e);
       emit(PropertyError(
           message:
-              'Unable to refresh data. Make sure you are connected to Internet.'));
+          'Unable to refresh data. Make sure you are connected to Internet.'));
     }
   }
 
@@ -83,7 +86,7 @@ class PropertyCubit extends Cubit<PropertyState> {
     emit(PropertyLoadingMore());
     try {
       final PaginatedPropertyEntity paginatedPropertyEntity =
-          await getPropertiesUseCase.call(
+      await getPropertiesUseCase.call(
         GetPropertiesUseCaseParams(
             query.copyWith(page: Nullable<int>(_page + 1))),
       );
@@ -101,12 +104,12 @@ class PropertyCubit extends Cubit<PropertyState> {
               properties: currentState.properties +
                   paginatedPropertyEntity.data.toUIModel,
               hasMore: (paginatedPropertyEntity.page *
-                      paginatedPropertyEntity.size) <
+                  paginatedPropertyEntity.size) <
                   paginatedPropertyEntity.totaldata));
         } else {
           emit(PropertyLoadSuccess(paginatedPropertyEntity.data.toUIModel,
               hasMore: (paginatedPropertyEntity.page *
-                      paginatedPropertyEntity.size) <
+                  paginatedPropertyEntity.size) <
                   paginatedPropertyEntity.totaldata));
         }
       }
@@ -117,7 +120,7 @@ class PropertyCubit extends Cubit<PropertyState> {
       } else
         emit(PropertyError(
             message:
-                'Unable to load more data. Make sure you are connected to Internet.'));
+            'Unable to load more data. Make sure you are connected to Internet.'));
     }
   }
 

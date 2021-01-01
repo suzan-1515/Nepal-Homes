@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen>
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
+          // physics: const BouncingScrollPhysics(),
           slivers: [
             SliverToBoxAdapter(
               child: const HeaderSection(),

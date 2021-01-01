@@ -1,11 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:nepal_homes/core/widgets/progress_widget.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/property_model.dart';
-import 'package:nepal_homes/feature_property_listing/presentation/ui/list/widgets/property_list_item.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:sizer/sizer.dart';
+
+import '../../../widgets/property_list_item.dart';
 
 class PropertyListBuilder extends StatelessWidget {
   final List<PropertyUIModel> data;
@@ -20,7 +19,8 @@ class PropertyListBuilder extends StatelessWidget {
       this.hasMore = false});
 
   _buildList() {
-    final itemCoverHeight = 0.4.sw;
+    final itemCoverHeight =
+        SizerUtil.orientation == Orientation.portrait ? 30.0.w : 20.0.h;
     return ListView.separated(
       itemCount: hasMore ? data.length + 1 : data.length,
       itemBuilder: (context, index) {

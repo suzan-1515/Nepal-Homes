@@ -23,18 +23,9 @@ extension AgentEntityX on AgentEntity {
   AgentUIModel get toUIModel => AgentUIModel(this);
 }
 
-// extension PropertyDetailEntityX on PropertyDetailEntity {
-//   PropertyDetailUIModel get toUIModel => PropertyDetailUIModel(this);
-// }
-
 extension PropertyDetailWrapperEntityX on PropertyDetailWrapperEntity {
   PropertyDetailUIModel get toUIModel => PropertyDetailUIModel(this);
 }
-
-// extension PropertyDetailEntityListX on List<PropertyDetailEntity> {
-//   List<PropertyDetailUIModel> get toUIModel =>
-//       this.map((e) => e.toUIModel).toList();
-// }
 
 extension PropertyMetaEntityX on PropertyMetaEntity {
   PropertyFilterEntity get toFilter => PropertyFilterEntity(propertyMeta: this);

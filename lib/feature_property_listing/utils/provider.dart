@@ -10,6 +10,7 @@ import 'package:nepal_homes/feature_property_listing/data/datasources/remote/rem
 import 'package:nepal_homes/feature_property_listing/data/repositories/property_repository.dart';
 import 'package:nepal_homes/feature_property_listing/data/services/property_remote_service.dart';
 import 'package:nepal_homes/feature_property_listing/data/services/remote_service.dart';
+import 'package:nepal_homes/feature_property_listing/domain/entities/property_query.dart';
 import 'package:nepal_homes/feature_property_listing/domain/repositories/repository.dart';
 import 'package:nepal_homes/feature_property_listing/domain/usecases/get_property_meta_use_case.dart';
 import 'package:nepal_homes/feature_property_listing/domain/usecases/usecases.dart';
@@ -71,9 +72,10 @@ class PropertyProvider {
         (param1, param2) => PropertyDetailCubit(
               getPropertyDetailUseCase: GetIt.I.get<GetPropertyDetailUseCase>(),
             )..getDetail(slug: param1));
-    GetIt.I.registerFactory<PropertyFilterCubit>(() => PropertyFilterCubit(
-          getPropertyMetaUseCase: GetIt.I.get<GetPropertyMetaUseCase>(),
-        )..getMeta());
+    GetIt.I.registerFactoryParam<PropertyFilterCubit, PropertyQuery, void>(
+        (param1, param2) => PropertyFilterCubit(
+              getPropertyMetaUseCase: GetIt.I.get<GetPropertyMetaUseCase>(),
+            )..getMeta(query: param1));
     GetIt.I.registerFactory<PropertyCategoryCubit>(() => PropertyCategoryCubit(
           getPropertyCategoriesUseCase:
               GetIt.I.get<GetPropertyCategoriesUseCase>(),
@@ -122,6 +124,7 @@ class PropertyProvider {
 
   static MultiBlocProvider propertyMultiBlocProvider({
     @required Widget child,
+    PropertyQuery query,
   }) =>
       MultiBlocProvider(
         providers: [
@@ -129,7 +132,8 @@ class PropertyProvider {
             create: (context) => GetIt.I.get<PropertyCubit>(),
           ),
           BlocProvider<PropertyFilterCubit>(
-            create: (context) => GetIt.I.get<PropertyFilterCubit>(),
+            create: (context) =>
+                GetIt.I.get<PropertyFilterCubit>(param1: query),
           ),
         ],
         child: child,

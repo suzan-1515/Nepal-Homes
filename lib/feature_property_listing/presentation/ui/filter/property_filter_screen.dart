@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:nepal_homes/core/extensions/view.dart';
 import 'package:nepal_homes/core/widgets/empty_data_widget.dart';
 import 'package:nepal_homes/core/widgets/error_data_widget.dart';
 import 'package:nepal_homes/core/widgets/progress_widget.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/cubits/property_filter/property_filter_cubit.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/extensions/property_extensions.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/filter_model.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/filter_view.dart';
-import 'package:nepal_homes/feature_property_listing/presentation/extensions/property_extensions.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:nepal_homes/core/extensions/view.dart';
 
 class PropertyFilterScreen extends StatelessWidget {
   Widget _buildAppbar(

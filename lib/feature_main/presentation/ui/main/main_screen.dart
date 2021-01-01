@@ -6,10 +6,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:nepal_homes/core/services/services.dart';
+import 'package:nepal_homes/core/widgets/fab_bottom_app_bar.dart';
 import 'package:nepal_homes/feature_main/presentation/blocs/main/main_cubit.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/home/home_screen.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/more_menu/more_menu_screen.dart';
-import 'package:nepal_homes/feature_property_listing/presentation/ui/list/property_list_screen.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/ui/detail/property_detail_screen.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/ui/list/all/property_list_screen.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/saved/saved_property_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -20,8 +22,9 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final _pageController = PageController();
   StreamSubscription _dynamicLinkSubscription;
+  final _pageController = PageController();
+  final mainCubit = MainCubit();
 
   @override
   void initState() {
@@ -33,14 +36,16 @@ class _MainScreenState extends State<MainScreen> {
     _dynamicLinkSubscription =
         GetIt.I.get<DynamicLinkService>().linkStream.listen((event) {
       log('[MainScreen] dynamic link received: ${event.path}');
-      if (event.pathSegments.first == 'horoscope') {
-        log('[MainScreen] Navigate to horocope screen');
-      } else if (event.pathSegments.first == 'forex') {
-        log('[MainScreen] Navigate to forex screen');
-      } else if (event.pathSegments.first == 'gold-silver') {
-        log('[MainScreen] Navigate to gold-silver screen');
-      } else if (event.pathSegments.first == 'news-detail') {
-        log('[MainScreen] Navigate to news detail screen');
+      if (event.path == PropertyListScreen.ROUTE_NAME) {
+        this.mainCubit.navItemSelected(1,
+            args: PropertyListScreenArgs.fromMap(event.queryParameters));
+      } else if (PropertyDetailScreen.ROUTE_NAME
+          .contains(event.pathSegments.first)) {
+        Navigator.pushNamed(
+          context,
+          PropertyDetailScreen.ROUTE_NAME,
+          arguments: PropertyDetailScreenArgs(event.pathSegments.last),
+        );
       }
     }, onError: (e) {
       log('[MainScreen] already subscribed');
@@ -50,21 +55,24 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MainCubit(),
+      create: (context) => mainCubit,
       child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         body: SafeArea(
           child: Center(
-            child: PageView(
-              controller: _pageController,
-              onPageChanged: (index) => {},
-              children: <Widget>[
-                HomeScreen(),
-                PropertyListScreen(),
-                SavedPropertyListScreen(),
-                MoreMenuScreen(),
-              ],
-              physics: NeverScrollableScrollPhysics(),
+            child: BlocBuilder<MainCubit, MainState>(
+              builder: (context, state) => PageView(
+                physics: const NeverScrollableScrollPhysics(),
+                controller: _pageController,
+                children: <Widget>[
+                  HomeScreen(),
+                  PropertyListScreen(
+                    args: state.args,
+                  ),
+                  SavedPropertyListScreen(),
+                  MoreMenuScreen(),
+                ],
+              ),
             ),
           ),
         ),
@@ -77,36 +85,35 @@ class _MainScreenState extends State<MainScreen> {
           listener: (context, state) {
             if (state is MainNavItemSelectionChangedState) {
               this._pageController.jumpToPage(state.currentIndex);
+              _pageController.jumpToPage(state.currentIndex);
             }
           },
-          builder: (context, state) => BottomNavigationBar(
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            selectedItemColor: Theme.of(context).indicatorColor,
-            backgroundColor: Theme.of(context).backgroundColor,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(LineAwesomeIcons.home),
-                label: 'Home',
+          builder: (context, state) => FABBottomAppBar(
+            selectedColor: Theme.of(context).primaryColor,
+            notchedShape: CircularNotchedRectangle(),
+            notchMargin: 6.0,
+            currentIndex: state.currentIndex,
+            onTabSelected: (value) {
+              context.read<MainCubit>().navItemSelected(value);
+            },
+            items: [
+              FABBottomAppBarItem(
+                iconData: LineAwesomeIcons.home,
+                text: 'Home',
               ),
-              BottomNavigationBarItem(
-                icon: Icon(LineAwesomeIcons.compass),
-                label: 'Property',
+              FABBottomAppBarItem(
+                iconData: LineAwesomeIcons.compass,
+                text: 'Property',
               ),
-              BottomNavigationBarItem(
-                icon: Icon(LineAwesomeIcons.heart),
-                label: 'Saved',
+              FABBottomAppBarItem(
+                iconData: LineAwesomeIcons.heart,
+                text: 'Saved',
               ),
-              BottomNavigationBarItem(
-                icon: Icon(LineAwesomeIcons.th_large),
-                label: 'More',
+              FABBottomAppBarItem(
+                iconData: LineAwesomeIcons.th_large,
+                text: 'More',
               ),
             ],
-            type: BottomNavigationBarType.fixed,
-            currentIndex: state.currentIndex,
-            onTap: (index) {
-              context.read<MainCubit>().navItemSelected(index);
-            },
           ),
         ),
       ),
@@ -115,8 +122,9 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   void dispose() {
-    _pageController.dispose();
+    _pageController?.dispose();
     _dynamicLinkSubscription?.cancel();
+    mainCubit?.close();
     super.dispose();
   }
 }

@@ -4,6 +4,7 @@ import 'package:nepal_homes/feature_property_listing/presentation/models/propert
 import 'package:nepal_homes/feature_property_listing/presentation/ui/detail/widgets/section_header.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:sizer/sizer.dart';
 
 class LocationMap extends StatelessWidget {
   const LocationMap();
@@ -12,10 +13,7 @@ class LocationMap extends StatelessWidget {
   Widget build(BuildContext context) {
     final property =
         ScopedModel.of<PropertyDetailUIModel>(context, rebuildOnChange: true);
-    final mediaQuery = MediaQuery.of(context);
-    final mapHeight = mediaQuery.orientation == Orientation.portrait
-        ? mediaQuery.size.height * .30
-        : mediaQuery.size.height * .60;
+    final mapHeight = SizerUtil.orientation == Orientation.portrait? 50.0.w:30.0.h;
     return BorderedContainer(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Column(
@@ -31,7 +29,7 @@ class LocationMap extends StatelessWidget {
             child: IgnorePointer(
               child: WebView(
                 initialUrl: Uri.dataFromString(
-                        '<html><body style="background-color:"#${Theme.of(context).backgroundColor.value.toRadixString(16)}";><iframe allowtransparency="true" scrolling="no" style="width:100%;height:${mapHeight}px;" src="${property.entity.mapSrc}" frameborder="0" "></iframe></body></html>',
+                        '<html><body><iframe allowtransparency="true" scrolling="no" style="width:100%;height:${mapHeight}px;" src="${property.entity.mapSrc}" frameborder="0" "></iframe></body></html>',
                         mimeType: 'text/html')
                     .toString(),
                 javascriptMode: JavascriptMode.unrestricted,

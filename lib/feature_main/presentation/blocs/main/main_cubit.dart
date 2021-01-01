@@ -13,10 +13,10 @@ class MainCubit extends Cubit<MainState> {
 
   int get navSelectedItemIndex => _navSelectedIndex;
 
-  navItemSelected(int index) {
+  navItemSelected(int index,{Equatable args}) {
     log('[MainCubit] Navigation item selected: $index');
     emit(MainNavItemSelectionChangedState(
-        currentIndex: index, previousIndex: _navSelectedIndex));
+        currentIndex: index, previousIndex: _navSelectedIndex,args:args));
     this._navSelectedIndex = index;
   }
 }
