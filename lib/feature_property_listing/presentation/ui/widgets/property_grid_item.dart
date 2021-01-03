@@ -14,7 +14,7 @@ class PropertyGridItem extends StatelessWidget {
     this.price,
     this.priceLabel,
     this.address,
-    this.imageHeight = 100,
+    this.imageHeight = 120,
   });
 
   final String image;

@@ -6,10 +6,16 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
-        title: Text('Settings'),
+        title: Text(
+          'Settings',
+          style: theme.textTheme.subtitle1.copyWith(
+            color: theme.appBarTheme.iconTheme.color,
+          ),
+        ),
       ),
       body: SafeArea(
         child: Padding(

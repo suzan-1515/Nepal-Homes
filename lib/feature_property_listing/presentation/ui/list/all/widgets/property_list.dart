@@ -7,7 +7,6 @@ import 'package:nepal_homes/core/widgets/empty_data_widget.dart';
 import 'package:nepal_homes/core/widgets/error_data_widget.dart';
 import 'package:nepal_homes/core/widgets/progress_widget.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_query.dart';
-import 'package:nepal_homes/feature_property_listing/presentation/cubits/property_filter/property_filter_cubit.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/cubits/property_list/property_cubit.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/extensions/property_extensions.dart';
 
@@ -32,22 +31,10 @@ class _PropertyListState extends State<PropertyList> {
     super.initState();
     _refreshCompleter = Completer<void>();
     _propertyQubit = context.read<PropertyCubit>();
-    this._propertyQuery = widget.query;
+    this._propertyQuery = widget.query ?? _propertyQuery;
     _propertyQubit.getProperties(
       query: _propertyQuery,
     );
-  }
-
-  @override
-  void didUpdateWidget(covariant PropertyList oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (this._propertyQuery != widget.query) {
-      this._propertyQuery = widget.query;
-      _propertyQubit.getProperties(
-        query: _propertyQuery,
-      );
-      context.read<PropertyFilterCubit>().updateFilter(query: _propertyQuery);
-    }
   }
 
   @override

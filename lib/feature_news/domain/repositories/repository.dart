@@ -1,5 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:nepal_homes/feature_news/domain/entities/category_entity.dart';
+import 'package:nepal_homes/feature_news/domain/entities/news_detail_entity.dart';
 import 'package:nepal_homes/feature_news/domain/entities/news_entity.dart';
 
 mixin Repository {
@@ -20,4 +21,6 @@ mixin Repository {
 
   Future<PaginatedNewsEntity> getLatestCategoryNews(
       {@required String categoryId, @required int page});
+
+  Future<NewsDetailEntity> getNewsDetail({@required String id});
 }

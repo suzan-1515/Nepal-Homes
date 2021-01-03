@@ -3,6 +3,7 @@ import 'package:nepal_homes/core/network/network_info.dart';
 import 'package:nepal_homes/core/services/services.dart';
 import 'package:nepal_homes/feature_news/data/datasources/remote/remote_data_source.dart';
 import 'package:nepal_homes/feature_news/domain/entities/category_entity.dart';
+import 'package:nepal_homes/feature_news/domain/entities/news_detail_entity.dart';
 import 'package:nepal_homes/feature_news/domain/entities/news_entity.dart';
 import 'package:nepal_homes/feature_news/domain/repositories/repository.dart';
 
@@ -62,5 +63,11 @@ class NewsRepository with Repository {
   Future<PaginatedNewsEntity> getTrendingNews() async {
     if (!(await _networkInfo.isConnected)) throw NetworkException();
     return _remoteDataSource.fetchTrendingNews();
+  }
+
+  @override
+  Future<NewsDetailEntity> getNewsDetail({String id}) async {
+    if (!(await _networkInfo.isConnected)) throw NetworkException();
+    return _remoteDataSource.fetchNewsDetail(id: id);
   }
 }

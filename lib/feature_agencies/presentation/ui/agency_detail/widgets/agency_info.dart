@@ -1,7 +1,7 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:nepal_homes/core/constants/api_url_constants.dart';
 import 'package:nepal_homes/core/widgets/cached_image_widget.dart';
@@ -36,7 +36,7 @@ class AgencyInfo extends StatelessWidget {
                 borderRadius: BorderRadius.circular(90.0),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                    image: AdvancedNetworkImage(
+                    image: CachedNetworkImageProvider(
                         agency.entity.agency.logo?.fullPath ??
                             APIUrlConstants.DEFAULT_IMAGE_URL)),
                 boxShadow: [

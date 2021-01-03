@@ -20,7 +20,7 @@ class PropertyListBuilder extends StatelessWidget {
 
   _buildList() {
     final itemCoverHeight =
-        SizerUtil.orientation == Orientation.portrait ? 30.0.w : 20.0.h;
+        SizerUtil.orientation == Orientation.portrait ? 120.0 : 150.0;
     return ListView.separated(
       itemCount: hasMore ? data.length + 1 : data.length,
       itemBuilder: (context, index) {

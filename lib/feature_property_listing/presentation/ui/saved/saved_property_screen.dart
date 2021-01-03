@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-class SavedPropertyListScreen extends StatelessWidget {
+class SavedPropertyListView extends StatelessWidget {
+  static const String ROUTE_NAME = '/saved';
+
+  const SavedPropertyListView({Key key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-      child: Center(
-        child: Text('Saved Properties'),
-      ),
-    ));
+    return Text('Saved Properties');
   }
 }

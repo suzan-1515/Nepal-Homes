@@ -6,9 +6,10 @@ class NewsGridCompactItem extends StatelessWidget {
   const NewsGridCompactItem({
     this.image,
     @required this.onTap,
-    this.title,
+    @required this.title,
     this.author,
-    this.date,
+    @required this.date,
+    this.imageHeight = 100,
   });
 
   final String image;
@@ -16,6 +17,7 @@ class NewsGridCompactItem extends StatelessWidget {
   final String title;
   final String author;
   final String date;
+  final double imageHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +35,7 @@ class NewsGridCompactItem extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              height: 100,
+              height: imageHeight,
               decoration: BoxDecoration(
                 color: theme.highlightColor,
               ),

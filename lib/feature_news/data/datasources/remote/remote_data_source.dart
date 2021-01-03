@@ -1,6 +1,7 @@
 import 'package:meta/meta.dart';
 import 'package:nepal_homes/feature_news/data/models/category_model.dart';
-import 'package:nepal_homes/feature_news/data/models/news_model.dart';
+import 'package:nepal_homes/feature_news/data/models/news_detail_model.dart';
+import 'package:nepal_homes/feature_news/data/models/paginated_news_model.dart';
 
 mixin RemoteDataSource {
   Future<PaginatedNewsModel> fetchNews({@required int page});
@@ -20,4 +21,6 @@ mixin RemoteDataSource {
 
   Future<PaginatedNewsModel> fetchLatestCategoryNews(
       {@required String categoryId, @required int page});
+
+  Future<NewsDetailModel> fetchNewsDetail({@required String id});
 }

@@ -9,6 +9,7 @@ class NewsRemoteService with RemoteService {
   static const HIGHLIGHT_NEWS_ENDPOINT = '/blog/highlight';
   static const NEWS_CATEGORY_ENDPOINT = '/blog/category';
   static const NEWS_BY_CATEGORY_ENDPOINT = '/blog/blogbycat';
+  static const NEWS_DETAIL_ENDPOINT = '/blog/blog';
   final HttpManager _httpManager;
 
   NewsRemoteService(this._httpManager);
@@ -71,5 +72,11 @@ class NewsRemoteService with RemoteService {
   @override
   Future fetchTrendingNews() {
     return _httpManager.get(path: TRENDING_NEWS_ENDPOINT);
+  }
+
+  @override
+  Future fetchNewsDetail({String id}) {
+    final path = '$NEWS_DETAIL_ENDPOINT/$id';
+    return _httpManager.get(path: path);
   }
 }

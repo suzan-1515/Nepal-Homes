@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nepal_homes/core/extensions/view.dart';
 import 'package:nepal_homes/core/models/nullable.dart';
 import 'package:nepal_homes/core/widgets/empty_data_widget.dart';
 import 'package:nepal_homes/core/widgets/error_data_widget.dart';
@@ -8,7 +9,6 @@ import 'package:nepal_homes/feature_agencies/presentation/models/agency_detail_m
 import 'package:nepal_homes/feature_agencies/presentation/ui/agency_detail/widgets/property_list_builder.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_query.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/cubits/property_list/property_cubit.dart';
-import 'package:nepal_homes/core/extensions/view.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class PropertyList extends StatefulWidget {
@@ -20,7 +20,8 @@ class PropertyList extends StatefulWidget {
 
 class _PropertyListState extends State<PropertyList> {
   var _propertyQuery = PropertyQuery();
-  var _propertyQubit;
+  PropertyCubit _propertyQubit;
+
   @override
   void initState() {
     super.initState();

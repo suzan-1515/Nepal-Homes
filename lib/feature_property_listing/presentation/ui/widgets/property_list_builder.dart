@@ -19,7 +19,8 @@ class PropertyListBuilder extends StatelessWidget {
       this.hasMore = false});
 
   _buildList(BuildContext context) {
-    final itemCoverHeight = 30.0.w;
+    final itemCoverHeight =
+        SizerUtil.orientation == Orientation.portrait ? 120.0 : 150.0;
     final crossAxisCount =
         MediaQuery.of(context).orientation == Orientation.portrait ? 1 : 2;
     return StaggeredGridView.countBuilder(

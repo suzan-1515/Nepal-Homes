@@ -5,6 +5,8 @@ import 'package:nepal_homes/feature_agencies/presentation/ui/agency_list/agency_
 import 'package:nepal_homes/feature_auth/presentation/ui/login_screen.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/main/main_screen.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/splash/splash_screen.dart';
+import 'package:nepal_homes/feature_news/presentation/ui/news_detail/news_detail_screen.dart';
+import 'package:nepal_homes/feature_news/presentation/ui/news_list/news_list_screen.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/detail/property_detail_screen.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/list/all/property_list_screen.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/list/featured/featured_property_list_screen.dart';
@@ -43,6 +45,12 @@ class NavigationService {
       case GalleryViewScreen.ROUTE:
         return MaterialPageRoute(
             builder: (_) => GalleryViewScreen(), settings: settings);
+      case NewsListScreen.ROUTE_NAME:
+        return MaterialPageRoute(
+            builder: (_) => NewsListScreen(), settings: settings);
+      case NewsDetailScreen.ROUTE_NAME:
+        return MaterialPageRoute(
+            builder: (_) => NewsDetailScreen(), settings: settings);
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

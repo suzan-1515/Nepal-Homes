@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nepal_homes/core/extensions/view.dart';
+import 'package:nepal_homes/core/utils/link_utils.dart';
 import 'package:nepal_homes/core/widgets/empty_data_widget.dart';
 import 'package:nepal_homes/core/widgets/error_data_widget.dart';
 import 'package:nepal_homes/core/widgets/progress_widget.dart';
@@ -21,7 +22,7 @@ class RecentNewsSection extends StatelessWidget {
       child: SectionContainer(
         heading: SectionHeading(
           title: 'Recent News',
-          onViewAllTap: () {},
+          onViewAllTap: () => LinkUtils.openLink('app://nepalhomes/news'),
         ),
         content: BlocConsumer<LatestNewsCubit, LatestNewsState>(
           listener: (context, state) {

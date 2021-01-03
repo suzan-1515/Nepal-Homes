@@ -1,5 +1,5 @@
-import 'package:flutter_advanced_networkimage/provider.dart';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:nepal_homes/core/constants/api_url_constants.dart';
@@ -28,7 +28,7 @@ class ListingAgent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               CircleAvatar(
-                backgroundImage: AdvancedNetworkImage(
+                backgroundImage: CachedNetworkImageProvider(
                     agent?.image?.fullPath ?? APIUrlConstants.DEFAULT_IMAGE_URL),
                 backgroundColor: theme.highlightColor,
                 radius: 24,

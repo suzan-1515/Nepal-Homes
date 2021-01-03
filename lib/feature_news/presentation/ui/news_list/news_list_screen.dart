@@ -4,7 +4,7 @@ import 'package:nepal_homes/feature_news/utils/provider.dart';
 import 'widgets/news_list.dart';
 
 class NewsListScreen extends StatelessWidget {
-  static const String ROUTE_NAME = '/agencies';
+  static const String ROUTE_NAME = '/news';
 
   @override
   Widget build(BuildContext context) {

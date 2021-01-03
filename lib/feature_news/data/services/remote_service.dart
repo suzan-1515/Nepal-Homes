@@ -18,4 +18,5 @@ mixin RemoteService {
 
   Future<dynamic> fetchLatestCategoryNews(
       {@required String categoryId, @required int page});
+  Future<dynamic> fetchNewsDetail({@required String id});
 }

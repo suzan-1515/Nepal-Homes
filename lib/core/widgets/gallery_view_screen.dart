@@ -1,6 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_networkimage/provider.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
@@ -57,7 +57,7 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
             pageController: _pageController,
             builder: (BuildContext context, int index) {
               return PhotoViewGalleryPageOptions(
-                imageProvider: AdvancedNetworkImage(args.images[index]),
+                imageProvider: CachedNetworkImageProvider(args.images[index]),
                 heroAttributes:
                     PhotoViewHeroAttributes(tag: args.images[index]),
               );

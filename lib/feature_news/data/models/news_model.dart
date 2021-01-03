@@ -7,73 +7,6 @@ import 'author_model.dart';
 import 'category_model.dart';
 import 'image_model.dart';
 
-class LatestCategoryNewsModel extends PaginatedNewsModel {
-  LatestCategoryNewsModel({
-    @required bool success,
-    @required List<NewsModel> data,
-    @required String msg,
-    @required int page,
-    @required int size,
-    @required int totalData,
-  }) : super(
-            success: success,
-            data: data,
-            msg: msg,
-            page: page,
-            size: size,
-            totalData: totalData);
-
-  factory LatestCategoryNewsModel.fromMap(Map<String, dynamic> json) =>
-      LatestCategoryNewsModel(
-        success: json["success"],
-        data: json["data"]["blogs"]?.map<NewsModel>((x) {
-          x['category'] = x['category']?.map((e) {
-            if (json["data"]["category"] != null &&
-                e['_id'] == json["data"]["category"]["_id"])
-              return json["data"]["category"];
-            return e;
-          })?.toList();
-
-          return NewsModel.fromMap(x);
-        })?.toList(),
-        msg: json["msg"],
-        page: json["page"],
-        size: json["size"],
-        totalData: json["data"]["totaldata"],
-      );
-}
-
-class PaginatedNewsModel extends PaginatedNewsEntity {
-  PaginatedNewsModel({
-    @required bool success,
-    @required List<NewsModel> data,
-    @required String msg,
-    @required int page,
-    @required int size,
-    @required int totalData,
-  }) : super(
-            success: success,
-            data: data,
-            msg: msg,
-            page: page,
-            size: size,
-            totalData: totalData);
-
-  factory PaginatedNewsModel.fromJson(String str) =>
-      PaginatedNewsModel.fromMap(json.decode(str));
-
-  factory PaginatedNewsModel.fromMap(Map<String, dynamic> json) =>
-      PaginatedNewsModel(
-        success: json["success"],
-        data:
-            json["data"]?.map<NewsModel>((x) => NewsModel.fromMap(x))?.toList(),
-        msg: json["msg"],
-        page: json["page"],
-        size: json["size"],
-        totalData: json["totaldata"],
-      );
-}
-
 class NewsModel extends NewsEntity {
   NewsModel({
     @required List<String> metaTag,
@@ -128,12 +61,22 @@ class NewsModel extends NewsEntity {
   factory NewsModel.fromJson(String str) => NewsModel.fromMap(json.decode(str));
 
   factory NewsModel.fromMap(Map<String, dynamic> json) => NewsModel(
-        metaTag: json["meta_tag"]?.map((x) => x)?.toList(),
-        tags: json["tags"]?.map((x) => x)?.toList(),
+        metaTag: json["meta_tag"] == null
+            ? List<String>.empty()
+            : List<String>.from(json["meta_tag"])
+                ?.map<String>((x) => x)
+                ?.toList(),
+        tags: json["tags"] == null
+            ? List<String>.empty()
+            : List<String>.from(json["tags"]).map<String>((x) => x)?.toList(),
         authors: json["author"]
             ?.map<AuthorModel>((x) => AuthorModel.fromMap(x))
             ?.toList(),
-        keywords: json["keywords"]?.map((x) => x)?.toList(),
+        keywords: json["keywords"] == null
+            ? List<String>.empty()
+            : List<String>.from(json["keywords"])
+                ?.map<String>((x) => x)
+                ?.toList(),
         categories: json["category"]
             ?.map<CategoryModel>((x) => CategoryModel.fromMap(x))
             ?.toList(),

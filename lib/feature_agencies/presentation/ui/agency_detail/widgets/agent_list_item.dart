@@ -1,5 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_networkimage/provider.dart';
 
 class AgentListItem extends StatelessWidget {
   final String avatar;
@@ -14,6 +14,7 @@ class AgentListItem extends StatelessWidget {
     @required this.email,
     @required this.contact,
   }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -25,7 +26,7 @@ class AgentListItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           CircleAvatar(
-            backgroundImage: AdvancedNetworkImage(avatar),
+            backgroundImage: CachedNetworkImageProvider(avatar),
             radius: 40,
           ),
           const SizedBox(height: 8.0),

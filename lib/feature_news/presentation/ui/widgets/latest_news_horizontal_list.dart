@@ -1,9 +1,9 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:nepal_homes/core/constants/api_url_constants.dart';
 import 'package:nepal_homes/core/extensions/date_time.dart';
+import 'package:nepal_homes/core/utils/link_utils.dart';
 import 'package:nepal_homes/feature_news/presentation/models/news_model.dart';
+import 'package:sizer/sizer.dart';
 
 import 'news_grid_compact_item.dart';
 
@@ -15,9 +15,9 @@ class LatestNewsHorizontalList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final crossAxisExtent = MediaQuery.of(context).orientation == Orientation.portrait
-        ? MediaQuery.of(context).size.width * 0.7
-        : MediaQuery.of(context).size.width * 0.4;
+    final itemCoverHeight =
+        SizerUtil.orientation == Orientation.portrait ? 120.0 : 150.0;
+    final crossAxisExtent = 320.0;
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
@@ -29,7 +29,9 @@ class LatestNewsHorizontalList extends StatelessWidget {
             ?.map<Widget>((e) => SizedBox(
                   width: crossAxisExtent,
                   child: NewsGridCompactItem(
-                    onTap: () {},
+                    imageHeight: itemCoverHeight,
+                    onTap: () => LinkUtils.openLink(
+                        'app://nepalhomes/news-detail/${e.id}?title=${e.title}'),
                     image: (e.image?.fullPath ??
                         APIUrlConstants.DEFAULT_IMAGE_URL),
                     title: e.title,

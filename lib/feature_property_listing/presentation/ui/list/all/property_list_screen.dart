@@ -13,38 +13,31 @@ import 'widgets/property_list.dart';
 class PropertyListScreen extends StatefulWidget {
   static const String ROUTE_NAME = '/property';
 
-  PropertyListScreen({Key key, this.args}) : super(key: key);
-  final PropertyListScreenArgs args;
+  const PropertyListScreen({Key key}) : super(key: key);
 
   @override
   _PropertyListScreenState createState() => _PropertyListScreenState();
 }
 
-class _PropertyListScreenState extends State<PropertyListScreen>
-    with AutomaticKeepAliveClientMixin {
-  var _query;
+class _PropertyListScreenState extends State<PropertyListScreen> {
+  PropertyQuery _query;
 
-  PropertyQuery get argsToQuery => PropertyQuery(
-        isFeatured: widget.args?.isFeatured,
-        isPremium: widget.args?.isPremium,
-        propertyCategoryId: widget.args?.categoryId,
+  PropertyQuery argsToQuery(args) => PropertyQuery(
+        isFeatured: args?.isFeatured,
+        isPremium: args?.isPremium,
+        propertyCategoryId: args?.categoryId,
       );
 
   @override
-  void initState() {
-    super.initState();
-    _query = argsToQuery;
-  }
-
-  @override
-  void didUpdateWidget(covariant PropertyListScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.args != null) _query = argsToQuery;
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    PropertyListScreenArgs args = ModalRoute.of(context).settings.arguments;
+    this._query = argsToQuery(args);
   }
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
+    final theme = Theme.of(context);
     return PropertyProvider.propertyMultiBlocProvider(
       query: _query,
       child: Builder(
@@ -52,9 +45,10 @@ class _PropertyListScreenState extends State<PropertyListScreen>
           appBar: AppBar(
             title: Text(
               'Properties',
-              style: Theme.of(context).textTheme.headline6,
+              style: theme.textTheme.subtitle1.copyWith(
+                color: theme.appBarTheme.iconTheme.color,
+              ),
             ),
-            automaticallyImplyLeading: false,
             actions: [
               IconButton(
                 icon: Icon(LineAwesomeIcons.filter),
@@ -87,9 +81,6 @@ class _PropertyListScreenState extends State<PropertyListScreen>
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
 
 class PropertyListScreenArgs extends Equatable {
@@ -111,4 +102,7 @@ class PropertyListScreenArgs extends Equatable {
 
   @override
   List<Object> get props => [isFeatured, isPremium, categoryId];
+
+  @override
+  bool get stringify => true;
 }

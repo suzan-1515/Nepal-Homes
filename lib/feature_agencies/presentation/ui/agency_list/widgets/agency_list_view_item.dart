@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:nepal_homes/core/widgets/cached_image_widget.dart';
-import 'package:nepal_homes/feature_agencies/presentation/models/agency_model.dart';
 import 'package:nepal_homes/core/widgets/icon_text.dart';
+import 'package:nepal_homes/feature_agencies/presentation/models/agency_model.dart';
 import 'package:nepal_homes/feature_agencies/presentation/ui/agency_detail/agency_detail_screen.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class AgencyListViewItem extends StatelessWidget {
-  const AgencyListViewItem();
+  const AgencyListViewItem({this.imageSize = const Size(120, 150)});
+
+  final Size imageSize;
+
   @override
   Widget build(BuildContext context) {
     final agency =
@@ -36,28 +39,24 @@ class AgencyListViewItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                flex: 2,
-                child: AspectRatio(
-                  aspectRatio: 1 / 1.1,
-                  child: Container(
-                    padding: EdgeInsets.all(4.0),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          width: 0.5, color: Theme.of(context).dividerColor),
-                    ),
-                    child: CachedImage(
-                      agency.entity.logo.fullPath,
-                      fit: BoxFit.contain,
-                    ),
-                  ),
+              Container(
+                width: imageSize.width,
+                height: imageSize.height,
+                padding: EdgeInsets.all(4.0),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      width: 0.5, color: Theme.of(context).dividerColor),
+                ),
+                child: CachedImage(
+                  agency.entity.logo.fullPath,
+                  fit: BoxFit.cover,
+                  tag: agency.entity.id,
                 ),
               ),
               SizedBox(
                 width: 12,
               ),
               Expanded(
-                flex: 4,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,

@@ -8,13 +8,16 @@ class FeaturedPropertyListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return PropertyProvider.featuredPropertyBlocProvider(
       child: Builder(
         builder: (context) => Scaffold(
           appBar: AppBar(
             title: Text(
               'Featured Properties',
-              style: Theme.of(context).textTheme.headline6,
+              style: theme.textTheme.subtitle1.copyWith(
+                color: theme.appBarTheme.iconTheme.color,
+              ),
             ),
           ),
           body: SafeArea(

@@ -7,19 +7,23 @@ class PropertyListBuilder extends StatelessWidget {
   final List<PropertyUIModel> data;
 
   const PropertyListBuilder({@required this.data});
+
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return ListView.separated(
       padding: const EdgeInsets.all(8.0),
       physics: NeverScrollableScrollPhysics(),
       primary: false,
       shrinkWrap: true,
-      children: data.map((e) {
+      itemCount: data.length,
+      itemBuilder: (context, index) {
+        final e = data[index];
         return ScopedModel<PropertyUIModel>(
           model: e,
           child: const PropertyListItem(),
         );
-      }).toList(),
+      },
+      separatorBuilder: (context, index) => SizedBox(height: 8),
     );
   }
 }

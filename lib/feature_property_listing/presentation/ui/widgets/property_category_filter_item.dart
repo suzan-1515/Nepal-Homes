@@ -1,5 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_networkimage/provider.dart';
 
 class CategoryFilterItem extends StatelessWidget {
   final String title;
@@ -25,7 +25,7 @@ class CategoryFilterItem extends StatelessWidget {
       avatar: selected
           ? null
           : CircleAvatar(
-              backgroundImage: AdvancedNetworkImage(icon),
+              backgroundImage: CachedNetworkImageProvider(icon),
               backgroundColor: theme.highlightColor,
             ),
       label: Text(

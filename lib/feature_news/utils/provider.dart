@@ -11,14 +11,9 @@ import 'package:nepal_homes/feature_news/data/repositories/news_repository.dart'
 import 'package:nepal_homes/feature_news/data/services/news_remote_service.dart';
 import 'package:nepal_homes/feature_news/data/services/remote_service.dart';
 import 'package:nepal_homes/feature_news/domain/repositories/repository.dart';
-import 'package:nepal_homes/feature_news/domain/usecases/get_category_news_use_case.dart';
-import 'package:nepal_homes/feature_news/domain/usecases/get_highlight_news_use_case.dart';
-import 'package:nepal_homes/feature_news/domain/usecases/get_latest_news_by_category_use_case.dart';
-import 'package:nepal_homes/feature_news/domain/usecases/get_latest_news_use_case.dart';
-import 'package:nepal_homes/feature_news/domain/usecases/get_news_use_case.dart';
-import 'package:nepal_homes/feature_news/domain/usecases/get_showcase_news_use_case.dart';
-import 'package:nepal_homes/feature_news/domain/usecases/get_trending_news_use_case.dart';
+import 'package:nepal_homes/feature_news/domain/usecases/usecases.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/latest_news/latest_news_cubit.dart';
+import 'package:nepal_homes/feature_news/presentation/cubits/news_detail/news_detail_cubit.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/news_list/news_list_cubit.dart';
 
 class NewsProvider {
@@ -48,6 +43,8 @@ class NewsProvider {
         () => GetLatestNewsByCategoryUseCase(GetIt.I.get<Repository>()));
     GetIt.I.registerLazySingleton<GetCategoryNewsUseCase>(
         () => GetCategoryNewsUseCase(GetIt.I.get<Repository>()));
+    GetIt.I.registerLazySingleton<GetNewsDetailUseCase>(
+        () => GetNewsDetailUseCase(GetIt.I.get<Repository>()));
 
     GetIt.I.registerFactory<NewsListCubit>(() => NewsListCubit(
           getNewsUseCase: GetIt.I.get<GetNewsUseCase>(),
@@ -55,6 +52,10 @@ class NewsProvider {
     GetIt.I.registerFactory<LatestNewsCubit>(() => LatestNewsCubit(
           getLatestNewsUseCase: GetIt.I.get<GetLatestNewsUseCase>(),
         )..getNews());
+    GetIt.I.registerFactoryParam<NewsDetailCubit, String, void>(
+        (param1, param2) => NewsDetailCubit(
+              getNewsDetailUseCase: GetIt.I.get<GetNewsDetailUseCase>(),
+            )..getNewsDetail(id: param1));
   }
 
   static BlocProvider<NewsListCubit> newsBlocProvider({
@@ -70,6 +71,15 @@ class NewsProvider {
   }) =>
       BlocProvider<LatestNewsCubit>(
         create: (context) => GetIt.I.get<LatestNewsCubit>(),
+        child: child,
+      );
+
+  static BlocProvider<NewsDetailCubit> newsDetailBlocProvider({
+    @required Widget child,
+    @required String id,
+  }) =>
+      BlocProvider<NewsDetailCubit>(
+        create: (context) => GetIt.I.get<NewsDetailCubit>(param1: id),
         child: child,
       );
 }

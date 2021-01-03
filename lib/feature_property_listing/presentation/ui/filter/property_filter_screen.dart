@@ -18,10 +18,9 @@ class PropertyFilterScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             'Filters',
-            style: Theme.of(context)
-                .textTheme
-                .headline6
-                .copyWith(color: Theme.of(context).textTheme.headline6.color),
+            style: Theme.of(context).textTheme.subtitle1.copyWith(
+                  color: Theme.of(context).appBarTheme.iconTheme.color,
+                ),
           ),
           centerTitle: true,
           leading: IconButton(

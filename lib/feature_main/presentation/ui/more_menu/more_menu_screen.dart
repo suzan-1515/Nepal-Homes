@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/more_menu/widgets/auth_info_widget.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/more_menu/widgets/explore_menu_list.dart';
 
-class MoreMenuScreen extends StatefulWidget {
+class MoreMenuView extends StatefulWidget {
+  static const String ROUTE_NAME = '/more-menu';
+
+  const MoreMenuView({Key key});
+
   @override
-  _MoreMenuScreenState createState() => _MoreMenuScreenState();
+  _MoreMenuViewState createState() => _MoreMenuViewState();
 }
 
-class _MoreMenuScreenState extends State<MoreMenuScreen>
+class _MoreMenuViewState extends State<MoreMenuView>
     with AutomaticKeepAliveClientMixin {
   @override
   void initState() {

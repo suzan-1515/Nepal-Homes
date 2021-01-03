@@ -5,7 +5,6 @@ import 'package:nepal_homes/feature_property_listing/presentation/models/propert
 import 'package:nepal_homes/feature_property_listing/presentation/ui/detail/widgets/section_header.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/property_grid_item.dart';
 import 'package:scoped_model/scoped_model.dart';
-import 'package:sizer/sizer.dart';
 
 import '../property_detail_screen.dart';
 
@@ -16,10 +15,6 @@ class RelatedProperty extends StatelessWidget {
   Widget build(BuildContext context) {
     final property =
         ScopedModel.of<PropertyDetailUIModel>(context, rebuildOnChange: true);
-    // final mediaQuery = MediaQuery.of(context);
-    final crossAxisExtent =SizerUtil.orientation == Orientation.portrait? 80.0.w:40.0.w;
-    final itemCoverHeight =
-        SizerUtil.orientation == Orientation.portrait ? 20.0.w : 15.0.h;
     return BorderedContainer(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -37,9 +32,8 @@ class RelatedProperty extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: property.relatedProperties
                   ?.map<Widget>((e) => SizedBox(
-                        width: crossAxisExtent,
+                        width: 300.0,
                         child: PropertyGridItem(
-                          imageHeight: itemCoverHeight,
                           onTap: () => Navigator.pushNamed(
                             context,
                             PropertyDetailScreen.ROUTE_NAME,
