@@ -2,10 +2,9 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:nepal_homes/core/constants/api_keys.dart';
 import 'package:nepal_homes/core/constants/notification_channels.dart';
-import 'package:timezone/data/latest.dart' as tz;
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:timezone/timezone.dart' as tz;
 
 class NotificationService {
@@ -205,11 +204,6 @@ class NotificationService {
 
   setDefaultRemoteNotification() {
     log('[NotificationService] setDefaultRemoteNotification');
-    this.subscribe(NotificationChannels.kNewsNotifications, 1);
-    this.subscribe(NotificationChannels.kTrendingNotifications, 1);
-    this.subscribe(NotificationChannels.kCommentNotifications, 1);
-    this.subscribe(NotificationChannels.kMessageNotifications, 1);
-    this.subscribe(NotificationChannels.kOtherNotifications, 1);
   }
 
   dispose() {

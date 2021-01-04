@@ -1,4 +1,3 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,10 +20,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   NepaliUtils(Language.nepali);
   GlobalProvider.setup(await SharedPreferences.getInstance());
-  runApp(DevicePreview(
-    enabled: !kReleaseMode,
-    builder: (context) => App(),
-  ));
+  runApp(App());
 }
 
 class App extends StatelessWidget {
