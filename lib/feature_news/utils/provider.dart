@@ -12,6 +12,7 @@ import 'package:nepal_homes/feature_news/data/services/news_remote_service.dart'
 import 'package:nepal_homes/feature_news/data/services/remote_service.dart';
 import 'package:nepal_homes/feature_news/domain/repositories/repository.dart';
 import 'package:nepal_homes/feature_news/domain/usecases/usecases.dart';
+import 'package:nepal_homes/feature_news/presentation/cubits/category_news_list/category_news_list_cubit.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/latest_news/latest_news_cubit.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/news_detail/news_detail_cubit.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/news_list/news_list_cubit.dart';
@@ -56,6 +57,10 @@ class NewsProvider {
         (param1, param2) => NewsDetailCubit(
               getNewsDetailUseCase: GetIt.I.get<GetNewsDetailUseCase>(),
             )..getNewsDetail(id: param1));
+    GetIt.I.registerFactoryParam<CategoryNewsListCubit, String, void>(
+        (param1, param2) => CategoryNewsListCubit(
+              getCategoryNewsListUseCase: GetIt.I.get<GetCategoryNewsUseCase>(),
+            )..getCategoryNews(categorySlug: param1));
   }
 
   static BlocProvider<NewsListCubit> newsBlocProvider({
@@ -71,6 +76,15 @@ class NewsProvider {
   }) =>
       BlocProvider<LatestNewsCubit>(
         create: (context) => GetIt.I.get<LatestNewsCubit>(),
+        child: child,
+      );
+
+  static BlocProvider<CategoryNewsListCubit> categoryNewsBlocProvider({
+    @required Widget child,
+    @required String id,
+  }) =>
+      BlocProvider<CategoryNewsListCubit>(
+        create: (context) => GetIt.I.get<CategoryNewsListCubit>(param1: id),
         child: child,
       );
 

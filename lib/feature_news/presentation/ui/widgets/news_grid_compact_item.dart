@@ -10,6 +10,7 @@ class NewsGridCompactItem extends StatelessWidget {
     this.author,
     @required this.date,
     this.imageHeight = 100,
+    @required this.id,
   });
 
   final String image;
@@ -18,6 +19,7 @@ class NewsGridCompactItem extends StatelessWidget {
   final String author;
   final String date;
   final double imageHeight;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +46,7 @@ class NewsGridCompactItem extends StatelessWidget {
                     ? APIUrlConstants.DEFAULT_IMAGE_URL
                     : image,
                 fit: BoxFit.cover,
+                tag: image ?? UniqueKey(),
               ),
             ),
             SizedBox(
@@ -51,13 +54,16 @@ class NewsGridCompactItem extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                '${title ?? 'N/A'}',
-                style: theme.textTheme.subtitle1.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 47, 57, 72)),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
+              child: Hero(
+                tag: 'news-hero-title-$id',
+                child: Text(
+                  '${title ?? 'N/A'}',
+                  style: theme.textTheme.subtitle1.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 47, 57, 72)),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
             SizedBox(height: 4),

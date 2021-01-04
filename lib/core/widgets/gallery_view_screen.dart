@@ -57,6 +57,9 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
             pageController: _pageController,
             builder: (BuildContext context, int index) {
               return PhotoViewGalleryPageOptions(
+                initialScale: PhotoViewComputedScale.contained,
+                minScale: PhotoViewComputedScale.contained,
+                maxScale: PhotoViewComputedScale.covered * 2,
                 imageProvider: CachedNetworkImageProvider(args.images[index]),
                 heroAttributes:
                     PhotoViewHeroAttributes(tag: args.images[index]),

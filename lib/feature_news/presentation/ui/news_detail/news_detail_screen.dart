@@ -28,7 +28,7 @@ class NewsDetailScreen extends StatelessWidget {
         builder: (context) => Scaffold(
           appBar: AppBar(
             title: Hero(
-              tag: args.title,
+              tag: 'news-hero-title-${args.id}',
               child: Text(
                 '${args.title ?? ''}',
                 style: theme.textTheme.subtitle1.copyWith(

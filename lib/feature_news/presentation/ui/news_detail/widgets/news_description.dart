@@ -1,7 +1,9 @@
-import 'dart:convert';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/style.dart';
+import 'package:nepal_homes/core/utils/link_utils.dart';
+import 'package:nepal_homes/core/widgets/gallery_view_screen.dart';
 
 class NewsDescription extends StatefulWidget {
   final String description;
@@ -14,33 +16,37 @@ class NewsDescription extends StatefulWidget {
 }
 
 class _NewsDescriptionState extends State<NewsDescription> {
-  WebViewController _controller;
-  double _height = 100.0;
-
   @override
   Widget build(BuildContext context) {
-    return LimitedBox(
-      maxHeight: _height,
-      child: WebView(
-        initialUrl: 'about:blank',
-        onWebViewCreated: (WebViewController webViewController) {
-          _controller = webViewController;
-          _controller.loadUrl(
-            Uri.dataFromString(widget.description,
-                    mimeType: 'text/html',
-                    encoding: Encoding.getByName('utf-8'))
-                .toString(),
-          );
-        },
-        onPageFinished: (some) async {
-          double height = double.parse(await _controller
-              .evaluateJavascript("document.documentElement.scrollHeight;"));
-          setState(() {
-            this._height = height;
-          });
-        },
-        javascriptMode: JavascriptMode.unrestricted,
+    final border = Border.all(width: 0.5);
+    final borderSide = BorderSide(width: 0.5);
+    final textStyle = Theme.of(context).textTheme.subtitle1;
+    return Html(
+      data: widget.description,
+      style: {
+        "table": Style(
+          border: border,
+        ),
+        "tr": Style(border: Border.symmetric(horizontal: borderSide)),
+        "td": Style(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          border: Border.symmetric(vertical: borderSide),
+        ),
+        "p": Style(
+          fontFamily: textStyle.fontFamily,
+          fontWeight: textStyle.fontWeight,
+          fontStyle: textStyle.fontStyle,
+          fontSize: FontSize(textStyle.fontSize),
+          wordSpacing: textStyle.wordSpacing,
+          letterSpacing: textStyle.letterSpacing,
+        ),
+      },
+      onImageTap: (src) => Navigator.pushNamed(
+        context,
+        GalleryViewScreen.ROUTE,
+        arguments: GalleryViewScreenArgs(images: [src]),
       ),
+      onLinkTap: (url) => LinkUtils.openLink(url),
     );
   }
 }

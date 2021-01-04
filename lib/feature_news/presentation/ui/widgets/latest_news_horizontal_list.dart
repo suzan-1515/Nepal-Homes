@@ -29,6 +29,7 @@ class LatestNewsHorizontalList extends StatelessWidget {
             ?.map<Widget>((e) => SizedBox(
                   width: crossAxisExtent,
                   child: NewsGridCompactItem(
+                    id: e.id,
                     imageHeight: itemCoverHeight,
                     onTap: () => LinkUtils.openLink(
                         'app://nepalhomes/news-detail/${e.id}?title=${e.title}'),
