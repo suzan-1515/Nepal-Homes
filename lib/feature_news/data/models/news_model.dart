@@ -69,17 +69,19 @@ class NewsModel extends NewsEntity {
         tags: json["tags"] == null
             ? List<String>.empty()
             : List<String>.from(json["tags"]).map<String>((x) => x)?.toList(),
-        authors: json["author"]
-            ?.map<AuthorModel>((x) => AuthorModel.fromMap(x))
-            ?.toList(),
+        authors: json["author"]?.map<AuthorModel>((x) {
+          if (x is String) return AuthorModel.fromMap({'_id': x});
+          return AuthorModel.fromMap(x);
+        })?.toList(),
         keywords: json["keywords"] == null
             ? List<String>.empty()
             : List<String>.from(json["keywords"])
                 ?.map<String>((x) => x)
                 ?.toList(),
-        categories: json["category"]
-            ?.map<CategoryModel>((x) => CategoryModel.fromMap(x))
-            ?.toList(),
+        categories: json["category"]?.map<CategoryModel>((x) {
+          if (x is String) return CategoryModel.fromMap({'_id': x});
+          return CategoryModel.fromMap(x);
+        })?.toList(),
         isPublished: json["is_published"],
         isHighlight: json["is_highlight"],
         isShowcase: json["is_showcase"],

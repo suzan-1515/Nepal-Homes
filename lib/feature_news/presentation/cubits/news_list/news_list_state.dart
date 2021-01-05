@@ -14,22 +14,34 @@ class NewsLoading extends NewsState {}
 class NewsLoadingMore extends NewsState {}
 
 class NewsLoadSuccess extends NewsState {
-  final List<NewsEntity> news;
-  final bool hasMore;
+  final List<NewsEntity> highlightNews;
+  final List<NewsEntity> showcaseNews;
+  final List<NewsEntity> trendingNews;
+  final List<NewsEntity> recentNews;
 
-  NewsLoadSuccess(this.news, {this.hasMore = true});
+  NewsLoadSuccess({
+    this.highlightNews,
+    this.showcaseNews,
+    this.trendingNews,
+    this.recentNews,
+  });
 
   NewsLoadSuccess copyWith({
-    List<NewsEntity> news,
-    bool hasMore,
+    List<NewsEntity> highlightNews,
+    List<NewsEntity> showcaseNews,
+    List<NewsEntity> trendingNews,
+    List<NewsEntity> recentNews,
   }) =>
       NewsLoadSuccess(
-        news ?? this.news,
-        hasMore: hasMore ?? this.hasMore,
+        highlightNews: highlightNews ?? this.highlightNews,
+        showcaseNews: showcaseNews ?? this.showcaseNews,
+        trendingNews: trendingNews ?? this.trendingNews,
+        recentNews: recentNews ?? this.recentNews,
       );
 
   @override
-  List<Object> get props => [news, hasMore];
+  List<Object> get props =>
+      [highlightNews, showcaseNews, trendingNews, recentNews];
 }
 
 class NewsLoadEmpty extends NewsState {

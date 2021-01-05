@@ -11,13 +11,18 @@ import 'package:nepal_homes/feature_news/data/repositories/news_repository.dart'
 import 'package:nepal_homes/feature_news/data/services/news_remote_service.dart';
 import 'package:nepal_homes/feature_news/data/services/remote_service.dart';
 import 'package:nepal_homes/feature_news/domain/repositories/repository.dart';
+import 'package:nepal_homes/feature_news/domain/usecases/get_categories_use_case.dart';
 import 'package:nepal_homes/feature_news/domain/usecases/usecases.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/category_news_list/category_news_list_cubit.dart';
+import 'package:nepal_homes/feature_news/presentation/cubits/highlight_news/highlight_news_cubit.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/latest_category_news_list/latest_category_news_list_cubit.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/latest_news/latest_news_cubit.dart';
+import 'package:nepal_homes/feature_news/presentation/cubits/news_category/news_category_cubit.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/news_detail/news_detail_cubit.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/news_list/news_list_cubit.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/related_news/related_news_cubit.dart';
+import 'package:nepal_homes/feature_news/presentation/cubits/showcase_news/showcase_news_cubit.dart';
+import 'package:nepal_homes/feature_news/presentation/cubits/trending_news/trending_news_cubit.dart';
 
 class NewsProvider {
   NewsProvider._();
@@ -50,13 +55,27 @@ class NewsProvider {
         () => GetNewsDetailUseCase(GetIt.I.get<Repository>()));
     GetIt.I.registerLazySingleton<GetRelatedNewsUseCase>(
         () => GetRelatedNewsUseCase(GetIt.I.get<Repository>()));
+    GetIt.I.registerLazySingleton<GetCategoriesUseCase>(
+        () => GetCategoriesUseCase(GetIt.I.get<Repository>()));
 
     GetIt.I.registerFactory<NewsListCubit>(() => NewsListCubit(
           getNewsUseCase: GetIt.I.get<GetNewsUseCase>(),
-        )..getNews());
+        ));
     GetIt.I.registerFactory<LatestNewsCubit>(() => LatestNewsCubit(
           getLatestNewsUseCase: GetIt.I.get<GetLatestNewsUseCase>(),
         )..getNews());
+    GetIt.I.registerFactory<TrendingNewsCubit>(() => TrendingNewsCubit(
+          getTrendingNewsUseCase: GetIt.I.get<GetTrendingNewsUseCase>(),
+        )..getNews());
+    GetIt.I.registerFactory<HighlightNewsCubit>(() => HighlightNewsCubit(
+          getHighlightNewsUseCase: GetIt.I.get<GetHighlightNewsUseCase>(),
+        )..getNews());
+    GetIt.I.registerFactory<ShowcaseNewsCubit>(() => ShowcaseNewsCubit(
+          getShowcaseNewsUseCase: GetIt.I.get<GetShowcaseNewsUseCase>(),
+        )..getNews());
+    GetIt.I.registerFactory<NewsCategoryCubit>(() => NewsCategoryCubit(
+          getNewsCategoriesUseCase: GetIt.I.get<GetCategoriesUseCase>(),
+        )..getCategories());
     GetIt.I.registerFactoryParam<NewsDetailCubit, String, void>(
         (param1, param2) => NewsDetailCubit(
               getNewsDetailUseCase: GetIt.I.get<GetNewsDetailUseCase>(),
@@ -76,6 +95,33 @@ class NewsProvider {
             )..getRelatedNews(newsId: param1));
   }
 
+  static MultiBlocProvider newsMultiBlocProvider({
+    @required Widget child,
+  }) =>
+      MultiBlocProvider(
+        providers: [
+          BlocProvider<NewsListCubit>(
+            create: (context) => GetIt.I.get<NewsListCubit>(),
+          ),
+          BlocProvider<HighlightNewsCubit>(
+            create: (context) => GetIt.I.get<HighlightNewsCubit>(),
+          ),
+          BlocProvider<ShowcaseNewsCubit>(
+            create: (context) => GetIt.I.get<ShowcaseNewsCubit>(),
+          ),
+          BlocProvider<TrendingNewsCubit>(
+            create: (context) => GetIt.I.get<TrendingNewsCubit>(),
+          ),
+          BlocProvider<LatestNewsCubit>(
+            create: (context) => GetIt.I.get<LatestNewsCubit>(),
+          ),
+          BlocProvider<NewsCategoryCubit>(
+            create: (context) => GetIt.I.get<NewsCategoryCubit>(),
+          ),
+        ],
+        child: child,
+      );
+
   static BlocProvider<NewsListCubit> newsBlocProvider({
     @required Widget child,
   }) =>
@@ -89,6 +135,30 @@ class NewsProvider {
   }) =>
       BlocProvider<LatestNewsCubit>(
         create: (context) => GetIt.I.get<LatestNewsCubit>(),
+        child: child,
+      );
+
+  static BlocProvider<TrendingNewsCubit> trendingNewsBlocProvider({
+    @required Widget child,
+  }) =>
+      BlocProvider<TrendingNewsCubit>(
+        create: (context) => GetIt.I.get<TrendingNewsCubit>(),
+        child: child,
+      );
+
+  static BlocProvider<HighlightNewsCubit> highlightNewsBlocProvider({
+    @required Widget child,
+  }) =>
+      BlocProvider<HighlightNewsCubit>(
+        create: (context) => GetIt.I.get<HighlightNewsCubit>(),
+        child: child,
+      );
+
+  static BlocProvider<ShowcaseNewsCubit> showcaseNewsBlocProvider({
+    @required Widget child,
+  }) =>
+      BlocProvider<ShowcaseNewsCubit>(
+        create: (context) => GetIt.I.get<ShowcaseNewsCubit>(),
         child: child,
       );
 

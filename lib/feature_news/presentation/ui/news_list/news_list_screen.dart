@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nepal_homes/feature_news/presentation/ui/news_list/widgets/news_list.dart';
 import 'package:nepal_homes/feature_news/utils/provider.dart';
-
-import 'widgets/news_list.dart';
 
 class NewsListScreen extends StatelessWidget {
   static const String ROUTE_NAME = '/news';
@@ -9,7 +8,7 @@ class NewsListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return NewsProvider.newsBlocProvider(
+    return NewsProvider.newsMultiBlocProvider(
       child: Scaffold(
         appBar: AppBar(
           title: Text(

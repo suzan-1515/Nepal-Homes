@@ -17,7 +17,7 @@ class NewsListItem extends StatelessWidget {
     @required this.title,
     @required this.image,
     @required this.date,
-    @required this.description,
+    this.description,
     @required this.onTap,
     this.imageSize = const Size(100, 100),
   }) : super(key: key);
@@ -27,6 +27,7 @@ class NewsListItem extends StatelessWidget {
     final theme = Theme.of(context);
     return Card(
       clipBehavior: Clip.hardEdge,
+      elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
@@ -54,14 +55,16 @@ class NewsListItem extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 4.0),
-                    Text(
-                      '${description ?? ''}',
-                      maxLines: 3,
-                      style: theme.textTheme.bodyText2
-                          .copyWith(color: Color.fromARGB(255, 145, 152, 161)),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    const SizedBox(height: 8.0),
+                    if (description != null) ...[
+                      Text(
+                        '${description ?? ''}',
+                        maxLines: 3,
+                        style: theme.textTheme.bodyText2.copyWith(
+                            color: Color.fromARGB(255, 145, 152, 161)),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 8.0),
+                    ],
                     Text(
                       date,
                       style: theme.textTheme.caption,
