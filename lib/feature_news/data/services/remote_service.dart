@@ -11,12 +11,15 @@ mixin RemoteService {
 
   Future<dynamic> fetchTrendingNews();
 
+  Future<dynamic> fetchRelatedNews({@required String newsId});
+
   Future<dynamic> fetchCategories({@required int page});
 
   Future<dynamic> fetchCategoryNews(
       {@required String slug, @required int page});
 
   Future<dynamic> fetchLatestCategoryNews(
-      {@required String categoryId, @required int page});
+      {@required String categoryId, @required int size});
+
   Future<dynamic> fetchNewsDetail({@required String id});
 }

@@ -34,7 +34,7 @@ class CategoryNewsListCubit extends Cubit<CategoryNewsListState> {
         emit(CategoryNewsListLoadEmpty(
             message: 'Category news data not available.'));
       else
-        emit(CategoryNewsListLoadSuccess(paginatedCategoryNewsListEntity,
+        emit(CategoryNewsListLoadSuccess(paginatedCategoryNewsListEntity.data,
             hasMore: (paginatedCategoryNewsListEntity.page *
                     paginatedCategoryNewsListEntity.size) <
                 paginatedCategoryNewsListEntity.totalData));
@@ -63,7 +63,7 @@ class CategoryNewsListCubit extends Cubit<CategoryNewsListState> {
               message: 'Category news data not available.'));
       } else {
         _page = 1;
-        emit(CategoryNewsListLoadSuccess(paginatedCategoryNewsListEntity,
+        emit(CategoryNewsListLoadSuccess(paginatedCategoryNewsListEntity.data,
             hasMore: (paginatedCategoryNewsListEntity.page *
                     paginatedCategoryNewsListEntity.size) <
                 paginatedCategoryNewsListEntity.totalData));
@@ -97,14 +97,12 @@ class CategoryNewsListCubit extends Cubit<CategoryNewsListState> {
         _page += 1;
         if (currentState is CategoryNewsListLoadSuccess) {
           emit(currentState.copyWith(
-              news: paginatedCategoryNewsListEntity.copyWith(
-                  data: currentState.news.data +
-                      paginatedCategoryNewsListEntity.data),
+              news: currentState.news + paginatedCategoryNewsListEntity.data,
               hasMore: (paginatedCategoryNewsListEntity.page *
                       paginatedCategoryNewsListEntity.size) <
                   paginatedCategoryNewsListEntity.totalData));
         } else {
-          emit(CategoryNewsListLoadSuccess(paginatedCategoryNewsListEntity,
+          emit(CategoryNewsListLoadSuccess(paginatedCategoryNewsListEntity.data,
               hasMore: (paginatedCategoryNewsListEntity.page *
                       paginatedCategoryNewsListEntity.size) <
                   paginatedCategoryNewsListEntity.totalData));

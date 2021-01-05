@@ -18,7 +18,7 @@ class GetLatestNewsByCategoryUseCase
       GetLatestNewsByCategoryUseCaseParams params) {
     try {
       return this._repository.getLatestCategoryNews(
-          page: params.page, categoryId: params.categoryId);
+          size: params.size, categoryId: params.categoryId);
     } catch (e) {
       log('GetLatestNewsByCategoryUseCase unsuccessful.', error: e);
       throw e;
@@ -27,12 +27,12 @@ class GetLatestNewsByCategoryUseCase
 }
 
 class GetLatestNewsByCategoryUseCaseParams extends Equatable {
-  final int page;
+  final int size;
   final String categoryId;
 
   GetLatestNewsByCategoryUseCaseParams(
-      {@required this.page, @required this.categoryId});
+      {@required this.size, @required this.categoryId});
 
   @override
-  List<Object> get props => [page, categoryId];
+  List<Object> get props => [size, categoryId];
 }

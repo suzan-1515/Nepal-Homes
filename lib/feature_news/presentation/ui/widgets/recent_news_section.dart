@@ -5,13 +5,12 @@ import 'package:nepal_homes/core/utils/link_utils.dart';
 import 'package:nepal_homes/core/widgets/empty_data_widget.dart';
 import 'package:nepal_homes/core/widgets/error_data_widget.dart';
 import 'package:nepal_homes/core/widgets/progress_widget.dart';
+import 'package:nepal_homes/core/widgets/section_container.dart';
+import 'package:nepal_homes/core/widgets/section_heading.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/latest_news/latest_news_cubit.dart';
 import 'package:nepal_homes/feature_news/presentation/extensions/news_extensions.dart';
-import 'package:nepal_homes/feature_news/presentation/ui/widgets/latest_news_horizontal_list.dart';
+import 'package:nepal_homes/feature_news/presentation/ui/widgets/news_horizontal_list.dart';
 import 'package:nepal_homes/feature_news/utils/provider.dart';
-
-import 'section_container.dart';
-import 'section_heading.dart';
 
 class RecentNewsSection extends StatelessWidget {
   const RecentNewsSection();
@@ -34,7 +33,7 @@ class RecentNewsSection extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is LatestNewsLoadSuccess) {
-              return LatestNewsHorizontalList(newsList: state.news.toUIModel);
+              return NewsHorizontalList(newsList: state.news.toUIModel);
             } else if (state is LatestNewsLoadError) {
               return Center(
                 child: ErrorDataView(

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:nepal_homes/feature_agencies/presentation/ui/widgets/agencies_section.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/home/widgets/loan_process_section.dart';
+import 'package:nepal_homes/feature_news/presentation/ui/widgets/recent_news_section.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/featured_properties_section.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/hot_properties_section.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/property_categories_section.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/recent_properties_section.dart';
 
-import 'widgets/agencies_section.dart';
-import 'widgets/explore_section.dart';
-import 'widgets/featured_properties_section.dart';
 import 'widgets/header_section.dart';
-import 'widgets/hot_properties_section.dart';
 import 'widgets/post_property_section.dart';
-import 'widgets/recent_news_section.dart';
-import 'widgets/recent_properties_section.dart';
 import 'widgets/request_property_section.dart';
 
 class HomeView extends StatefulWidget {
@@ -30,7 +30,7 @@ class _HomeViewState extends State<HomeView>
           const HeaderSection(),
           const Padding(
             padding: const EdgeInsets.all(16.0),
-            child: const ExploreSection(),
+            child: const PropertyCategoriesSection(),
           ),
           const Padding(
             padding: const EdgeInsets.all(16.0),

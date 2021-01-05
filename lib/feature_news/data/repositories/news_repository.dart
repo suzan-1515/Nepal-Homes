@@ -35,10 +35,10 @@ class NewsRepository with Repository {
 
   @override
   Future<PaginatedNewsEntity> getLatestCategoryNews(
-      {String categoryId, int page}) async {
+      {String categoryId, int size}) async {
     if (!(await _networkInfo.isConnected)) throw NetworkException();
     return _remoteDataSource.fetchLatestCategoryNews(
-        categoryId: categoryId, page: page);
+        categoryId: categoryId, size: size);
   }
 
   @override
@@ -69,5 +69,11 @@ class NewsRepository with Repository {
   Future<NewsDetailEntity> getNewsDetail({String id}) async {
     if (!(await _networkInfo.isConnected)) throw NetworkException();
     return _remoteDataSource.fetchNewsDetail(id: id);
+  }
+
+  @override
+  Future<PaginatedNewsEntity> getRelatedNews({String newsId}) async {
+    if (!(await _networkInfo.isConnected)) throw NetworkException();
+    return _remoteDataSource.fetchRelatedNews(newsId: newsId);
   }
 }

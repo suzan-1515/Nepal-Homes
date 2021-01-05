@@ -14,13 +14,15 @@ mixin RemoteDataSource {
 
   Future<PaginatedNewsModel> fetchTrendingNews();
 
+  Future<PaginatedNewsModel> fetchRelatedNews({@required String newsId});
+
   Future<CategoryWrapperModel> fetchCategories({@required int page});
 
   Future<PaginatedNewsModel> fetchCategoryNews(
       {@required String slug, @required int page});
 
   Future<PaginatedNewsModel> fetchLatestCategoryNews(
-      {@required String categoryId, @required int page});
+      {@required String categoryId, @required int size});
 
   Future<NewsDetailModel> fetchNewsDetail({@required String id});
 }

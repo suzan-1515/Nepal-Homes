@@ -13,9 +13,11 @@ import 'package:nepal_homes/feature_news/data/services/remote_service.dart';
 import 'package:nepal_homes/feature_news/domain/repositories/repository.dart';
 import 'package:nepal_homes/feature_news/domain/usecases/usecases.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/category_news_list/category_news_list_cubit.dart';
+import 'package:nepal_homes/feature_news/presentation/cubits/latest_category_news_list/latest_category_news_list_cubit.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/latest_news/latest_news_cubit.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/news_detail/news_detail_cubit.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/news_list/news_list_cubit.dart';
+import 'package:nepal_homes/feature_news/presentation/cubits/related_news/related_news_cubit.dart';
 
 class NewsProvider {
   NewsProvider._();
@@ -46,6 +48,8 @@ class NewsProvider {
         () => GetCategoryNewsUseCase(GetIt.I.get<Repository>()));
     GetIt.I.registerLazySingleton<GetNewsDetailUseCase>(
         () => GetNewsDetailUseCase(GetIt.I.get<Repository>()));
+    GetIt.I.registerLazySingleton<GetRelatedNewsUseCase>(
+        () => GetRelatedNewsUseCase(GetIt.I.get<Repository>()));
 
     GetIt.I.registerFactory<NewsListCubit>(() => NewsListCubit(
           getNewsUseCase: GetIt.I.get<GetNewsUseCase>(),
@@ -61,6 +65,15 @@ class NewsProvider {
         (param1, param2) => CategoryNewsListCubit(
               getCategoryNewsListUseCase: GetIt.I.get<GetCategoryNewsUseCase>(),
             )..getCategoryNews(categorySlug: param1));
+    GetIt.I.registerFactoryParam<LatestCategoryNewsListCubit, String, void>(
+        (param1, param2) => LatestCategoryNewsListCubit(
+              getLatestCategoryNewsListUseCase:
+                  GetIt.I.get<GetLatestNewsByCategoryUseCase>(),
+            )..getCategoryNews(categoryId: param1));
+    GetIt.I.registerFactoryParam<RelatedNewsCubit, String, void>(
+        (param1, param2) => RelatedNewsCubit(
+              getRelatedNewsUseCase: GetIt.I.get<GetRelatedNewsUseCase>(),
+            )..getRelatedNews(newsId: param1));
   }
 
   static BlocProvider<NewsListCubit> newsBlocProvider({
@@ -85,6 +98,26 @@ class NewsProvider {
   }) =>
       BlocProvider<CategoryNewsListCubit>(
         create: (context) => GetIt.I.get<CategoryNewsListCubit>(param1: id),
+        child: child,
+      );
+
+  static BlocProvider<LatestCategoryNewsListCubit>
+      latestCategoryNewsBlocProvider({
+    @required Widget child,
+    @required String id,
+  }) =>
+          BlocProvider<LatestCategoryNewsListCubit>(
+            create: (context) =>
+                GetIt.I.get<LatestCategoryNewsListCubit>(param1: id),
+            child: child,
+          );
+
+  static BlocProvider<RelatedNewsCubit> relatedNewsBlocProvider({
+    @required Widget child,
+    @required String newsId,
+  }) =>
+      BlocProvider<RelatedNewsCubit>(
+        create: (context) => GetIt.I.get<RelatedNewsCubit>(param1: newsId),
         child: child,
       );
 

@@ -25,7 +25,7 @@ class _PropertyListScreenState extends State<PropertyListScreen> {
   PropertyQuery argsToQuery(args) => PropertyQuery(
         isFeatured: args?.isFeatured,
         isPremium: args?.isPremium,
-        propertyCategoryId: args?.categoryId,
+        propertyCategoryId: args?.id,
       );
 
   @override

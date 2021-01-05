@@ -10,6 +10,7 @@ import 'package:nepal_homes/core/widgets/fab_bottom_app_bar.dart';
 import 'package:nepal_homes/feature_main/presentation/blocs/main/main_cubit.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/home/home_view.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/more_menu/more_menu_screen.dart';
+import 'package:nepal_homes/feature_news/presentation/ui/category_news_list/category_news_list_screen.dart';
 import 'package:nepal_homes/feature_news/presentation/ui/news_detail/news_detail_screen.dart';
 import 'package:nepal_homes/feature_news/presentation/ui/news_list/news_list_screen.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/detail/property_detail_screen.dart';
@@ -42,30 +43,40 @@ class _MainScreenState extends State<MainScreen> {
       if (event.path == PropertyListScreen.ROUTE_NAME) {
         Navigator.pushNamed(context, PropertyListScreen.ROUTE_NAME,
             arguments: PropertyListScreenArgs.fromMap(event.queryParameters));
-      } else if (PropertyDetailScreen.ROUTE_NAME
-              .contains(event.pathSegments.first) &&
-          event.pathSegments.length == 2) {
-        Navigator.pushNamed(
-          context,
-          PropertyDetailScreen.ROUTE_NAME,
-          arguments: PropertyDetailScreenArgs(event.pathSegments.last),
-        );
       } else if (NewsListScreen.ROUTE_NAME == event.path) {
         Navigator.pushNamed(
           context,
           NewsListScreen.ROUTE_NAME,
         );
-      } else if (NewsDetailScreen.ROUTE_NAME
-              .contains(event.pathSegments.first) &&
-          event.pathSegments.length == 2) {
-        Navigator.pushNamed(
-          context,
-          NewsDetailScreen.ROUTE_NAME,
-          arguments: NewsDetailScreenArgs(
-            event.pathSegments.last,
-            title: event.hasQuery ? event.queryParameters['title'] : null,
-          ),
-        );
+      } else if (event.pathSegments.length == 2) {
+        if (PropertyDetailScreen.ROUTE_NAME.split('/').last ==
+            event.pathSegments.first) {
+          Navigator.pushNamed(
+            context,
+            PropertyDetailScreen.ROUTE_NAME,
+            arguments: PropertyDetailScreenArgs(event.pathSegments.last),
+          );
+        } else if (NewsDetailScreen.ROUTE_NAME.split('/').last ==
+            event.pathSegments.first) {
+          Navigator.pushNamed(
+            context,
+            NewsDetailScreen.ROUTE_NAME,
+            arguments: NewsDetailScreenArgs(
+              event.pathSegments.last,
+              title: event.hasQuery ? event.queryParameters['title'] : null,
+            ),
+          );
+        } else if (CategoryNewsListScreen.ROUTE_NAME.split('/').last ==
+            event.pathSegments.first) {
+          Navigator.pushNamed(
+            context,
+            CategoryNewsListScreen.ROUTE_NAME,
+            arguments: CategoryNewsListScreenArgs(
+              event.pathSegments.last,
+              title: event.hasQuery ? event.queryParameters['title'] : null,
+            ),
+          );
+        }
       }
     }, onError: (e) {
       log('[MainScreen] already subscribed');

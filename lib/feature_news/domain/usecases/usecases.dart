@@ -5,5 +5,6 @@ export 'get_latest_news_by_category_use_case.dart';
 export 'get_latest_news_use_case.dart';
 export 'get_news_detail_use_case.dart';
 export 'get_news_use_case.dart';
+export 'get_related_news_use_case.dart';
 export 'get_showcase_news_use_case.dart';
 export 'get_trending_news_use_case.dart';

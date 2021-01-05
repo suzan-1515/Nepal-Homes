@@ -14,13 +14,13 @@ class CategoryNewsListLoading extends CategoryNewsListState {}
 class CategoryNewsListLoadingMore extends CategoryNewsListState {}
 
 class CategoryNewsListLoadSuccess extends CategoryNewsListState {
-  final PaginatedNewsEntity news;
+  final List<NewsEntity> news;
   final bool hasMore;
 
   CategoryNewsListLoadSuccess(this.news, {this.hasMore = true});
 
   CategoryNewsListLoadSuccess copyWith({
-    PaginatedNewsEntity news,
+    List<NewsEntity> news,
     bool hasMore,
   }) =>
       CategoryNewsListLoadSuccess(

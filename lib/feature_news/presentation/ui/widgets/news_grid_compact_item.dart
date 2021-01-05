@@ -46,7 +46,6 @@ class NewsGridCompactItem extends StatelessWidget {
                     ? APIUrlConstants.DEFAULT_IMAGE_URL
                     : image,
                 fit: BoxFit.cover,
-                tag: image ?? UniqueKey(),
               ),
             ),
             SizedBox(
@@ -54,16 +53,13 @@ class NewsGridCompactItem extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Hero(
-                tag: 'news-hero-title-$id',
-                child: Text(
-                  '${title ?? 'N/A'}',
-                  style: theme.textTheme.subtitle1.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Color.fromARGB(255, 47, 57, 72)),
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                ),
+              child: Text(
+                '${title ?? 'N/A'}',
+                style: theme.textTheme.subtitle1.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 47, 57, 72)),
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
             SizedBox(height: 4),

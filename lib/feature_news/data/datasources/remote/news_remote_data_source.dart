@@ -1,5 +1,6 @@
 import 'package:nepal_homes/feature_news/data/datasources/remote/remote_data_source.dart';
 import 'package:nepal_homes/feature_news/data/models/category_model.dart';
+import 'package:nepal_homes/feature_news/data/models/latest_category_news_model.dart';
 import 'package:nepal_homes/feature_news/data/models/news_detail_model.dart';
 import 'package:nepal_homes/feature_news/data/models/paginated_news_model.dart';
 import 'package:nepal_homes/feature_news/data/services/remote_service.dart';
@@ -30,10 +31,10 @@ class NewsRemoteDataSource with RemoteDataSource {
 
   @override
   Future<PaginatedNewsModel> fetchLatestCategoryNews(
-      {String categoryId, int page}) async {
+      {String categoryId, int size}) async {
     var response = await _remoteService.fetchLatestCategoryNews(
-        categoryId: categoryId, page: page);
-    return PaginatedNewsModel.fromMap(response);
+        categoryId: categoryId, size: size);
+    return LatestCategoryNewsModel.fromMap(response);
   }
 
   @override
@@ -64,5 +65,11 @@ class NewsRemoteDataSource with RemoteDataSource {
   Future<NewsDetailModel> fetchNewsDetail({String id}) async {
     var response = await _remoteService.fetchNewsDetail(id: id);
     return NewsDetailModel.fromMap(response);
+  }
+
+  @override
+  Future<PaginatedNewsModel> fetchRelatedNews({String newsId}) async {
+    var response = await _remoteService.fetchRelatedNews(newsId: newsId);
+    return PaginatedNewsModel.fromMap(response);
   }
 }

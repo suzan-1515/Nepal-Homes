@@ -4,13 +4,13 @@ import 'package:nepal_homes/core/extensions/view.dart';
 import 'package:nepal_homes/core/widgets/empty_data_widget.dart';
 import 'package:nepal_homes/core/widgets/error_data_widget.dart';
 import 'package:nepal_homes/core/widgets/progress_widget.dart';
+import 'package:nepal_homes/core/widgets/section_heading.dart';
 import 'package:nepal_homes/feature_agencies/presentation/cubits/agency_list/agency_cubit.dart';
 import 'package:nepal_homes/feature_agencies/presentation/ui/agency_list/agency_list_screen.dart';
 import 'package:nepal_homes/feature_agencies/utils/provider.dart';
 
-import '../../../../../feature_agencies/presentation/ui/widgets/agency_horizontal_list.dart';
-import 'section_container.dart';
-import 'section_heading.dart';
+import '../../../../core/widgets/section_container.dart';
+import 'agency_horizontal_list.dart';
 
 class AgencySection extends StatelessWidget {
   const AgencySection();
@@ -34,7 +34,8 @@ class AgencySection extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is AgencyLoadSuccess) {
-              return AgencyHorizontalList(properties: state.agencies.take(6).toList());
+              return AgencyHorizontalList(
+                  properties: state.agencies.take(6).toList());
             } else if (state is AgencyLoadError) {
               return Center(
                 child: ErrorDataView(

@@ -6,7 +6,7 @@ import 'package:nepal_homes/core/view/content_view_style.dart';
 import 'package:nepal_homes/core/widgets/progress_widget.dart';
 import 'package:nepal_homes/feature_news/presentation/models/news_model.dart';
 import 'package:nepal_homes/feature_news/presentation/ui/news_detail/news_detail_screen.dart';
-import 'package:nepal_homes/feature_news/presentation/ui/news_list/widgets/news_list_item.dart';
+import 'package:nepal_homes/feature_news/presentation/ui/widgets/news_list_item.dart';
 import 'package:sizer/sizer.dart';
 
 class NewsListBuilder extends StatelessWidget {

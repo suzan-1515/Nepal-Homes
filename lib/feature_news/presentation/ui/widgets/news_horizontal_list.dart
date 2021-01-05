@@ -7,10 +7,10 @@ import 'package:sizer/sizer.dart';
 
 import 'news_grid_compact_item.dart';
 
-class LatestNewsHorizontalList extends StatelessWidget {
+class NewsHorizontalList extends StatelessWidget {
   final List<NewsUIModel> newsList;
 
-  const LatestNewsHorizontalList({Key key, @required this.newsList})
+  const NewsHorizontalList({Key key, @required this.newsList})
       : super(key: key);
 
   @override

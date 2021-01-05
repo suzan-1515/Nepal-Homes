@@ -4,15 +4,14 @@ import 'package:nepal_homes/core/extensions/view.dart';
 import 'package:nepal_homes/core/widgets/empty_data_widget.dart';
 import 'package:nepal_homes/core/widgets/error_data_widget.dart';
 import 'package:nepal_homes/core/widgets/progress_widget.dart';
+import 'package:nepal_homes/core/widgets/section_container.dart';
+import 'package:nepal_homes/core/widgets/section_heading.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/cubits/property_category/property_category_cubit.dart';
+import 'package:nepal_homes/feature_property_listing/presentation/ui/widgets/property_category_horizontal_list.dart';
 import 'package:nepal_homes/feature_property_listing/utils/provider.dart';
 
-import '../../../../../feature_property_listing/presentation/ui/widgets/property_category_horizontal_list.dart';
-import 'section_container.dart';
-import 'section_heading.dart';
-
-class ExploreSection extends StatelessWidget {
-  const ExploreSection();
+class PropertyCategoriesSection extends StatelessWidget {
+  const PropertyCategoriesSection();
 
   @override
   Widget build(BuildContext context) {
