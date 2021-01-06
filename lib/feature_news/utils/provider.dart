@@ -12,7 +12,9 @@ import 'package:nepal_homes/feature_news/data/services/news_remote_service.dart'
 import 'package:nepal_homes/feature_news/data/services/remote_service.dart';
 import 'package:nepal_homes/feature_news/domain/repositories/repository.dart';
 import 'package:nepal_homes/feature_news/domain/usecases/get_categories_use_case.dart';
+import 'package:nepal_homes/feature_news/domain/usecases/get_news_by_author_use_case.dart';
 import 'package:nepal_homes/feature_news/domain/usecases/usecases.dart';
+import 'package:nepal_homes/feature_news/presentation/cubits/author_news/author_news_cubit.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/category_news_list/category_news_list_cubit.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/highlight_news/highlight_news_cubit.dart';
 import 'package:nepal_homes/feature_news/presentation/cubits/latest_category_news_list/latest_category_news_list_cubit.dart';
@@ -57,6 +59,8 @@ class NewsProvider {
         () => GetRelatedNewsUseCase(GetIt.I.get<Repository>()));
     GetIt.I.registerLazySingleton<GetCategoriesUseCase>(
         () => GetCategoriesUseCase(GetIt.I.get<Repository>()));
+    GetIt.I.registerLazySingleton<GetNewsByAuthorUseCase>(
+        () => GetNewsByAuthorUseCase(GetIt.I.get<Repository>()));
 
     GetIt.I.registerFactory<NewsListCubit>(() => NewsListCubit(
           getNewsUseCase: GetIt.I.get<GetNewsUseCase>(),
@@ -93,6 +97,10 @@ class NewsProvider {
         (param1, param2) => RelatedNewsCubit(
               getRelatedNewsUseCase: GetIt.I.get<GetRelatedNewsUseCase>(),
             )..getRelatedNews(newsId: param1));
+    GetIt.I.registerFactoryParam<AuthorNewsCubit, String, void>(
+        (param1, param2) => AuthorNewsCubit(
+              getAuthorNewsUseCase: GetIt.I.get<GetNewsByAuthorUseCase>(),
+            )..getAuthorNews(authorId: param1));
   }
 
   static MultiBlocProvider newsMultiBlocProvider({
@@ -188,6 +196,15 @@ class NewsProvider {
   }) =>
       BlocProvider<RelatedNewsCubit>(
         create: (context) => GetIt.I.get<RelatedNewsCubit>(param1: newsId),
+        child: child,
+      );
+
+  static BlocProvider<AuthorNewsCubit> authorNewsBlocProvider({
+    @required Widget child,
+    @required String authorId,
+  }) =>
+      BlocProvider<AuthorNewsCubit>(
+        create: (context) => GetIt.I.get<AuthorNewsCubit>(param1: authorId),
         child: child,
       );
 

@@ -34,6 +34,7 @@ class RelatedProperty extends StatelessWidget {
                   ?.map<Widget>((e) => SizedBox(
                         width: 300.0,
                         child: PropertyGridItem(
+                          imageHeight: 100,
                           onTap: () => Navigator.pushNamed(
                             context,
                             PropertyDetailScreen.ROUTE_NAME,

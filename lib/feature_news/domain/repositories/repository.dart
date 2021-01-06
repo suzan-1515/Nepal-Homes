@@ -14,6 +14,9 @@ mixin Repository {
 
   Future<PaginatedNewsEntity> getTrendingNews();
 
+  Future<PaginatedNewsEntity> getNewsByAuthor(
+      {@required String authorId, @required int page});
+
   Future<PaginatedNewsEntity> getRelatedNews({@required String newsId});
 
   Future<CategoryWrapperEntity> getCategories({@required int page});

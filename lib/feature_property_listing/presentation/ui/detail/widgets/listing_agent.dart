@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
@@ -16,9 +15,12 @@ class ListingAgent extends StatelessWidget {
     final property =
         ScopedModel.of<PropertyDetailUIModel>(context, rebuildOnChange: true);
     final theme = Theme.of(context);
-    final agent = property.entity.agent ==null?property.entity.addedBy:property.entity.agent;
+    final agent = property.entity.agent == null
+        ? property.entity.addedBy
+        : property.entity.agent;
     return BorderedContainer(
       color: theme.primaryColor.withOpacity(0.1),
+      border: Border.fromBorderSide(BorderSide.none),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -29,7 +31,8 @@ class ListingAgent extends StatelessWidget {
             children: [
               CircleAvatar(
                 backgroundImage: CachedNetworkImageProvider(
-                    agent?.image?.fullPath ?? APIUrlConstants.DEFAULT_IMAGE_URL),
+                    agent?.image?.fullPath ??
+                        APIUrlConstants.DEFAULT_IMAGE_URL),
                 backgroundColor: theme.highlightColor,
                 radius: 24,
               ),

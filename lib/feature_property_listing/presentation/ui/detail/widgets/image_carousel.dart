@@ -52,12 +52,13 @@ class _DetailImageCarouselState extends State<DetailImageCarousel> {
               ),
             ),
             Positioned(
-              bottom: 16.0,
-              right: 16.0,
+              bottom: 8.0,
+              right: 8.0,
               child: ValueListenableBuilder(
                 valueListenable: _currentIndex,
                 builder: (context, value, child) => Container(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 4.0, horizontal: 8.0),
                   alignment: Alignment.center,
                   decoration: ShapeDecoration(
                     shape: RoundedRectangleBorder(
@@ -75,9 +76,9 @@ class _DetailImageCarouselState extends State<DetailImageCarousel> {
                       SizedBox(width: 8),
                       Text(
                         '${value + 1} \\ ${widget.images.length}',
-                        style: theme.textTheme.button.copyWith(
-                            color: theme.backgroundColor,
-                            fontWeight: FontWeight.bold),
+                        style: theme.textTheme.caption.copyWith(
+                          color: theme.backgroundColor,
+                        ),
                       )
                     ],
                   ),

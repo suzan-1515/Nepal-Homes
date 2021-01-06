@@ -76,4 +76,11 @@ class NewsRepository with Repository {
     if (!(await _networkInfo.isConnected)) throw NetworkException();
     return _remoteDataSource.fetchRelatedNews(newsId: newsId);
   }
+
+  @override
+  Future<PaginatedNewsEntity> getNewsByAuthor(
+      {String authorId, int page}) async {
+    if (!(await _networkInfo.isConnected)) throw NetworkException();
+    return _remoteDataSource.fetchNewsByAuthor(authorId: authorId, page: page);
+  }
 }

@@ -16,6 +16,9 @@ mixin RemoteDataSource {
 
   Future<PaginatedNewsModel> fetchRelatedNews({@required String newsId});
 
+  Future<PaginatedNewsModel> fetchNewsByAuthor(
+      {@required String authorId, @required int page});
+
   Future<CategoryWrapperModel> fetchCategories({@required int page});
 
   Future<PaginatedNewsModel> fetchCategoryNews(

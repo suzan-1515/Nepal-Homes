@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nepal_homes/core/constants/api_url_constants.dart';
+import 'package:nepal_homes/core/utils/link_utils.dart';
 import 'package:nepal_homes/feature_news/domain/entities/author_entity.dart';
 
 class NewsAuthor extends StatelessWidget {
@@ -51,7 +52,8 @@ class NewsAuthor extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 OutlineButton(
-                  onPressed: () {},
+                  onPressed: () => LinkUtils.openLink(
+                      'app://nepalhomes/author-news/${author?.id}?title=${author?.name}'),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),

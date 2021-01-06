@@ -10,6 +10,7 @@ import 'package:nepal_homes/core/widgets/fab_bottom_app_bar.dart';
 import 'package:nepal_homes/feature_main/presentation/blocs/main/main_cubit.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/home/home_view.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/more_menu/more_menu_screen.dart';
+import 'package:nepal_homes/feature_news/presentation/ui/author_news_list/author_news_list_screen.dart';
 import 'package:nepal_homes/feature_news/presentation/ui/category_news_list/category_news_list_screen.dart';
 import 'package:nepal_homes/feature_news/presentation/ui/news_detail/news_detail_screen.dart';
 import 'package:nepal_homes/feature_news/presentation/ui/news_list/news_list_screen.dart';
@@ -72,6 +73,16 @@ class _MainScreenState extends State<MainScreen> {
             context,
             CategoryNewsListScreen.ROUTE_NAME,
             arguments: CategoryNewsListScreenArgs(
+              event.pathSegments.last,
+              title: event.hasQuery ? event.queryParameters['title'] : null,
+            ),
+          );
+        } else if (AuthorNewsListScreen.ROUTE_NAME.split('/').last ==
+            event.pathSegments.first) {
+          Navigator.pushNamed(
+            context,
+            AuthorNewsListScreen.ROUTE_NAME,
+            arguments: AuthorNewsListScreenArgs(
               event.pathSegments.last,
               title: event.hasQuery ? event.queryParameters['title'] : null,
             ),

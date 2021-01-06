@@ -72,4 +72,12 @@ class NewsRemoteDataSource with RemoteDataSource {
     var response = await _remoteService.fetchRelatedNews(newsId: newsId);
     return PaginatedNewsModel.fromMap(response);
   }
+
+  @override
+  Future<PaginatedNewsModel> fetchNewsByAuthor(
+      {String authorId, int page}) async {
+    var response =
+        await _remoteService.fetchNewsByAuthor(authorId: authorId, page: page);
+    return PaginatedNewsModel.fromMap(response);
+  }
 }

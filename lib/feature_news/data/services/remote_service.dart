@@ -11,6 +11,9 @@ mixin RemoteService {
 
   Future<dynamic> fetchTrendingNews();
 
+  Future<dynamic> fetchNewsByAuthor(
+      {@required String authorId, @required int page});
+
   Future<dynamic> fetchRelatedNews({@required String newsId});
 
   Future<dynamic> fetchCategories({@required int page});
