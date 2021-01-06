@@ -10,7 +10,7 @@ extension SnackBarX on BuildContext {
       )..show(this);
 }
 
-extension SnackBarX2 on ScaffoldState {
+extension SnackBarX2 on ScaffoldMessengerState {
   showMessage(String message) => this
     ..hideCurrentSnackBar()
     ..showSnackBar(
