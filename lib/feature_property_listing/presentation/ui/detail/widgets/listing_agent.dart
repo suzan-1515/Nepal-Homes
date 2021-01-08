@@ -4,7 +4,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:nepal_homes/core/constants/api_url_constants.dart';
 import 'package:nepal_homes/core/extensions/view.dart';
 import 'package:nepal_homes/core/widgets/bordered_container.dart';
-import 'package:nepal_homes/feature_news/presentation/ui/widgets/contact_agent_dialog.dart';
+import 'package:nepal_homes/feature_property_enquiry/presentation/ui/property_enquiry_dialog.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/property_detail_model.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/detail/widgets/section_header.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -71,13 +71,14 @@ class ListingAgent extends StatelessWidget {
                 onPressed: () => context.dialog(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
-                    child: ContactAgentDialog(
+                    child: PropertyEnquiryDialog(
                       agencyName: property.entity.agency?.title,
                       agentName: agent.name,
                       agentAvatar: agent.image?.fullPath,
                       agentContact: agent.mobileNo,
-                      propertyId: property.entity.propertyId?.toString(),
-                      propertyPrefix: property.entity.prefix,
+                      propertyId: property.entity.id,
+                      propertyCode:
+                          '${property.entity.prefix}${property.entity.propertyId}',
                     ),
                   ),
                 ),

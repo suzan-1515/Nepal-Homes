@@ -61,8 +61,6 @@ class _GalleryViewScreenState extends State<GalleryViewScreen> {
                 minScale: PhotoViewComputedScale.contained,
                 maxScale: PhotoViewComputedScale.covered * 2,
                 imageProvider: CachedNetworkImageProvider(args.images[index]),
-                heroAttributes:
-                    PhotoViewHeroAttributes(tag: args.images[index]),
               );
             },
             itemCount: args.images.length,

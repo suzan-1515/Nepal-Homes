@@ -48,4 +48,10 @@ class AnalyticsService {
     return _analytics
         .logEvent(name: 'pitch_black_mode', parameters: {'enable': value});
   }
+
+  //Property
+  Future logPropertyEnquiryPosted({String propertyId}) {
+    return _analytics.logEvent(
+        name: 'property_enquiry', parameters: {'property_id': propertyId});
+  }
 }
