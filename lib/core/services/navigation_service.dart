@@ -9,6 +9,7 @@ import 'package:nepal_homes/feature_news/presentation/ui/author_news_list/author
 import 'package:nepal_homes/feature_news/presentation/ui/category_news_list/category_news_list_screen.dart';
 import 'package:nepal_homes/feature_news/presentation/ui/news_detail/news_detail_screen.dart';
 import 'package:nepal_homes/feature_news/presentation/ui/news_list/news_list_screen.dart';
+import 'package:nepal_homes/feature_profile/presentation/ui/user_profile_screen.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/detail/property_detail_screen.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/list/all/property_list_screen.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/list/featured/featured_property_list_screen.dart';
@@ -26,6 +27,9 @@ class NavigationService {
       case LoginScreen.ROUTE_NAME:
         return MaterialPageRoute(
             builder: (_) => LoginScreen(), settings: settings);
+      case UserProfileScreen.ROUTE_NAME:
+        return MaterialPageRoute(
+            builder: (_) => UserProfileScreen(), settings: settings);
       case AgencyListScreen.ROUTE_NAME:
         return MaterialPageRoute(
             builder: (_) => AgencyListScreen(), settings: settings);

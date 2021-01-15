@@ -2,12 +2,12 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 
 extension SnackBarX on BuildContext {
-  showMessage(String message) => Flushbar(
+  Future showMessage(String message) => Flushbar(
         message: message,
         duration: Duration(seconds: 3),
         margin: const EdgeInsets.all(8.0),
         borderRadius: 6.0,
-      )..show(this);
+      ).show(this);
 }
 
 extension SnackBarX2 on ScaffoldMessengerState {

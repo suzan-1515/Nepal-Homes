@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:nepal_homes/core/usecases/usecase.dart';
-import 'package:nepal_homes/feature_auth/domain/entities/user_entity.dart';
+import 'package:nepal_homes/feature_auth/domain/entities/authenticated_user_entity.dart';
 import 'package:nepal_homes/feature_auth/domain/repositories/repository.dart';
 
 class LogoutUseCase implements UseCase<void, LogoutUseCaseParams> {
@@ -23,7 +23,7 @@ class LogoutUseCase implements UseCase<void, LogoutUseCaseParams> {
 }
 
 class LogoutUseCaseParams extends Equatable {
-  final UserEntity userEntity;
+  final AuthenticatedUserEntity userEntity;
 
   LogoutUseCaseParams({
     @required this.userEntity,

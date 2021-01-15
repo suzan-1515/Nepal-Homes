@@ -1,42 +1,37 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_twitter/flutter_twitter.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
-import 'package:nepal_homes/core/constants/api_keys.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:nepal_homes/core/network/http_manager/http_manager.dart';
 import 'package:nepal_homes/feature_auth/data/services/remote_service.dart';
-import 'package:nepal_homes/feature_auth/domain/entities/user_entity.dart';
+import 'package:nepal_homes/feature_auth/domain/entities/user_signup_entity.dart';
 
 class AuthRemoteService with RemoteService {
-  static const String REGISTER = '/register';
-  static const String LOGIN = '/login';
-  static const String PROFILE = '/user-profiles';
+  static const String REGISTER = '/user/register';
+  static const String GOOGLE_LOGIN = '/user/login/google';
+  static const String FACEBOOK_LOGIN = '/user/login/facebook';
+  static const String EMAIL_LOGIN = '/user/login';
+  static const String LOGOUT = '/user/logout';
 
-  final FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
   final FacebookAuth _facebookAuth;
-  final HttpManager httpManager;
+  final HttpManager _httpManager;
 
-  AuthRemoteService(this._firebaseAuth, this._googleSignIn, this._facebookAuth,
-      this.httpManager);
-
-  @override
-  Future<User> fetchCurrentUser() {
-    return Future.value(_firebaseAuth.currentUser);
-  }
+  AuthRemoteService(this._googleSignIn, this._facebookAuth, this._httpManager);
 
   @override
   Future loginWithFacebook() async {
-    final AccessToken accessToken = await _facebookAuth.login();
+    final AccessToken accessToken = await _facebookAuth.login(
+        loginBehavior: LoginBehavior.NATIVE_WITH_FALLBACK);
 
     final FacebookAuthCredential facebookAuthCredential =
         FacebookAuthProvider.credential(accessToken.token);
 
-    UserCredential userCredential =
-        await _firebaseAuth.signInWithCredential(facebookAuthCredential);
+    final Map<String, String> body = {
+      'access_token': facebookAuthCredential.accessToken
+    };
 
-    return userCredential;
+    return _httpManager.post(path: FACEBOOK_LOGIN, body: body);
   }
 
   @override
@@ -50,79 +45,36 @@ class AuthRemoteService with RemoteService {
       idToken: googleAuth.idToken,
     );
 
-    UserCredential userCredential =
-        await _firebaseAuth.signInWithCredential(credential);
+    final Map<String, String> body = {'access_token': credential.accessToken};
 
-    return userCredential;
+    return _httpManager.post(path: GOOGLE_LOGIN, body: body);
   }
 
   @override
-  Future loginWithTwitter() async {
-    // Create a TwitterLogin instance
-    final TwitterLogin twitterLogin = new TwitterLogin(
-      consumerKey: ApiKeys.TWITTER_CONSUMER_KEY,
-      consumerSecret: ApiKeys.TWITTER_CONSUMER_SECRET_KEY,
-    );
-
-    // Trigger the sign-in flow
-    final TwitterLoginResult loginResult = await twitterLogin.authorize();
-
-    // Get the Logged In session
-    final TwitterSession twitterSession = loginResult.session;
-
-    // Create a credential from the access token
-    final AuthCredential twitterAuthCredential = TwitterAuthProvider.credential(
-        accessToken: twitterSession.token, secret: twitterSession.secret);
-
-    // Once signed in, return the UserCredential
-    UserCredential userCredential =
-        await _firebaseAuth.signInWithCredential(twitterAuthCredential);
-
-    return userCredential;
-  }
-
-  @override
-  Future signup({@required String uid}) {
+  Future signup({@required UserSignUpEntity signUpPayload}) {
     final Map<String, String> body = {
-      'uid': uid,
+      "email": signUpPayload.email,
+      "mobile_no": signUpPayload.mobileNo,
+      "name": signUpPayload.name,
+      "password": signUpPayload.password,
     };
-    var call = httpManager.post(path: REGISTER, body: body);
-    return call;
+    return _httpManager.post(path: REGISTER, body: body);
   }
 
   @override
-  Future loginWithEmail({String identifier, String password}) {
+  Future loginWithEmail({String email, String password}) {
     final Map<String, String> body = {
-      'identifier': identifier,
+      'email': email,
       'password': password,
     };
-    var call = httpManager.post(path: LOGIN, body: body);
-
-    return call;
+    return _httpManager.post(path: EMAIL_LOGIN, body: body);
   }
 
   @override
-  Future logout({@required UserEntity userEntity}) async {
-    await _firebaseAuth.signOut();
-  }
-
-  @override
-  Future fetchUserProfile({@required String token}) {
-    Map<String, String> headers = {
-      'Authorization': 'Bearer $token',
+  Future logout({@required String token}) {
+    final Map<String, String> headers = {
+      'Authorization': token,
     };
-    var call = httpManager.get(path: PROFILE, headers: headers);
-
-    return call;
-  }
-
-  @override
-  Future login({String uid}) {
-    final Map<String, String> body = {
-      'uid': uid,
-    };
-    var call = httpManager.post(path: LOGIN, body: body);
-
-    return call;
+    return _httpManager.get(path: LOGOUT, headers: headers);
   }
 }

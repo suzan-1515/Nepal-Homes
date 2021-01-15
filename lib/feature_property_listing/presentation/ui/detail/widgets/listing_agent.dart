@@ -1,9 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:nepal_homes/core/constants/api_url_constants.dart';
 import 'package:nepal_homes/core/extensions/view.dart';
 import 'package:nepal_homes/core/widgets/bordered_container.dart';
+import 'package:nepal_homes/feature_auth/presentation/blocs/auth_bloc.dart';
+import 'package:nepal_homes/feature_auth/presentation/ui/login_screen.dart';
 import 'package:nepal_homes/feature_property_enquiry/presentation/ui/property_enquiry_dialog.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/models/property_detail_model.dart';
 import 'package:nepal_homes/feature_property_listing/presentation/ui/detail/widgets/section_header.dart';
@@ -68,20 +71,22 @@ class ListingAgent extends StatelessWidget {
                   color: theme.primaryColor,
                   size: 18,
                 ),
-                onPressed: () => context.dialog(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: PropertyEnquiryDialog(
-                      agencyName: property.entity.agency?.title,
-                      agentName: agent.name,
-                      agentAvatar: agent.image?.fullPath,
-                      agentContact: agent.mobileNo,
-                      propertyId: property.entity.id,
-                      propertyCode:
-                          '${property.entity.prefix}${property.entity.propertyId}',
-                    ),
-                  ),
-                ),
+                onPressed: () => context.read<AuthBloc>().isLoggedIn
+                    ? context.dialog(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: PropertyEnquiryDialog(
+                            agencyName: property.entity.agency?.title,
+                            agentName: agent.name,
+                            agentAvatar: agent.image?.fullPath,
+                            agentContact: agent.mobileNo,
+                            propertyId: property.entity.id,
+                            propertyCode:
+                                '${property.entity.prefix}${property.entity.propertyId}',
+                          ),
+                        ),
+                      )
+                    : Navigator.pushNamed(context, LoginScreen.ROUTE_NAME),
                 constraints: BoxConstraints.tightFor(
                   width: 48.0,
                   height: 48.0,

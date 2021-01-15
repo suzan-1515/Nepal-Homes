@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,12 +17,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthProviders {
   AuthProviders._();
+
   static setup() {
     GetIt.I.registerLazySingleton<AuthStorage>(
         () => AuthStorage(GetIt.I.get<SharedPreferences>()));
     GetIt.I.registerLazySingleton<AuthRemoteService>(
       () => AuthRemoteService(
-        FirebaseAuth.instance,
         GoogleSignIn(),
         FacebookAuth.instance,
         GetIt.I.get<HttpManager>(),
@@ -46,11 +45,6 @@ class AuthProviders {
         GetIt.I.get<AuthLocalDataSource>(),
       ),
     );
-    GetIt.I.registerLazySingleton<GetUserProfileUseCase>(
-      () => GetUserProfileUseCase(
-        GetIt.I.get<AuthRepository>(),
-      ),
-    );
     GetIt.I.registerLazySingleton<LoginWithFacebookUseCase>(
       () => LoginWithFacebookUseCase(
         GetIt.I.get<AuthRepository>(),
@@ -58,11 +52,6 @@ class AuthProviders {
     );
     GetIt.I.registerLazySingleton<LoginWithGoogleUseCase>(
       () => LoginWithGoogleUseCase(
-        GetIt.I.get<AuthRepository>(),
-      ),
-    );
-    GetIt.I.registerLazySingleton<LoginWithTwitterUseCase>(
-      () => LoginWithTwitterUseCase(
         GetIt.I.get<AuthRepository>(),
       ),
     );
@@ -81,7 +70,6 @@ class AuthProviders {
         autoLoginUseCase: GetIt.I.get<AutoLoginUseCase>(),
         loginWithFacebookUseCase: GetIt.I.get<LoginWithFacebookUseCase>(),
         loginWithGoogleUseCase: GetIt.I.get<LoginWithGoogleUseCase>(),
-        loginWithTwitterUseCase: GetIt.I.get<LoginWithTwitterUseCase>(),
         logoutUseCase: GetIt.I.get<LogoutUseCase>(),
       ),
     );

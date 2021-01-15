@@ -1,8 +1,11 @@
 import 'package:flutter/foundation.dart';
+import 'package:nepal_homes/core/exceptions/app_exceptions.dart';
 import 'package:nepal_homes/core/services/services.dart';
 import 'package:nepal_homes/feature_auth/data/datasources/local/local_data_source.dart';
 import 'package:nepal_homes/feature_auth/data/datasources/remote/remote_data_source.dart';
-import 'package:nepal_homes/feature_auth/domain/entities/user_entity.dart';
+import 'package:nepal_homes/feature_auth/domain/entities/auth_provider.dart';
+import 'package:nepal_homes/feature_auth/domain/entities/authenticated_user_entity.dart';
+import 'package:nepal_homes/feature_auth/domain/entities/user_signup_entity.dart';
 import 'package:nepal_homes/feature_auth/domain/repositories/repository.dart';
 
 class AuthRepository with Repository {
@@ -14,70 +17,69 @@ class AuthRepository with Repository {
       this._authLocalDataSource);
 
   @override
-  Future<UserEntity> loginWithFacebook() {
+  Future<AuthenticatedUserEntity> loginWithFacebook() {
     return _authRemoteDataSource.loginWithFacebook().then((value) async {
-      await _authLocalDataSource.saveUserToken(token: value.token);
-      if (value.isNew)
-        _analyticsService.logSignUp(method: 'facebook');
-      else
-        _analyticsService.logLogin(method: 'facebook');
-
+      await _authLocalDataSource.saveUser(userEntity: value);
+      _analyticsService.logLogin(method: value.provider.toString());
       return value;
     });
   }
 
   @override
-  Future<UserEntity> loginWithGoogle() {
+  Future<AuthenticatedUserEntity> loginWithGoogle() {
     return _authRemoteDataSource.loginWithGoogle().then((value) async {
-      await _authLocalDataSource.saveUserToken(token: value.token);
-      if (value.isNew)
-        _analyticsService.logSignUp(method: 'google');
-      else
-        _analyticsService.logLogin(method: 'google');
-
+      await _authLocalDataSource.saveUser(userEntity: value);
+      _analyticsService.logLogin(method: value.toString());
       return value;
     });
   }
 
   @override
-  Future<UserEntity> loginWithTwitter() {
-    return _authRemoteDataSource.loginWithTwitter().then((value) async {
-      await _authLocalDataSource.saveUserToken(token: value.token);
-      if (value.isNew)
-        _analyticsService.logSignUp(method: 'twitter');
-      else
-        _analyticsService.logLogin(method: 'twitter');
-
-      return value;
-    });
-  }
-
-  @override
-  Future<void> logout({@required UserEntity userEntity}) {
+  Future<void> logout({@required AuthenticatedUserEntity userEntity}) {
     return _authRemoteDataSource
-        .logout(userEntity: userEntity)
+        .logout(token: userEntity.token)
         .then((value) async {
-      await _authLocalDataSource.saveUserToken(token: '');
+      await _authLocalDataSource.deleteUser();
       _analyticsService.logLogout();
       return value;
     });
   }
 
   @override
-  Future<UserEntity> getUserProfile() {
-    var token = _authLocalDataSource.loadUserToken();
-    return _authRemoteDataSource.fetchUserProfile(token: token);
+  Future<AuthenticatedUserEntity> autoLogin() async {
+    final userEntity = await _authLocalDataSource.loadUser();
+    switch (userEntity.provider) {
+      case AuthProvider.GOOGLE:
+        return loginWithGoogle();
+      case AuthProvider.FACEBOOK:
+        return loginWithFacebook();
+      case AuthProvider.EMAIL:
+        return loginWithEmail();
+    }
+
+    throw UnAuthenticatedException();
   }
 
   @override
-  String getUserToken() {
-    return _authLocalDataSource.loadUserToken();
+  Future<AuthenticatedUserEntity> loginWithEmail(
+      {String email, String password}) {
+    return _authRemoteDataSource
+        .loginWithEmail(email: email, password: password)
+        .then((value) async {
+      await _authLocalDataSource.saveUser(userEntity: value);
+      _analyticsService.logLogin(method: value.toString());
+      return value;
+    });
   }
 
   @override
-  Future<UserEntity> autoLogin() {
-    return _authRemoteDataSource.autoLogin().then((value) async {
-      await _authLocalDataSource.saveUserToken(token: value.token);
+  Future<AuthenticatedUserEntity> signUpWithEmail(
+      {UserSignUpEntity userSignUpPayload}) {
+    return _authRemoteDataSource
+        .signup(signUpPayload: userSignUpPayload)
+        .then((value) async {
+      await _authLocalDataSource.saveUser(userEntity: value);
+      _analyticsService.logSignUp(method: value.toString());
       return value;
     });
   }

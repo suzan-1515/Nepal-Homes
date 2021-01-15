@@ -4,10 +4,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:get_it/get_it.dart';
+import 'package:nepal_homes/core/extensions/view.dart';
 import 'package:nepal_homes/core/services/services.dart';
 import 'package:nepal_homes/core/widgets/progress_widget.dart';
 import 'package:nepal_homes/feature_auth/presentation/blocs/auth_bloc.dart';
-import 'package:nepal_homes/core/extensions/view.dart';
 import 'package:nepal_homes/feature_main/presentation/ui/main/main_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -77,31 +77,6 @@ class LoginScreen extends StatelessWidget {
                 context.read<AuthBloc>().add(LoginWithFacebookEvent());
               },
             ),
-            SizedBox(height: 8),
-            SignInButton(
-              Buttons.Twitter,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.horizontal(
-                left: Radius.circular(16),
-                right: Radius.circular(16),
-              )),
-              text: 'Continue with Twitter',
-              onPressed: () {
-                context.read<AuthBloc>().add(LoginWithTwitterEvent());
-              },
-            ),
-            // SizedBox(height: 8),
-            // OutlineButton(
-            //   shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.horizontal(
-            //     left: Radius.circular(16),
-            //     right: Radius.circular(16),
-            //   )),
-            //   onPressed: () {
-            //     authStore.signInAnonymously();
-            //   },
-            //   child: Text('Continue as Guest'),
-            // ),
           ]),
     );
   }
@@ -121,8 +96,10 @@ class LoginScreen extends StatelessWidget {
               } else if (state is AuthSuccessState) {
                 GetIt.I
                     .get<CrashAnalyticsService>()
-                    .setUser(userId: state.user.id);
-                GetIt.I.get<NotificationService>().setEmail(state.user.email);
+                    .setUser(userId: state.user.user.id);
+                GetIt.I
+                    .get<NotificationService>()
+                    .setEmail(state.user.user.email);
                 Navigator.pushNamedAndRemoveUntil(
                     context, MainScreen.ROUTE_NAME, (route) => false);
               }

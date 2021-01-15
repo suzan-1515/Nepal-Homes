@@ -1,10 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:nepal_homes/core/exceptions/app_exceptions.dart';
 import 'package:nepal_homes/feature_auth/data/datasources/remote/remote_data_source.dart';
-import 'package:nepal_homes/feature_auth/data/models/user_model.dart';
+import 'package:nepal_homes/feature_auth/data/models/authenticated_user_model.dart';
 import 'package:nepal_homes/feature_auth/data/services/remote_service.dart';
-import 'package:nepal_homes/feature_auth/domain/entities/user_entity.dart';
+import 'package:nepal_homes/feature_auth/domain/entities/auth_provider.dart';
+import 'package:nepal_homes/feature_auth/domain/entities/user_signup_entity.dart';
 
 class AuthRemoteDataSource with RemoteDataSource {
   final RemoteService _remoteService;
@@ -12,90 +11,36 @@ class AuthRemoteDataSource with RemoteDataSource {
   AuthRemoteDataSource(this._remoteService);
 
   @override
-  Future<UserModel> fetchUserProfile({@required String token}) async {
-    var userProfileResponse =
-        await _remoteService.fetchUserProfile(token: token);
-    return UserModel.fromMap(userProfileResponse);
+  Future<AuthenticatedUserModel> loginWithEmail(
+      {@required String email, @required String password}) async {
+    var response =
+        await _remoteService.loginWithEmail(email: email, password: password);
+    return AuthenticatedUserModel.fromMap(response);
   }
 
   @override
-  Future<UserModel> loginWithEmail(
-      {@required String identifier, @required String password}) async {
-    var userProfileResponse = await _remoteService.loginWithEmail(
-        identifier: identifier, password: password);
-    userProfileResponse['user']['jwt'] = userProfileResponse['jwt'];
-    userProfileResponse['user']['is_new'] = true;
-    userProfileResponse['user']['is_anonymous'] = false;
-    return UserModel.fromMap(userProfileResponse['user']);
+  Future<AuthenticatedUserModel> signup(
+      {@required UserSignUpEntity signUpPayload}) async {
+    var response = await _remoteService.signup(signUpPayload: signUpPayload);
+    return AuthenticatedUserModel.fromMap(response);
   }
 
   @override
-  Future<UserModel> signup({@required String uid}) async {
-    var userProfileResponse = await _remoteService.signup(uid: uid);
-    userProfileResponse['user']['jwt'] = userProfileResponse['jwt'];
-    userProfileResponse['user']['is_new'] = true;
-    userProfileResponse['user']['is_anonymous'] = false;
-    return UserModel.fromMap(userProfileResponse['user']);
+  Future<AuthenticatedUserModel> loginWithFacebook() async {
+    var response = await _remoteService.loginWithFacebook();
+    response['provider'] = AuthProvider.FACEBOOK.toString();
+    return AuthenticatedUserModel.fromMap(response);
   }
 
   @override
-  Future<UserModel> loginWithFacebook() async {
-    UserCredential userCredential = await _remoteService.loginWithFacebook();
-    UserModel userModel;
-    if (userCredential.additionalUserInfo.isNewUser)
-      userModel = await signup(
-        uid: userCredential.user.uid,
-      );
-    else
-      userModel = await login(uid: userCredential.user.uid);
-    return userModel;
+  Future<AuthenticatedUserModel> loginWithGoogle() async {
+    var response = await _remoteService.loginWithGoogle();
+    response['provider'] = AuthProvider.GOOGLE.toString();
+    return AuthenticatedUserModel.fromMap(response);
   }
 
   @override
-  Future<UserModel> loginWithGoogle() async {
-    UserCredential userCredential = await _remoteService.loginWithGoogle();
-    UserModel userModel;
-    if (userCredential.additionalUserInfo.isNewUser)
-      userModel = await signup(
-        uid: userCredential.user.uid,
-      );
-    else
-      userModel = await login(uid: userCredential.user.uid);
-    return userModel;
-  }
-
-  @override
-  Future<UserModel> loginWithTwitter() async {
-    UserCredential userCredential = await _remoteService.loginWithTwitter();
-    UserModel userModel;
-    if (userCredential.additionalUserInfo.isNewUser)
-      userModel = await signup(
-        uid: userCredential.user.uid,
-      );
-    else
-      userModel = await login(uid: userCredential.user.uid);
-    return userModel;
-  }
-
-  @override
-  Future<void> logout({@required UserEntity userEntity}) {
-    return _remoteService.logout(userEntity: userEntity);
-  }
-
-  @override
-  Future<UserModel> autoLogin() async {
-    final User user = await _remoteService.fetchCurrentUser();
-    if (user == null) throw UnAuthenticatedException();
-    await user.getIdToken();
-    return login(uid: user.uid);
-  }
-
-  @override
-  Future<UserModel> login({String uid}) async {
-    var userProfileResponse = await _remoteService.login(uid: uid);
-    userProfileResponse['user']['jwt'] = userProfileResponse['jwt'];
-    userProfileResponse['user']['is_new'] = false;
-    userProfileResponse['user']['is_anonymous'] = false;
-    return UserModel.fromMap(userProfileResponse['user']);
+  Future<void> logout({@required String token}) {
+    return _remoteService.logout(token: token);
   }
 }

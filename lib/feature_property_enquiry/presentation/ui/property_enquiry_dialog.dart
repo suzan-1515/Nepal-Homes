@@ -55,7 +55,6 @@ class _PropertyEnquiryDialogState extends State<PropertyEnquiryDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final node = FocusScope.of(context);
     return PropertyEnquiryProviders.propertyEnquiryBlocProvider(
       child: Builder(
@@ -65,8 +64,9 @@ class _PropertyEnquiryDialogState extends State<PropertyEnquiryDialog> {
           if (state is PropertyEnquiryErrorState) {
             context.showMessage(state.message);
           } else if (state is PropertyEnquirySuccessState) {
-            Navigator.pop(context);
-            context.showMessage(state.message);
+            context
+                .showMessage(state.message)
+                .then((value) => Navigator.pop(context));
           }
         }, builder: (context, state) {
           return AbsorbPointer(

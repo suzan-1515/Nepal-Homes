@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
 
 mixin Storage {
-  String loadUserToken();
-  Future saveUserToken({@required String token});
+  Future<dynamic> loadUser();
+
+  Future saveUser({@required String userJson});
+
+  Future deleteUser();
 }

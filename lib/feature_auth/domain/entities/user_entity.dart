@@ -1,110 +1,59 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-import 'package:equatable/equatable.dart';
-
 class UserEntity extends Equatable {
-  final String id;
-  final String email;
-  final String username;
-  final String fullname;
-  final String token;
-  final String avatar;
-  final bool isAnonymous;
-  final bool blocked;
-  final bool confirmed;
-  final bool isNew;
-  final String method;
-  final DateTime createdAt;
-  final DateTime updatedAt;
   UserEntity({
     @required this.id,
+    @required this.name,
     @required this.email,
-    @required this.username,
-    @required this.fullname,
-    @required this.token,
-    @required this.avatar,
-    @required this.isAnonymous,
-    @required this.blocked,
-    @required this.confirmed,
-    @required this.isNew,
-    @required this.method,
-    @required this.createdAt,
-    @required this.updatedAt,
+    @required this.emailVerified,
+    @required this.roles,
   });
 
-  String get firstName => this.fullname?.split(' ')?.first;
-
-  @override
-  List<Object> get props {
-    return [
-      id,
-      email,
-      username,
-      fullname,
-      token,
-      avatar,
-      isAnonymous,
-      blocked,
-      confirmed,
-      isNew,
-      method,
-      createdAt,
-      updatedAt,
-    ];
-  }
+  final String id;
+  final String name;
+  final String email;
+  final bool emailVerified;
+  final List<String> roles;
 
   UserEntity copyWith({
     String id,
+    String name,
     String email,
-    String username,
-    String fullname,
-    String token,
-    String avatar,
-    bool isAnonymous,
-    bool blocked,
-    bool confirmed,
-    bool isNew,
-    String method,
-    DateTime createdAt,
-    DateTime updatedAt,
-  }) {
-    return UserEntity(
-      id: id ?? this.id,
-      email: email ?? this.email,
-      username: username ?? this.username,
-      fullname: fullname ?? this.fullname,
-      token: token ?? this.token,
-      avatar: avatar ?? this.avatar,
-      isAnonymous: isAnonymous ?? this.isAnonymous,
-      blocked: blocked ?? this.blocked,
-      confirmed: confirmed ?? this.confirmed,
-      isNew: isNew ?? this.isNew,
-      method: method ?? this.method,
-      createdAt: createdAt ?? this.createdAt,
-      updatedAt: updatedAt ?? this.updatedAt,
-    );
-  }
+    bool emailVerified,
+    List<String> roles,
+  }) =>
+      UserEntity(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        email: email ?? this.email,
+        emailVerified: emailVerified ?? this.emailVerified,
+        roles: roles ?? this.roles,
+      );
+
+  factory UserEntity.fromJson(String str) =>
+      UserEntity.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
+  factory UserEntity.fromMap(Map<String, dynamic> json) => UserEntity(
+        id: json["id"],
+        name: json["name"],
+        email: json["email"],
+        emailVerified: json["email_verified"],
+        roles: List<String>.from(json["roles"].map((x) => x)),
+      );
+
   Map<String, dynamic> toMap() => {
         "id": id,
+        "name": name,
         "email": email,
-        "username": username,
-        "fullname": fullname,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
-        "avatar": avatar,
-        "is_anonymous": isAnonymous,
-        "blocked": blocked,
-        "confirmed": confirmed,
-        "is_new": isNew,
-        "provider": method,
-        "jwt": token,
+        "email_verified": emailVerified,
+        "roles": List<dynamic>.from(roles.map((x) => x)),
       };
 
   @override
-  bool get stringify => true;
+  List<Object> get props => [id, name, emailVerified, email, roles];
 }

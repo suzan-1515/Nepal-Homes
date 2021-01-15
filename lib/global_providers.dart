@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:nepal_homes/core/services/services.dart';
 import 'package:nepal_homes/feature_agencies/utils/provider.dart';
 import 'package:nepal_homes/feature_main/utils/provider.dart';
+import 'package:nepal_homes/feature_profile/utils/providers.dart';
 import 'package:nepal_homes/feature_property_enquiry/utils/providers.dart';
 import 'package:nepal_homes/feature_property_listing/utils/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -65,6 +66,7 @@ class GlobalProvider {
     );
 
     AuthProviders.setup();
+    UserProfileProviders.setup();
     SettingsProvider.setup();
     PropertyProvider.setup();
     AgencyProvider.setup();

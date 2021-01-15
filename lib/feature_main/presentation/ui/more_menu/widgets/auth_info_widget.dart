@@ -1,10 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nepal_homes/feature_auth/domain/entities/user_entity.dart';
-import 'package:nepal_homes/feature_auth/presentation/blocs/auth_bloc.dart';
 import 'package:nepal_homes/feature_auth/presentation/ui/login_screen.dart';
-import 'package:nepal_homes/feature_auth/presentation/ui/user_profile_screen.dart';
+import 'package:nepal_homes/feature_profile/domain/entities/user_profile_entity.dart';
+import 'package:nepal_homes/feature_profile/presentation/ui/user_profile_screen.dart';
+import 'package:nepal_homes/feature_profile/utils/providers.dart';
 
 class AuthInfo extends StatefulWidget {
   @override
@@ -12,7 +11,7 @@ class AuthInfo extends StatefulWidget {
 }
 
 class _AuthInfoState extends State<AuthInfo> {
-  Widget _buildUserInfo(BuildContext context, UserEntity user) {
+  Widget _buildUserInfo(BuildContext context, UserProfileEntity user) {
     return InkWell(
       onTap: () {
         Navigator.pushNamed(context, UserProfileScreen.ROUTE_NAME);
@@ -29,8 +28,8 @@ class _AuthInfoState extends State<AuthInfo> {
                 borderRadius: BorderRadius.circular(30),
                 color: Theme.of(context).cardColor,
                 image: DecorationImage(
-                    image: (user?.avatar?.isNotEmpty ?? false)
-                        ? CachedNetworkImageProvider(user.avatar)
+                    image: (user.image?.fullPath?.isNotEmpty ?? false)
+                        ? CachedNetworkImageProvider(user.image?.fullPath)
                         : AssetImage('assets/images/user.png'),
                     fit: BoxFit.cover),
               ),
@@ -41,7 +40,7 @@ class _AuthInfoState extends State<AuthInfo> {
           ),
           Flexible(
             child: Text(
-              user.fullname,
+              user.name,
               style: Theme.of(context)
                   .textTheme
                   .headline6
@@ -53,7 +52,7 @@ class _AuthInfoState extends State<AuthInfo> {
     );
   }
 
-  Widget _buildSigninButtons(BuildContext context, UserEntity user) {
+  Widget _buildSignInButtons(BuildContext context, UserProfileEntity user) {
     return Align(
       alignment: Alignment.center,
       child: OutlineButton(
@@ -67,16 +66,18 @@ class _AuthInfoState extends State<AuthInfo> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Builder(
-        builder: (context) {
-          final user = context.watch<AuthBloc>().currentUser;
-          if (user != null && !user.isAnonymous) {
-            return _buildUserInfo(context, user);
-          }
-          return _buildSigninButtons(context, user);
-        },
+    return UserProfileProviders.userProfileBlocProvider(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Builder(
+          builder: (context) {
+            final user = null;
+            if (user != null) {
+              return _buildUserInfo(context, null);
+            }
+            return _buildSignInButtons(context, null);
+          },
+        ),
       ),
     );
   }

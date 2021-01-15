@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nepal_homes/core/utils/date_time_utils.dart';
+import 'package:nepal_homes/feature_auth/domain/entities/authenticated_user_entity.dart';
 import 'package:nepal_homes/feature_auth/presentation/blocs/auth_bloc.dart';
 import 'package:nepal_homes/feature_auth/presentation/ui/login_screen.dart';
-import 'package:nepal_homes/feature_auth/presentation/ui/user_profile_screen.dart';
+import 'package:nepal_homes/feature_profile/presentation/ui/user_profile_screen.dart';
 import 'package:nepali_utils/nepali_utils.dart';
 
 class HeaderSection extends StatelessWidget {
   const HeaderSection();
 
+  Widget _buildUsername(BuildContext context, ThemeData theme,
+          {AuthenticatedUserEntity user}) =>
+      GestureDetector(
+        onTap: () => user != null
+            ? Navigator.pushNamed(context, UserProfileScreen.ROUTE_NAME)
+            : Navigator.pushNamed(context, LoginScreen.ROUTE_NAME),
+        child: Text(
+          '${user != null ? user.user.name ?? 'Stranger' : 'Stranger'}',
+          style: theme.textTheme.subtitle1
+              .copyWith(decoration: TextDecoration.underline),
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    // ignore: close_sinks
-    final authBloc = context.watch<AuthBloc>();
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -44,15 +56,14 @@ class HeaderSection extends StatelessWidget {
                 theme.textTheme.headline6.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 4.0),
-          GestureDetector(
-            onTap: () => authBloc.isLoggedIn
-                ? Navigator.pushNamed(context, UserProfileScreen.ROUTE_NAME)
-                : Navigator.pushNamed(context, LoginScreen.ROUTE_NAME),
-            child: Text(
-              '${authBloc.isLoggedIn ? authBloc.currentUser.fullname ?? 'Stranger' : 'Stranger'}',
-              style: theme.textTheme.subtitle1
-                  .copyWith(decoration: TextDecoration.underline),
-            ),
+          BlocBuilder<AuthBloc, AuthState>(
+            buildWhen: (previous, current) => !(current is AuthLoadingState),
+            builder: (context, state) {
+              if (state is AuthSuccessState) {
+                return _buildUsername(context, theme, user: state.user);
+              }
+              return _buildUsername(context, theme);
+            },
           ),
         ],
       ),

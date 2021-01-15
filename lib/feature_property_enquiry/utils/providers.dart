@@ -5,7 +5,6 @@ import 'package:get_it/get_it.dart';
 import 'package:nepal_homes/core/network/http_manager/http_manager.dart';
 import 'package:nepal_homes/core/network/network_info.dart';
 import 'package:nepal_homes/core/services/services.dart';
-import 'package:nepal_homes/feature_auth/data/repositories/auth_repository.dart';
 import 'package:nepal_homes/feature_property_enquiry/data/datasources/remote/property_enquiry_remote_data_source_.dart';
 import 'package:nepal_homes/feature_property_enquiry/data/datasources/remote/remote_data_source.dart';
 import 'package:nepal_homes/feature_property_enquiry/data/repositories/property_enquiry_repository.dart';
@@ -19,9 +18,8 @@ class PropertyEnquiryProviders {
   PropertyEnquiryProviders._();
 
   static setup() {
-    GetIt.I.registerLazySingleton<RemoteService>(() =>
-        PropertyEnquiryRemoteService(
-            GetIt.I.get<HttpManager>(), GetIt.I.get<AuthRepository>()));
+    GetIt.I.registerLazySingleton<RemoteService>(
+        () => PropertyEnquiryRemoteService(GetIt.I.get<HttpManager>()));
     GetIt.I.registerLazySingleton<RemoteDataSource>(
         () => PropertyEnquiryRemoteDataSource(GetIt.I.get<RemoteService>()));
     GetIt.I.registerLazySingleton<Repository>(() => PropertyEnquiryRepository(
