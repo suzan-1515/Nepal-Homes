@@ -77,6 +77,19 @@ class LoginScreen extends StatelessWidget {
                 context.read<AuthBloc>().add(LoginWithFacebookEvent());
               },
             ),
+            SizedBox(height: 8),
+            OutlineButton(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.horizontal(
+                left: Radius.circular(16),
+                right: Radius.circular(16),
+              )),
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, MainScreen.ROUTE_NAME, (route) => false);
+              },
+              child: Text('Continue as Guest'),
+            ),
           ]),
     );
   }
@@ -85,9 +98,8 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      body: Container(
+      body: Padding(
         padding: const EdgeInsets.all(32.0),
-        color: Theme.of(context).backgroundColor,
         child: Center(
           child: BlocConsumer<AuthBloc, AuthState>(
             listener: (context, state) {
