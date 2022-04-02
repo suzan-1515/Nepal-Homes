@@ -21,11 +21,11 @@ class AuthRemoteService with RemoteService {
 
   @override
   Future loginWithFacebook() async {
-    final AccessToken accessToken = await _facebookAuth.login(
-        loginBehavior: LoginBehavior.NATIVE_WITH_FALLBACK);
+    final LoginResult loginResult = await _facebookAuth.login(
+        loginBehavior: LoginBehavior.nativeWithFallback);
 
     final FacebookAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(accessToken.token);
+        FacebookAuthProvider.credential(loginResult.accessToken.token);
 
     final Map<String, String> body = {
       'access_token': facebookAuthCredential.accessToken

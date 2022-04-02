@@ -39,8 +39,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
-apply plugin: 'com.google.firebase.crashlytics'
-
 def keystoreProperties = new Properties()
    def keystorePropertiesFile = rootProject.file('key.properties')
    if (keystorePropertiesFile.exists()) {
@@ -48,7 +46,7 @@ def keystoreProperties = new Properties()
    }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 31
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -61,8 +59,8 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.cognota.nepalhomes"
-        minSdkVersion 16
-        targetSdkVersion 29
+        minSdkVersion 19
+        targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
 
@@ -107,9 +105,9 @@ flutter {
 }
 
 rootProject.ext {
-  set('FlutterFire', [
-    FirebaseSDKVersion: '25.12.0'
-  ])
+    set('FlutterFire', [
+            FirebaseSDKVersion: '29.0.4'
+    ])
 }
 
 dependencies {
@@ -118,3 +116,4 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 }
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'

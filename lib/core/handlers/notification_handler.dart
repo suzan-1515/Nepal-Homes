@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:nepal_homes/core/services/services.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class NotificationHandler {
   final NotificationService _notificationService;
@@ -15,10 +15,10 @@ class NotificationHandler {
 
   _handleOneSignal() {
     log('[NotificationHandler] _handleOneSignal');
-    OneSignal.shared
-        .setNotificationReceivedHandler((OSNotification notification) {
+    OneSignal.shared.setNotificationWillShowInForegroundHandler(
+        (OSNotificationReceivedEvent event) {
       // will be called whenever a notification is received
-      log('[NotificationHandler] Notification recieved: ${notification.jsonRepresentation()}');
+      log('[NotificationHandler] Notification recieved: ${event.jsonRepresentation()}');
     });
 
     OneSignal.shared
@@ -38,7 +38,7 @@ class NotificationHandler {
       // will be called whenever the subscription changes
       //(ie. user gets registered with OneSignal and gets a user ID)
       log('[NotificationHandler] Onesignal subscription changed: ${changes.jsonRepresentation()}');
-      if (!changes.from.subscribed && changes.to.subscribed) {
+      if (!changes.from.isSubscribed && changes.to.isSubscribed) {
         log('[NotificationHandler] Onesignal first time subscription ');
         _notificationService.setDefaultRemoteNotification();
       }

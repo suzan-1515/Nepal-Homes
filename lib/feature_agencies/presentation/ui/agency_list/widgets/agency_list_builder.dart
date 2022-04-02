@@ -28,7 +28,7 @@ class AgencyListBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return FadeInUp(
       duration: const Duration(milliseconds: 300),
-      child: StaggeredGridView.countBuilder(
+      child: AlignedGridView.count(
         crossAxisCount: 2,
         itemCount: hasMore ? data.length + 1 : data.length,
         mainAxisSpacing: 4.0,
@@ -58,7 +58,6 @@ class AgencyListBuilder extends StatelessWidget {
             child: view,
           );
         },
-        staggeredTileBuilder: (index) => StaggeredTile.fit(2),
       ),
     );
   }

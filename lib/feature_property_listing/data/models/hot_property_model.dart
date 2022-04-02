@@ -1,8 +1,8 @@
+import 'dart:convert';
+
 import 'package:meta/meta.dart';
 import 'package:nepal_homes/feature_property_listing/data/models/property_model.dart';
 import 'package:nepal_homes/feature_property_listing/domain/entities/hot_property_entity.dart';
-import 'dart:convert';
-
 import 'package:nepal_homes/feature_property_listing/domain/entities/property_entity.dart';
 
 class HotPropertyModel extends HotPropertyEntity {
@@ -31,7 +31,7 @@ class HotPropertyModel extends HotPropertyEntity {
       HotPropertyModel(
         success: json["success"],
         isDeleted: (json["data"] == null) ? null : json["data"]["is_deleted"],
-        id: (json["_id"] == null) ? null : json["data"]["_id"],
+        id: (json["data"] == null) ? null : json["data"]["_id"],
         properties: (json["data"] == null)
             ? List<PropertyModel>.empty()
             : json["data"]["properties"]

@@ -23,7 +23,7 @@ class PropertyListBuilder extends StatelessWidget {
         SizerUtil.orientation == Orientation.portrait ? 120.0 : 150.0;
     final crossAxisCount =
         MediaQuery.of(context).orientation == Orientation.portrait ? 1 : 2;
-    return StaggeredGridView.countBuilder(
+    return AlignedGridView.count(
       itemCount: hasMore ? data.length + 1 : data.length,
       mainAxisSpacing: 8.0,
       crossAxisSpacing: 8.0,
@@ -53,7 +53,6 @@ class PropertyListBuilder extends StatelessWidget {
               '${propertyUIModel.entity.address.area.name}, ${propertyUIModel.entity.address.city.name}',
         );
       },
-      staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
     );
   }
 

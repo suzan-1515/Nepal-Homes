@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -55,32 +54,26 @@ class App extends StatelessWidget {
                 state is SettingsPitchBlackModeChangedState ||
                 state is SettingsSystemThemeChangedState) {
               var settings = context.watch<SettingsCubit>().settings;
-              return LayoutBuilder(
-                //return LayoutBuilder
-                builder: (context, constraints) => OrientationBuilder(
-                  //return OrientationBuilder
-                  builder: (context, orientation) {
-                    //initialize SizerUtil()
-                    SizerUtil().init(constraints, orientation);
-                    return MaterialApp(
-                      theme: _getTheme(
-                          settings.useDarkMode, settings.usePitchBlack),
-                      onGenerateRoute:
-                          GetIt.I.get<NavigationService>().generateRoute,
-                      initialRoute: MainScreen.ROUTE_NAME,
-                      themeMode: settings.themeSetBySystem
-                          ? ThemeMode.system
-                          : _getThemeMode(
-                              settings.themeSetBySystem, settings.useDarkMode),
-                      darkTheme: settings.usePitchBlack
-                          ? Themes.pitchBlack
-                          : Themes.darkTheme,
-                      navigatorObservers: [
-                        GetIt.I.get<AnalyticsService>().getAnalyticsObserver(),
-                      ],
-                    );
-                  },
-                ),
+              return Sizer(
+                builder: (context, orientation, deviceType) {
+                  return MaterialApp(
+                    theme:
+                        _getTheme(settings.useDarkMode, settings.usePitchBlack),
+                    onGenerateRoute:
+                        GetIt.I.get<NavigationService>().generateRoute,
+                    initialRoute: MainScreen.ROUTE_NAME,
+                    themeMode: settings.themeSetBySystem
+                        ? ThemeMode.system
+                        : _getThemeMode(
+                            settings.themeSetBySystem, settings.useDarkMode),
+                    darkTheme: settings.usePitchBlack
+                        ? Themes.pitchBlack
+                        : Themes.darkTheme,
+                    navigatorObservers: [
+                      GetIt.I.get<AnalyticsService>().getAnalyticsObserver(),
+                    ],
+                  );
+                },
               );
             }
 

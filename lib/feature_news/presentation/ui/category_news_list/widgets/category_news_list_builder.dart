@@ -32,7 +32,7 @@ class CategoryNewsListBuilder extends StatelessWidget {
         SizerUtil.orientation == Orientation.portrait ? 1 : 2;
     return FadeInUp(
       duration: const Duration(milliseconds: 300),
-      child: StaggeredGridView.countBuilder(
+      child: AlignedGridView.count(
         crossAxisCount: crossAxisCount,
         itemCount: hasMore ? data.length + 1 : data.length,
         mainAxisSpacing: 4.0,
@@ -62,7 +62,6 @@ class CategoryNewsListBuilder extends StatelessWidget {
             ),
           );
         },
-        staggeredTileBuilder: (index) => StaggeredTile.fit(1),
       ),
     );
   }

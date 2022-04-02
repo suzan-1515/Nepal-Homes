@@ -92,8 +92,10 @@ class AgencyModel extends AgencyEntity {
         description: json["description"],
         website: json["website"],
         addedBy: json["added_by"],
-        addedAt: DateTime.parse(json["added_at"]),
-        logo: (json["logo"]==null)?null:ImageModel.fromMap(json["logo"]),
+        addedAt: (json["added_at"] == null)
+            ? null
+            : DateTime.parse(json["added_at"]),
+        logo: (json["logo"] == null) ? null : ImageModel.fromMap(json["logo"]),
         fbLink: json['fb_link'],
         agentsCount: json["agents_count"],
         productCount: json["product_count"],

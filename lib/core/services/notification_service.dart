@@ -50,12 +50,7 @@ class NotificationService {
     //Remove this method to stop OneSignal Debugging
     OneSignal.shared.setLogLevel(OSLogLevel.none, OSLogLevel.none);
 
-    OneSignal.shared.init(ApiKeys.ONESIGNAL_APP_ID, iOSSettings: {
-      OSiOSSettings.autoPrompt: true,
-      OSiOSSettings.inAppLaunchUrl: false
-    });
-    OneSignal.shared
-        .setInFocusDisplayType(OSNotificationDisplayType.notification);
+    OneSignal.shared.setAppId(ApiKeys.ONESIGNAL_APP_ID);
 
 // The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
     await OneSignal.shared
@@ -73,7 +68,7 @@ class NotificationService {
     final androidPlatformChannelSpecifics = AndroidNotificationDetails(
       channelId,
       channelName,
-      channelDescription,
+      channelDescription: channelDescription,
       priority: Priority.max,
       importance: Importance.max,
       visibility: NotificationVisibility.public,
@@ -103,7 +98,7 @@ class NotificationService {
     final androidPlatformChannelSpecifics = AndroidNotificationDetails(
       channelId,
       channelName,
-      channelDescription,
+      channelDescription: channelDescription,
       priority: Priority.max,
       importance: Importance.max,
       visibility: NotificationVisibility.public,
@@ -133,7 +128,7 @@ class NotificationService {
     final androidPlatformChannelSpecifics = AndroidNotificationDetails(
       channelId,
       channelName,
-      channelDescription,
+      channelDescription: channelDescription,
       priority: Priority.max,
       importance: Importance.max,
       visibility: NotificationVisibility.public,

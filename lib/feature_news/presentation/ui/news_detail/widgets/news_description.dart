@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html/style.dart';
+import 'package:html/dom.dart' as dom;
 import 'package:nepal_homes/core/utils/link_utils.dart';
 import 'package:nepal_homes/core/widgets/gallery_view_screen.dart';
 
@@ -41,12 +41,16 @@ class _NewsDescriptionState extends State<NewsDescription> {
           letterSpacing: textStyle.letterSpacing,
         ),
       },
-      onImageTap: (src) => Navigator.pushNamed(
+      onImageTap: (String url, RenderContext c, Map<String, String> attributes,
+              dom.Element element) =>
+          Navigator.pushNamed(
         context,
         GalleryViewScreen.ROUTE,
-        arguments: GalleryViewScreenArgs(images: [src]),
+        arguments: GalleryViewScreenArgs(images: [url]),
       ),
-      onLinkTap: (url) => LinkUtils.openLink(url),
+      onLinkTap: (String url, RenderContext c, Map<String, String> attributes,
+              dom.Element element) =>
+          LinkUtils.openLink(url),
     );
   }
 }

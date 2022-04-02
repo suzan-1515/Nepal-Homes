@@ -72,7 +72,7 @@ class _PurposeFilterOptionsViewState extends State<PurposeFilterOptionsView> {
   Widget build(BuildContext context) {
     final crossAxisCount =
         SizerUtil.orientation == Orientation.portrait ? 2 : 3;
-    return StaggeredGridView.countBuilder(
+    return AlignedGridView.count(
       primary: false,
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -99,7 +99,6 @@ class _PurposeFilterOptionsViewState extends State<PurposeFilterOptionsView> {
           },
         );
       },
-      staggeredTileBuilder: (index) => StaggeredTile.fit(1),
     );
   }
 }

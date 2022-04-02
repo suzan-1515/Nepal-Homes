@@ -3,7 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:nepal_homes/feature_agencies/presentation/models/agency_model.dart';
 import 'package:nepal_homes/feature_agencies/presentation/ui/agency_detail/agency_detail_screen.dart';
 import 'package:nepal_homes/feature_agencies/presentation/ui/widgets/agency_grid_view_item.dart';
-import 'package:sizer/sizer_util.dart';
+import 'package:sizer/sizer.dart';
 
 class AgencyHorizontalList extends StatelessWidget {
   final List<AgencyUIModel> properties;
@@ -15,7 +15,7 @@ class AgencyHorizontalList extends StatelessWidget {
   Widget build(BuildContext context) {
     final crossAxisCount =
         SizerUtil.orientation == Orientation.portrait ? 2 : 3;
-    return StaggeredGridView.countBuilder(
+    return AlignedGridView.count(
       primary: false,
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
@@ -34,7 +34,6 @@ class AgencyHorizontalList extends StatelessWidget {
           title: e.title,
         );
       },
-      staggeredTileBuilder: (index) => StaggeredTile.fit(1),
     );
   }
 }

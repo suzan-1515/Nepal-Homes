@@ -1,7 +1,7 @@
-import 'package:meta/meta.dart';
-import 'package:nepal_homes/feature_agencies/data/models/agency_model.dart';
 import 'dart:convert';
 
+import 'package:meta/meta.dart';
+import 'package:nepal_homes/feature_agencies/data/models/agency_model.dart';
 import 'package:nepal_homes/feature_property_listing/data/models/address_model.dart';
 import 'package:nepal_homes/feature_property_listing/data/models/media_model.dart';
 import 'package:nepal_homes/feature_property_listing/data/models/price_model.dart';
@@ -92,19 +92,23 @@ class PropertyModel extends PropertyEntity {
             : BuildingModel.fromMap(json["building"]),
         price: json["price"] == null ? null : PriceModel.fromMap(json["price"]),
         prefix: json["prefix"],
-        isProject: json["is_project"],
-        isFeatured: json["is_featured"],
-        isPremium: json["is_premium"],
-        isNegotiable: json["is_negotiable"],
+        isProject: json["is_project"] ?? false,
+        isFeatured: json["is_featured"] ?? false,
+        isPremium: json["is_premium"] ?? false,
+        isNegotiable: json["is_negotiable"] ?? false,
         slugUrl: json["slug_url"],
         locationProperty: json["location_property"] == null
             ? null
             : LocationPropertyModel.fromMap(json["location_property"]),
         media: json["media"] == null ? null : MediaModel.fromMap(json["media"]),
-        addedBy: json["added_by"],
+        addedBy: (json["added_by"] == null)
+            ? null
+            : (json["added_by"] is String)
+                ? json["added_by"]
+                : json["added_by"]["name"],
         addedAt:
             json["added_at"] == null ? null : DateTime.parse(json["added_at"]),
-        propertyId: json["property_id"],
+        propertyId: json["property_id"] ?? -1,
         address: json["address"] == null
             ? null
             : AddressModel.fromMap(json["address"]),

@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:rxdart/subjects.dart';
-import 'package:rxdart/rxdart.dart';
 
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:rxdart/rxdart.dart';
+import 'package:rxdart/subjects.dart';
 import 'package:uni_links/uni_links.dart';
 
 class DynamicLinkService {
@@ -19,8 +19,7 @@ class DynamicLinkService {
 
   _initLinks() async {
     log('[DynamicLinkService] _initLinks');
-    FirebaseDynamicLinks.instance.onLink(
-        onSuccess: (PendingDynamicLinkData dynamicLink) async {
+    FirebaseDynamicLinks.instance.onLink.listen((dynamicLink) {
       log('[DynamicLinkService] Applink onLinkReceived');
       final Uri deepLink = dynamicLink?.link;
 
@@ -28,11 +27,11 @@ class DynamicLinkService {
         log('[DynamicLinkService] Applink onLinkReceived: ${deepLink.toString()}');
         _linkSubject.add(deepLink);
       }
-    }, onError: (OnLinkErrorException e) async {
+    }, onError: (e) async {
       log('[DynamicLinkService] onLinkError', error: e);
     });
 
-    _deeplinkSubscription = getUriLinksStream().listen((Uri uri) {
+    _deeplinkSubscription = uriLinkStream.listen((Uri uri) {
       log('[DynamicLinkService] DeepLink onLinkReceived');
 
       if (uri != null) {

@@ -1,4 +1,3 @@
-import 'package:nepal_homes/core/exceptions/app_exceptions.dart';
 import 'package:nepal_homes/core/network/network_info.dart';
 import 'package:nepal_homes/core/services/services.dart';
 import 'package:nepal_homes/feature_news/data/datasources/remote/remote_data_source.dart';
@@ -17,70 +16,59 @@ class NewsRepository with Repository {
 
   @override
   Future<CategoryWrapperEntity> getCategories({int page}) async {
-    if (!(await _networkInfo.isConnected)) throw NetworkException();
     return _remoteDataSource.fetchCategories(page: page);
   }
 
   @override
   Future<PaginatedNewsEntity> getCategoryNews({String slug, int page}) async {
-    if (!(await _networkInfo.isConnected)) throw NetworkException();
     return _remoteDataSource.fetchCategoryNews(slug: slug, page: page);
   }
 
   @override
   Future<PaginatedNewsEntity> getHighlightNews() async {
-    if (!(await _networkInfo.isConnected)) throw NetworkException();
     return _remoteDataSource.fetchHighlightNews();
   }
 
   @override
   Future<PaginatedNewsEntity> getLatestCategoryNews(
       {String categoryId, int size}) async {
-    if (!(await _networkInfo.isConnected)) throw NetworkException();
     return _remoteDataSource.fetchLatestCategoryNews(
         categoryId: categoryId, size: size);
   }
 
   @override
   Future<PaginatedNewsEntity> getLatestNews() async {
-    if (!(await _networkInfo.isConnected)) throw NetworkException();
     return _remoteDataSource.fetchLatestNews();
   }
 
   @override
   Future<PaginatedNewsEntity> getNews({int page}) async {
-    if (!(await _networkInfo.isConnected)) throw NetworkException();
     return _remoteDataSource.fetchNews(page: page);
   }
 
   @override
   Future<PaginatedNewsEntity> getShowcaseNews() async {
-    if (!(await _networkInfo.isConnected)) throw NetworkException();
     return _remoteDataSource.fetchShowcaseNews();
   }
 
   @override
   Future<PaginatedNewsEntity> getTrendingNews() async {
-    if (!(await _networkInfo.isConnected)) throw NetworkException();
     return _remoteDataSource.fetchTrendingNews();
   }
 
   @override
   Future<NewsDetailEntity> getNewsDetail({String id}) async {
-    if (!(await _networkInfo.isConnected)) throw NetworkException();
     return _remoteDataSource.fetchNewsDetail(id: id);
   }
 
   @override
   Future<PaginatedNewsEntity> getRelatedNews({String newsId}) async {
-    if (!(await _networkInfo.isConnected)) throw NetworkException();
     return _remoteDataSource.fetchRelatedNews(newsId: newsId);
   }
 
   @override
   Future<PaginatedNewsEntity> getNewsByAuthor(
       {String authorId, int page}) async {
-    if (!(await _networkInfo.isConnected)) throw NetworkException();
     return _remoteDataSource.fetchNewsByAuthor(authorId: authorId, page: page);
   }
 }
