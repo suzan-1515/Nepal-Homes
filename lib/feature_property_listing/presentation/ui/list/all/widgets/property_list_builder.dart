@@ -18,9 +18,11 @@ class PropertyListBuilder extends StatelessWidget {
       this.onLoadMore,
       this.hasMore = false});
 
-  _buildList() {
+  _buildList(BuildContext context) {
     final itemCoverHeight =
-        SizerUtil.orientation == Orientation.portrait ? 120.0 : 150.0;
+        MediaQuery.of(context).orientation == Orientation.portrait
+            ? 120.0
+            : 150.0;
     return ListView.separated(
       itemCount: hasMore ? data.length + 1 : data.length,
       itemBuilder: (context, index) {
@@ -46,10 +48,10 @@ class PropertyListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return onRefresh == null
-        ? _buildList()
+        ? _buildList(context)
         : RefreshIndicator(
             onRefresh: onRefresh,
-            child: _buildList(),
+            child: _buildList(context),
           );
   }
 }

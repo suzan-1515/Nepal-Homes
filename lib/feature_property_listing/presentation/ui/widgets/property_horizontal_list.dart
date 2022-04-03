@@ -13,7 +13,9 @@ class PropertyHorizontalList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final itemCoverHeight =
-        SizerUtil.orientation == Orientation.portrait ? 120.0 : 150.0;
+        MediaQuery.of(context).orientation == Orientation.portrait
+            ? 120.0
+            : 150.0;
     final crossAxisExtent = 320.0;
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),

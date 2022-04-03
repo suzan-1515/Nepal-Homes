@@ -6,6 +6,7 @@ import 'package:nepal_homes/core/widgets/progress_widget.dart';
 import 'package:nepal_homes/feature_agencies/presentation/models/agency_model.dart';
 import 'package:nepal_homes/feature_agencies/presentation/ui/agency_list/widgets/agency_list_view_item.dart';
 import 'package:scoped_model/scoped_model.dart';
+import 'package:sizer/sizer.dart';
 
 class AgencyListBuilder extends StatelessWidget {
   final List<AgencyUIModel> data;
@@ -26,10 +27,12 @@ class AgencyListBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int crossAxixCount =
+        MediaQuery.of(context).orientation == Orientation.portrait ? 1 : 2;
     return FadeInUp(
       duration: const Duration(milliseconds: 300),
       child: AlignedGridView.count(
-        crossAxisCount: 2,
+        crossAxisCount: crossAxixCount,
         itemCount: hasMore ? data.length + 1 : data.length,
         mainAxisSpacing: 4.0,
         crossAxisSpacing: 4.0,

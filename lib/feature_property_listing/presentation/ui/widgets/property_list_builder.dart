@@ -20,7 +20,9 @@ class PropertyListBuilder extends StatelessWidget {
 
   _buildList(BuildContext context) {
     final itemCoverHeight =
-        SizerUtil.orientation == Orientation.portrait ? 120.0 : 150.0;
+        MediaQuery.of(context).orientation == Orientation.portrait
+            ? 120.0
+            : 150.0;
     final crossAxisCount =
         MediaQuery.of(context).orientation == Orientation.portrait ? 1 : 2;
     return AlignedGridView.count(

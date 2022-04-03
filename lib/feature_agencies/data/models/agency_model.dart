@@ -98,6 +98,6 @@ class AgencyModel extends AgencyEntity {
         logo: (json["logo"] == null) ? null : ImageModel.fromMap(json["logo"]),
         fbLink: json['fb_link'],
         agentsCount: json["agents_count"],
-        productCount: json["product_count"],
+        productCount: json["total_Property"],
       );
 }

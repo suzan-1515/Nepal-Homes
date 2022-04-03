@@ -13,7 +13,9 @@ class LocationMap extends StatelessWidget {
   Widget build(BuildContext context) {
     final property =
         ScopedModel.of<PropertyDetailUIModel>(context, rebuildOnChange: true);
-    final mapHeight = SizerUtil.orientation == Orientation.portrait? 50.0.w:30.0.h;
+    final mapHeight = MediaQuery.of(context).orientation == Orientation.portrait
+        ? 50.0.w
+        : 30.0.h;
     return BorderedContainer(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: Column(

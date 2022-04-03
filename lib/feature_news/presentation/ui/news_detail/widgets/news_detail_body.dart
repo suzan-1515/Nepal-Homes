@@ -23,7 +23,9 @@ class NewsDetailBody extends StatelessWidget {
   Widget build(BuildContext context) {
     final newsDetailUIModel = ScopedModel.of<NewsDetailUIModel>(context);
     final coverImageHeight =
-        SizerUtil.orientation == Orientation.portrait ? 250.0 : 200.0;
+        MediaQuery.of(context).orientation == Orientation.portrait
+            ? 250.0
+            : 200.0;
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,

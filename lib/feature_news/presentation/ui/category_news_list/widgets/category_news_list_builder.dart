@@ -29,7 +29,7 @@ class CategoryNewsListBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final crossAxisCount =
-        SizerUtil.orientation == Orientation.portrait ? 1 : 2;
+        MediaQuery.of(context).orientation == Orientation.portrait ? 1 : 2;
     return FadeInUp(
       duration: const Duration(milliseconds: 300),
       child: AlignedGridView.count(

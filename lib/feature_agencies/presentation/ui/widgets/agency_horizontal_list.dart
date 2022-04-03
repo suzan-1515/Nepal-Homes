@@ -14,7 +14,7 @@ class AgencyHorizontalList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final crossAxisCount =
-        SizerUtil.orientation == Orientation.portrait ? 2 : 3;
+        MediaQuery.of(context).orientation == Orientation.portrait ? 2 : 3;
     return AlignedGridView.count(
       primary: false,
       physics: const NeverScrollableScrollPhysics(),

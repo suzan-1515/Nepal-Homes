@@ -103,7 +103,7 @@ class AgencyListViewItem extends StatelessWidget {
                     const SizedBox(height: 8.0),
                     IconText(
                       label: Text(
-                        agency.entity.mobile,
+                        agency.entity.mobile ?? (agency.entity.phone) ?? 'N/A',
                         maxLines: 3,
                         style: Theme.of(context).textTheme.caption,
                       ),
