@@ -29,8 +29,7 @@ A property marketplace app to find your dream home.
 <img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-02-11-55-15-71_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">
 
 ### Home Page
-<img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-02-11-55-27-42_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">  <img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-02-11-55-37-24_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">  <img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-02-11-55-42-45_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">
-<img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-02-11-55-42-45_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">  <img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-02-11-55-53-92_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">
+<img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-02-11-55-27-42_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">  <img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-02-11-55-37-24_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">  <img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-02-11-55-42-45_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">  <img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-02-11-55-53-92_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">
 
 ### Property Listing Screen
 <img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-02-11-56-09-50_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">
@@ -39,10 +38,10 @@ A property marketplace app to find your dream home.
 <img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-02-11-56-19-67_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">
 
 ### Property Detail Screen
-<img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-03-11-22-56-45_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">  <img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-03-11-23-01-76_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">  <img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-03-11-23-10-97_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">  <img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-03-11-23-10-97_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">
+<img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-03-11-22-56-45_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">  <img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-03-11-23-01-76_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">  <img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-03-11-23-10-97_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">
 
 ### Property Enquiry Screen
-<img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-03-11-23-20-59_58e31d4d894b36eb363e98b67660dbb0.jpg" with="180">
+<img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-03-11-23-20-59_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">
 
 ### Menu Screen
 <img src="https://github.com/suzan-1515/Nepal-Homes/blob/main/screenshots/Screenshot_2022-04-02-11-56-53-59_58e31d4d894b36eb363e98b67660dbb0.jpg" width="180">
